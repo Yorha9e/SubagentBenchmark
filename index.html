@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SubagentBenchmark · 模型能力全景</title>
+<style>
+:root{
+  --bg:#0B1626; --bg2:#0E1B2E; --card:#162235; --card2:#1A2B40;
+  --line:#243447; --line2:#2D4458;
+  --txt:#E8EEF4; --txt2:#A8B8C8; --txt3:#6B7B8B;
+  --acc:#37DCF2; --acc-d:#1B6B7A;
+  --win:#3DDC97; --fail:#FF5C7A; --warn:#FFB454; --purple:#A78BFA;
+  --brown:#8A6B3A;
+  --maxw:1200px;
+  --mono:'SF Mono',Consolas,'Liberation Mono',Menlo,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--acc)}
+
+/* ===== 滚动进度条 ===== */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;background:linear-gradient(90deg,var(--acc),var(--win));box-shadow:0 0 12px rgba(55,220,242,.6);transition:width .1s linear}
+
+/* ===== 顶栏 ===== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:90;background:rgba(11,22,38,.72);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+.topbar.scrolled{border-bottom-color:var(--line);background:rgba(11,22,38,.92)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:800;font-size:14px;letter-spacing:.5px}
+.brand small{color:var(--txt3);font-weight:400;font-size:11px;margin-left:8px}
+.nav{display:flex;gap:20px;font-size:13px}
+.nav a{color:var(--txt2);text-decoration:none;position:relative;padding:4px 0;transition:color .25s}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--acc);transition:width .3s var(--ease)}
+.nav a:hover{color:var(--acc)}.nav a:hover::after{width:100%}
+@media(max-width:860px){.nav{display:none}}
+
+/* ===== Hero ===== */
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:120px 0 80px;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.25;pointer-events:none;animation:drift 16s ease-in-out infinite alternate}
+.orb.o1{width:480px;height:480px;background:#1899b3;top:-140px;right:-100px}
+.orb.o2{width:380px;height:380px;background:#7a5cc9;bottom:-120px;left:-80px;animation-delay:-6s}
+.orb.o3{width:260px;height:260px;background:#2a9d6e;top:40%;left:44%;animation-delay:-11s;opacity:.16}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,-40px) scale(1.15)}}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(55,220,242,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(55,220,242,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 30%,transparent 75%);pointer-events:none}
+.hero .wrap{position:relative;z-index:2}
+.hero .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--acc);border:1px solid rgba(55,220,242,.35);background:rgba(55,220,242,.08);padding:6px 14px;border-radius:999px;margin-bottom:22px}
+.hero .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--win);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,220,151,.5)}50%{box-shadow:0 0 0 6px rgba(61,220,151,0)}}
+.hero h1{font-size:clamp(30px,5.4vw,58px);font-weight:900;letter-spacing:-1px;line-height:1.15;margin-bottom:18px}
+.hero h1 .g1{background:linear-gradient(92deg,var(--acc),var(--win));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 .g2{background:linear-gradient(92deg,var(--warn),var(--fail));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:var(--txt2);max-width:720px;font-size:clamp(14px,1.6vw,17px);margin-bottom:36px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;max-width:860px}
+.stat{background:rgba(22,34,53,.7);border:1px solid var(--line);border-radius:12px;padding:16px 18px;backdrop-filter:blur(6px);transition:transform .3s var(--ease),border-color .3s}
+.stat:hover{transform:translateY(-4px);border-color:rgba(55,220,242,.5)}
+.stat .num{font-family:var(--mono);font-size:30px;font-weight:800;color:var(--acc)}
+.stat .num.win{color:var(--win)}.stat .num.warn{color:var(--warn)}.stat .num.purple{color:var(--purple)}
+.stat .lbl{font-size:12px;color:var(--txt3);margin-top:2px}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--txt3);font-size:11px;letter-spacing:2px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+.scroll-hint .mouse{width:20px;height:32px;border:2px solid var(--txt3);border-radius:12px;position:relative}
+.scroll-hint .mouse::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:7px;border-radius:2px;background:var(--acc);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(9px)}}
+
+/* ===== 通用 section ===== */
+section{padding:88px 0;position:relative}
+section.alt{background:var(--bg2)}
+.sec-head{margin-bottom:36px}
+.sec-num{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--acc)}
+.sec-head h2{font-size:clamp(22px,3.4vw,34px);font-weight:800;margin:8px 0 10px;letter-spacing:-.5px}
+.sec-head p{color:var(--txt2);font-size:14px;max-width:780px}
+
+/* 进入动效 */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* ===== 冠军矩阵 ===== */
+.champ-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.champ{position:relative;background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:24px 22px;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s}
+.champ::before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(55,220,242,.12),transparent 55%);opacity:0;transition:opacity .3s}
+.champ:hover{transform:translateY(-6px);border-color:rgba(55,220,242,.45);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+.champ:hover::before{opacity:1}
+.champ .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:1px;padding:3px 10px;border-radius:999px;margin-bottom:14px}
+.champ.c1 .tag{color:var(--win);background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.35)}
+.champ.c2 .tag{color:var(--acc);background:rgba(55,220,242,.1);border:1px solid rgba(55,220,242,.35)}
+.champ.c3 .tag{color:var(--warn);background:rgba(255,180,84,.1);border:1px solid rgba(255,180,84,.35)}
+.champ.c4 .tag{color:var(--purple);background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.35)}
+.champ h3{font-size:19px;font-weight:800;margin-bottom:6px}
+.champ .metric{font-family:var(--mono);font-size:13px;color:var(--acc);margin-bottom:10px}
+.champ.c1 .metric{color:var(--win)}.champ.c3 .metric{color:var(--warn)}.champ.c4 .metric{color:var(--purple)}
+.champ p{font-size:12.5px;color:var(--txt2);line-height:1.6}
+
+/* ===== 榜单浏览器 ===== */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.tab{font-size:13px;font-weight:600;color:var(--txt2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 20px;cursor:pointer;transition:all .3s var(--ease);font-family:var(--sans)}
+.tab:hover{color:var(--txt);border-color:var(--line2);transform:translateY(-2px)}
+.tab.active{color:#06232b;background:linear-gradient(92deg,var(--acc),#5ce8d8);border-color:transparent;box-shadow:0 6px 20px -8px rgba(55,220,242,.7)}
+.board{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 24px;min-height:520px}
+.board-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}
+.board-head h3{font-size:16px;font-weight:700}
+.board-head .src{font-family:var(--mono);font-size:10.5px;color:var(--txt3)}
+.board-sub{font-size:12px;color:var(--txt3);margin-bottom:20px}
+.rows{display:flex;flex-direction:column;gap:9px}
+.row{display:grid;grid-template-columns:34px 172px 1fr 72px;align-items:center;gap:12px;opacity:0;transform:translateX(-18px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.row.on{opacity:1;transform:none}
+.row .rk{font-family:var(--mono);font-size:12px;color:var(--txt3);text-align:right}
+.row .rk.top{color:var(--win);font-weight:700}
+.row .nm{font-family:var(--mono);font-size:12.5px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .nm small{display:block;font-size:9.5px;color:var(--txt3);font-family:var(--sans)}
+.row .track{position:relative;height:22px;background:var(--card2);border-radius:6px;overflow:hidden}
+.row .bar{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:6px;transition:width 1s var(--ease)}
+.row .bar::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-100%);animation:sheen 2.8s 1s infinite}
+@keyframes sheen{to{transform:translateX(100%)}}
+.row .val{font-family:var(--mono);font-size:12.5px;font-weight:700;text-align:left;white-space:nowrap}
+.full-line{border-top:1px dashed rgba(61,220,151,.4);margin:14px 0 8px;position:relative}
+.legend-row{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:20px;font-size:11.5px;color:var(--txt2)}
+.legend-row span{display:inline-flex;align-items:center;gap:6px}
+.legend-row i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.board-note{margin-top:16px;font-size:12px;color:var(--txt3);line-height:1.6;border-left:3px solid var(--acc-d);padding:8px 12px;background:var(--card2);border-radius:6px}
+@media(max-width:700px){.row{grid-template-columns:26px 108px 1fr 58px;gap:8px}.row .nm{font-size:11px}}
+
+/* ===== A/B delta ===== */
+.delta-list{display:flex;flex-direction:column;gap:8px}
+.drow{display:grid;grid-template-columns:170px 1fr 88px;align-items:center;gap:12px;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.drow.on{opacity:1;transform:none}
+.drow .nm{font-family:var(--mono);font-size:12px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drow .axis{position:relative;height:20px}
+.drow .axis::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--line2)}
+.drow .dbar{position:absolute;top:3px;bottom:3px;width:0;border-radius:4px;transition:width .9s var(--ease)}
+.drow .dbar.pos{left:50%;background:linear-gradient(90deg,rgba(61,220,151,.7),var(--win))}
+.drow .dbar.neg{right:50%;background:linear-gradient(270deg,rgba(255,92,122,.7),var(--fail))}
+.drow .dbar.zero{left:50%;width:3px!important;background:var(--txt3);border-radius:2px}
+.drow .dv{font-family:var(--mono);font-size:12px;font-weight:700}
+.dv.pos{color:var(--win)}.dv.neg{color:var(--fail)}.dv.zero{color:var(--txt3)}
+.drow .tk{font-size:9.5px;color:var(--txt3);font-family:var(--mono)}
+@media(max-width:700px){.drow{grid-template-columns:110px 1fr 74px}}
+
+/* ===== 模型评价 ===== */
+.eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.eval-grid{grid-template-columns:1fr}}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;cursor:pointer}
+.ecard:hover{transform:translateY(-3px);border-color:rgba(55,220,242,.4);box-shadow:0 14px 34px -18px rgba(0,0,0,.65)}
+.ecard .head{display:flex;align-items:center;gap:10px;padding:16px 18px 12px;flex-wrap:wrap}
+.ecard .rank{font-family:var(--mono);font-size:12px;font-weight:800;padding:3px 10px;border-radius:6px;color:var(--acc);background:rgba(55,220,242,.1)}
+.ecard.t1 .rank{color:var(--win);background:rgba(61,220,151,.14)}
+.ecard.t2 .rank{color:var(--purple);background:rgba(167,139,250,.14)}
+.ecard.t3 .rank{color:var(--warn);background:rgba(255,180,84,.14)}
+.ecard .model{font-size:15.5px;font-weight:800}
+.ecard .mini{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--txt3)}
+.ecard .axes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 18px 14px}
+.axis-chip{background:var(--card2);border-radius:8px;padding:8px 10px;text-align:center}
+.axis-chip .k{font-size:9.5px;color:var(--txt3);letter-spacing:.5px}
+.axis-chip .v{font-family:var(--mono);font-size:13px;font-weight:800;color:var(--txt);margin-top:1px}
+.axis-chip .v.win{color:var(--win)}.axis-chip .v.warn{color:var(--warn)}.axis-chip .v.fail{color:var(--fail)}.axis-chip .v.purple{color:var(--purple)}
+.ecard .pt{padding:0 18px 14px;font-size:12.5px;color:var(--txt2);line-height:1.6}
+.ecard .pt b{color:var(--txt)}
+.ecard .review-only{margin:0 18px 14px;padding:10px 12px;border:1px solid rgba(167,139,250,.22);border-left:3px solid var(--purple);border-radius:8px;background:rgba(167,139,250,.06);font-size:11.5px;color:var(--txt2);line-height:1.6}
+.ecard .review-only .rk{display:block;margin-bottom:3px;font-family:var(--mono);font-size:9.5px;font-weight:800;letter-spacing:.6px;color:var(--purple)}
+.ecard .review-only.na{border-left-color:var(--txt3);background:rgba(139,149,168,.05);color:var(--txt3)}
+.ecard .more{max-height:0;overflow:hidden;transition:max-height .55s var(--ease)}
+.ecard.open .more{max-height:420px}
+.ecard .more-inner{padding:0 18px 16px;border-top:1px dashed var(--line2);margin:0 0 0;padding-top:12px;font-size:12px;color:var(--txt2);line-height:1.65}
+.ecard .more-inner .weak{color:var(--fail);margin-top:8px;display:block}
+.ecard .toggle{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;font-size:11px;color:var(--txt3);border-top:1px solid var(--line);transition:color .25s;user-select:none}
+.ecard:hover .toggle{color:var(--acc)}
+.ecard .toggle .arr{transition:transform .35s var(--ease);display:inline-block}
+.ecard.open .toggle .arr{transform:rotate(180deg)}
+code{font-family:var(--mono);background:var(--card2);padding:1px 5px;border-radius:3px;color:var(--acc);font-size:.92em}
+
+/* ===== 结语 & footer ===== */
+.final-note{background:linear-gradient(150deg,var(--card),var(--card2));border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:14px;padding:26px 28px;font-size:14px;color:var(--txt2);line-height:1.8}
+.final-note b{color:var(--txt)}
+footer{padding:44px 0;text-align:center;color:var(--txt3);font-size:12px;border-top:1px solid var(--line)}
+.mono{font-family:var(--mono);color:var(--acc)}
+.deploy-badge{position:fixed;left:18px;bottom:18px;z-index:80;max-width:min(360px,calc(100vw - 36px));padding:9px 12px;border:1px solid rgba(55,220,242,.28);border-radius:999px;background:rgba(11,22,38,.74);backdrop-filter:blur(12px);box-shadow:0 12px 30px -20px rgba(0,0,0,.8);color:var(--txt2);font-family:var(--mono);font-size:10.5px;line-height:1.45;letter-spacing:.3px;pointer-events:none}
+.deploy-badge b{color:var(--acc);font-weight:800}
+.deploy-badge a{color:var(--acc);text-decoration:none;pointer-events:auto;border-bottom:1px solid rgba(55,220,242,.45)}
+.watermark{position:fixed;right:-42px;bottom:44px;z-index:1;transform:rotate(-10deg);font-family:var(--mono);font-size:12px;font-weight:800;letter-spacing:4px;color:rgba(167,139,250,.075);pointer-events:none;user-select:none;white-space:nowrap}
+@media(max-width:680px){.deploy-badge{left:12px;bottom:12px;font-size:9.5px;max-width:calc(100vw - 24px)}.watermark{display:none}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv,.row,.drow{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="deploy-badge"><b>TEMP PREVIEW</b> · prepared by <b>Yorha9e</b> · 源码：<a href="https://github.com/Yorha9e/SubagentBenchmark" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+<div class="watermark">YORHA9E · SUBAGENTBENCHMARK</div>
+<div id="progress"></div>
+
+<div class="topbar" id="topbar">
+  <div class="wrap">
+    <div class="brand">SUBAGENTBENCHMARK<small>模型能力全景 · 动态版</small></div>
+    <nav class="nav">
+      <a href="#champs">冠军矩阵</a>
+      <a href="#boards">榜单浏览</a>
+      <a href="#ab">计划增益</a>
+      <a href="#evals">模型评价</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div class="kicker"><span class="dot"></span>SHORT + CLOSED-LOOP-V2 + REVIEWER REPLAY-V2 + CRITIC-V1</div>
+    <h1>没有<span class="g2">全能王</span>，<br>只有<span class="g1">四条证据轴</span>上的强者</h1>
+    <p class="lead">短任务 17 候选（4 任务 16 criterion）、长任务 20 候选（2 项目 10 milestone）、Reviewer 调试（B11 修复）与 Critic 盲审（15 候选 · 双盲候选 A/B · 总分 100）四条独立证据轴的完整对比。严格榜 gate 一票否决，宽松榜保留 raw 完成度。</p>
+    <div class="stats">
+      <div class="stat"><div class="num" data-count="20">0</div><div class="lbl">长任务候选</div></div>
+      <div class="stat"><div class="num win" data-count="4">0</div><div class="lbl">独立证据轴</div></div>
+      <div class="stat"><div class="num warn" data-count="16">0</div><div class="lbl">短任务 criterion</div></div>
+      <div class="stat"><div class="num" data-count="10">0</div><div class="lbl">长任务 milestone</div></div>
+      <div class="stat"><div class="num purple" data-count="8">0</div><div class="lbl">Reviewer 补充检查</div></div>
+      <div class="stat"><div class="num" data-count="15">0</div><div class="lbl">Critic 候选</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="mouse"></div>SCROLL</div>
+</header>
+
+<!-- 冠军矩阵 -->
+<section id="champs">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-num">01 / CHAMPIONS</div>
+      <h2>冠军矩阵：每条轴各有其主</h2>
+      <p>长任务、短任务 B、Reviewer 三个第一名分属三个不同模型（短任务 A 第一 luna 同时是 Reviewer 冠军）；Critic 盲审冠军则由 kimi 拿下——没有模型包揽所有轴，这是本次评测最重要的结论。选型必须先回答“任务像哪条轴”。</p>
+    </div>
+    <div class="champ-grid">
+      <div class="champ c1 rv"><span class="tag">长任务冠军</span><h3>qwen3.8-max</h3><div class="metric">strict 8/10 · 断层第一</div><p>严格榜唯一接近完整闭环的候选，coverage 0.85。宽松榜被 claude-fable-5 (max) raw 8/10 追平，但凭指令 7/7 对 6/7 守住第 1。短任务 A/B 均 16/16。代价：B 条件 863K token 偏贵（满分组第 5 高），且每严格 milestone 的长任务 token 反而是 gate PASS 候选中最低。</p></div>
+      <div class="champ c2 rv d1"><span class="tag">Reviewer 冠军</span><h3>gpt-5.6-luna</h3><div class="metric">8/8 补充检查 · replay-v2 #1</div><p>官方 16/16 + 资源 2/2 + Gate 通过，短任务 A 也是第 1。防御性实现最强，但 token 成本高。</p></div>
+      <div class="champ c3 rv d2"><span class="tag">Critic 冠军 · 最稳通用</span><h3>kimi-for-coding</h3><div class="metric">Critic 92.3 · 唯一 GT 全中</div><p>Critic 盲审唯一完整命中 GT1/GT2/GT3 的候选；短 A/B 前 4、长 #3、Reviewer #2，四条轴都不掉出前列。无计划时仅 194K token，是未知任务形态下最安全的选择。</p></div>
+      <div class="champ c4 rv d3"><span class="tag">短任务 B 冠军</span><h3>mimo-v2.5</h3><div class="metric">B 条件 16/16 · 342K token · #1</div><p>phi_3 计划让它 raw +3 登顶短任务 B。但长任务 gate FAIL、raw 4/10——短长任务分裂最典型的案例。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 榜单浏览器 -->
+<section id="boards" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-num">02 / LEADERBOARDS</div>
+      <h2>榜单浏览器</h2>
+      <p>六张榜单一键切换。柱条按各榜实际排名排列；颜色区分满分、gate 状态与补充/重跑候选。</p>
+    </div>
+    <div class="tabs rv d1" id="tabs"></div>
+    <div class="board rv d2">
+      <div class="board-head"><h3 id="board-title"></h3><span class="src" id="board-src"></span></div>
+      <div class="board-sub" id="board-sub"></div>
+      <div class="rows" id="board-rows"></div>
+      <div class="legend-row" id="board-legend"></div>
+      <div class="board-note" id="board-note"></div>
+    </div>
+  </div>
+</section>
+
+<!-- A/B 增益 -->
+<section id="ab">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-num">03 / PLAN EFFECT</div>
+      <h2>phi_3 计划增益（B − A）</h2>
+      <p>正向柱 = 读计划后 raw criterion 提升；反向柱 = 退步。17 候选中 9 提升、6 不变、1 下降（composer-2.5 † 另计 +2），中位增益 +1——计划是弱模型助推器，对强模型多为零增益甚至反向。</p>
+    </div>
+    <div class="delta-list" id="delta-list"></div>
+    <div class="board-note rv" style="margin-top:18px">B12（mimo-v2.5-pro）的 strict task Δ=-2 来自 Gate 清零，代码完成度应看 Raw Δ=+1 且 token -55%；minimax-m3 是唯一被计划带偏（-2）的模型。composer-2.5 † 为 Cursor harness，token N/A。grok-4.5 ‡（A16→B16）raw/strict 均 +0；hy3 §（A17→B17）raw +2 但 .pytest_cache 触发 Gate，strict task Δ=-2——两者 token 均 N/A。</div>
+  </div>
+</section>
+
+<!-- 模型评价 -->
+<section id="evals" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-num">04 / MODEL EVALUATION</div>
+      <h2>模型逐个评价 · 多轴证据卡</h2>
+      <p>每张卡保留原有多轴证据，并单独补充 Reviewer 的 B11 快速发现 / 快速修复评价；该评价不与短任务、长任务或 Critic 组合推导，也不生成综合总分。</p>
+    </div>
+    <div class="eval-grid" id="eval-grid"></div>
+    <div class="final-note rv" style="margin-top:28px">
+      <b>整体判断：</b>qwen 是长任务持续执行冠军，luna 是 Reviewer 调试冠军，kimi 是 Critic 盲审冠军兼跨条件最稳定的通用候选；glm-5.2 是任务限定的短任务实现强者，mimo-v2.5-pro 是高效率但存在类型、审计与 replay 泛化缺口的候选。2/10 长任务组内部能力差异明显；<b>Gate FAIL 应与 raw completion 并列解释，而不是被简化成“没有实现”。</b>新增 5 个长任务补充候选（claude-fable-5 双档、claude-sonnet-5、grok-4.5、hy3）全部因同一 workspace audit 规则 Gate FAIL——其中 fable-5 raw 8/10 追平 qwen，是严格榜之外最值得关注的原始完成度证据。Critic 轴上 kimi 唯一 GT 全中，doubao-2.0-pro 以 68s/90 分成为快速反馈场景的实用默认。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>SubagentBenchmark · <span class="mono">short(spec-conformant-v2) + closed-loop-v2(supplemental) + reviewer(replay-v2) + critic-model-select-v1</span></div>
+    <div style="margin-top:6px">数据源：leaderboard-charts.html（已核实榜单）· 2026-07-25</div>
+    <div style="margin-top:8px">临时演示版 · 源码 <a href="https://github.com/Yorha9e/SubagentBenchmark" target="_blank" rel="noopener noreferrer" class="mono">github.com/Yorha9e/SubagentBenchmark</a> · maintained by <span class="mono">Yorha9e</span></div>
+  </div>
+</footer>
+
+<script>
+/* ================= 数据（源：leaderboard-charts.html，已核实） ================= */
+const C = {win:"#3DDC97",acc:"#37DCF2",warn:"#FFB454",fail:"#FF5C7A",purple:"#A78BFA",brown:"#8A6B3A"};
+
+const BOARDS = {
+  shortStrict:{
+    title:"短任务 · 严格榜（A 条件）",sub:"仅读 TASKS.md · official criterion 数（gate 清零后）· 满分 16 · 17 候选",
+    src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
+    legend:[[C.win,"16/16 满分"],[C.acc,"gate PASS 未满分"],[C.purple,"composer-2.5（Cursor harness †）"]],
+    note:"A 条件 5 个满分：luna / glm-5.2 / qwen / grok-4.5 ‡ / kimi。‡ = subtest_14 grok-4.5 high effort 补充（token N/A）；§ = subtest_15 hy3 max effort 英文 prompt 补充（token N/A）。原冻结榜未覆盖，两个补充结果为隔离运行。",
+    rows:[
+      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],
+      ["deepseek-pro",15,C.acc],["doubao-2.1-turbo",15,C.acc],["LongCat",15,C.acc],["doubao-2.0-pro",15,C.acc],
+      ["minimax-m3",14,C.acc],["mimo-v2.5-pro",14,C.acc],["hy3 §",14,C.acc],["composer-2.5 †",14,C.purple],
+      ["deepseek-flash",13,C.acc],["mimo-v2.5",13,C.acc],["step-3.7-flash",12,C.acc],["doubao-2.0-code",12,C.acc]]
+  },
+  shortLenient:{
+    title:"短任务 · 宽松榜（A 条件）",sub:"raw criterion 数（不清零）· ExecutionCompleted 优先 · 满分 16 · 17 候选",
+    src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
+    legend:[[C.win,"16/16 raw 满分"],[C.warn,"gate PASS 未满分"],[C.purple,"composer-2.5 †"],[C.brown,"execution 未完成"]],
+    note:"A02（deepseek-flash）与 A10（doubao-2.0-code）execution 未完整走完（gate 仍 PASS，分数不清零），宽松榜按 Execution 优先把两者排到末位。‡ = subtest_14 grok-4.5 补充（满分第 4）；§ = subtest_15 hy3 英文 prompt 补充（14/16 第 12，失败 rp_isolation 与 ttl_strict_types）。",
+    rows:[
+      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],
+      ["deepseek-pro",15,C.warn],["doubao-2.1-turbo",15,C.warn],["LongCat",15,C.warn],["doubao-2.0-pro",15,C.warn],
+      ["mimo-v2.5-pro",14,C.warn],["minimax-m3",14,C.warn],["hy3 §",14,C.warn],["composer-2.5 †",14,C.purple],
+      ["mimo-v2.5",13,C.warn],["step-3.7-flash",12,C.warn],
+      ["deepseek-flash",13,C.brown,"exec 未完成"],["doubao-2.0-code",12,C.brown,"exec 未完成"]]
+  },
+  longStrict:{
+    title:"长任务 · 严格榜",sub:"strict milestone 数（gate 通过且 criterion 全过）· 满分 10 · 20 候选中 10 个 gate FAIL 未排名",
+    src:"closed_loop_v2/supplemental/results/strict-leaderboard.csv",max:10,unit:"/10",
+    legend:[[C.win,"gate PASS · 原始轮"],[C.purple,"补充 / 重跑 / F3 修订"],[C.fail,"gate FAIL（未排名）"]],
+    note:"subtest_7_rerun 为 luna 重跑；glm5.2.fix 为 F3 受控修订轮（累计 token）。新增 phi_5/phi_6/phi_7/subtest_14/subtest_15 均因 src/__init__.py 的系统性 workspace audit 判定 Gate FAIL，只记录未排名区。所有候选完整闭环项目数 0/2。",
+    rows:[
+      ["qwen3.8-max",8,C.win,"原始"],["luna",6,C.purple,"补充重跑"],["kimi",5,C.win,"原始"],["glm-5.2(修订)",5,C.purple,"F3 修订"],
+      ["mimo-v2.5-pro",3,C.purple,"补充"],["glm-5.2(原始)",3,C.purple,"补充 phi_2"],
+      ["deepseek-flash",2,C.win,"原始"],["deepseek-pro",2,C.win,"原始"],["doubao-2.1-turbo",2,C.win,"原始"],["minimax-m3",2,C.purple,"补充"],
+      ["claude-fable-5 (max)",0,C.fail,"gate FAIL · raw 8/10","未排名"],["claude-fable-5 (high)",0,C.fail,"gate FAIL · raw 8/10","未排名"],
+      ["claude-sonnet-5 (max)",0,C.fail,"gate FAIL · raw 7/10","未排名"],["grok-4.5 (high)",0,C.fail,"gate FAIL · raw 5/10","未排名"],
+      ["doubao-2.0-pro",0,C.fail,"gate FAIL · raw 4/10","未排名"],["mimo-v2.5",0,C.fail,"gate FAIL · raw 4/10","未排名"],
+      ["LongCat",0,C.fail,"gate FAIL · raw 3/10","未排名"],["hy3 (max)",0,C.fail,"gate FAIL · raw 2/10","未排名"],
+      ["doubao-2.0-code",0,C.fail,"gate FAIL · raw 1/10","未排名"],["step-3.7-flash",0,C.fail,"gate FAIL · raw 0/10","未排名"]]
+  },
+  longLenient:{
+    title:"长任务 · 宽松榜",sub:"raw milestone 数（gate 不阻断，全部 20 行参与）· 满分 10",
+    src:"closed_loop_v2/supplemental/results/lenient-leaderboard.csv",max:10,unit:"/10",
+    legend:[[C.win,"gate PASS · 5+ milestone"],[C.warn,"gate PASS"],[C.brown,"gate FAIL 但有 raw 完成度"]],
+    note:"claude-fable-5 (max/high) raw 8/10 追平 qwen，但 gate FAIL 且指令 6/7 对 7/7，列第 2、3；grok-4.5 raw 5/10 且 coverage 0.75，排在同 5/10 但 cov 0.55 的 kimi/glm5.2.fix 之前。宽松榜不发布正式赢家，仅展示 gate FAIL 候选的原始完成度。",
+    rows:[
+      ["qwen3.8-max",8,C.win,"原始"],["claude-fable-5 (max)",8,C.brown,"gate FAIL · phi_6"],["claude-fable-5 (high)",8,C.brown,"gate FAIL · phi_5"],
+      ["claude-sonnet-5 (max)",7,C.brown,"gate FAIL · phi_7"],["luna",6,C.win,"补充重跑"],["grok-4.5 (high)",5,C.brown,"gate FAIL · subtest_14"],
+      ["kimi",5,C.win,"原始"],["glm-5.2(修订)",5,C.win,"F3 修订"],
+      ["doubao-2.0-pro",4,C.brown,"gate FAIL"],["mimo-v2.5",4,C.brown,"gate FAIL"],
+      ["mimo-v2.5-pro",3,C.warn,"补充"],["LongCat",3,C.brown,"gate FAIL"],["glm-5.2(原始)",3,C.warn,"补充 phi_2"],
+      ["deepseek-flash",2,C.warn,"原始"],["deepseek-pro",2,C.warn,"原始"],["doubao-2.1-turbo",2,C.warn,"原始"],["hy3 (max)",2,C.brown,"gate FAIL · subtest_15"],
+      ["minimax-m3",2,C.warn,"补充"],["doubao-2.0-code",1,C.brown,"gate FAIL"],["step-3.7-flash",0,C.brown,"gate FAIL"]]
+  },
+  reviewer:{
+    title:"Reviewer Debug · replay-v2 严格确定性榜",sub:"B11 dependency_layers 快速发现 / 快速修复 · 满分 8 · 14 参评 + 6 未参评",
+    src:"reviewerresult/results/debug-subagent-v1-replay-v2/leaderboard.md",max:8,unit:"/8",
+    legend:[[C.win,"8/8 补充检查满分"],[C.warn,"7/8"],[C.fail,"6/8 · deep_50000 超时 + cross_hashability"],[C.purple,"Gate FAIL（LongCat）"]],
+    note:"所有参评候选 raw 官方功能均 16/16；qwen 的 112.138 ms 是修复产物在 deep+wide 双项口径中的最快性能中位数，不是模型发现或修复缺陷的墙钟速度。subtest_2/10 的 61.6/63.3 ms 仅含通过的 wide 单项，口径不可比；两者还分别失败 deep_50000、cross_hashability 与资源检查。Reviewer token、代理墙钟数据均不可用。",
+    rows:[
+      ["luna",8,C.win,"#1 · 151.672 ms"],["kimi",8,C.win,"#2 · 152.541 ms"],
+      ["qwen3.8-max",7,C.warn,"#3 · 112.138 ms"],["doubao-2.1-turbo",7,C.warn,"#4 · 115.425 ms"],
+      ["doubao-2.0-pro",7,C.warn,"#5 · 116.831 ms"],["step-3.7-flash",7,C.warn,"#6 · 117.036 ms"],
+      ["glm-5.2",7,C.warn,"#7 · 117.286 ms"],["deepseek-pro",7,C.warn,"#8 · 118.536 ms"],
+      ["mimo-v2.5-pro",7,C.warn,"#9 · 119.739 ms"],["minimax-m3",7,C.warn,"#10 · 121.195 ms"],
+      ["mimo-v2.5",7,C.warn,"#11 · 124.323 ms"],["doubao-2.0-code",6,C.fail,"#12 · 资源 1/2"],
+      ["deepseek-flash",6,C.fail,"#13 · 资源 1/2"],["LongCat-2.0",7,C.purple,"#14 · Gate FAIL"]]
+  },
+  critic:{
+    title:"Critic 盲审 · critic-model-select-v1 总榜",sub:"15 候选审查盲化 candidate-A/B · 总分 100 = Recall 50 + Precision 20 + Depth 15 + Speed 10 + Format 5",
+    src:"critic-model-select-v1/score-summary.json",max:100,unit:"",
+    legend:[[C.win,"3/3 GT 全中"],[C.acc,"命中 2 GT"],[C.warn,"命中 1 GT"],[C.fail,"未命中 GT"]],
+    note:"kimi 是唯一完整命中 GT1/GT2/GT3 的 Critic；doubao-2.0-pro 68.4s 最快、90 分性价比最高。grok-4.5 经 4 次 Provider 400 后以 high effort 完成纳入，3028s 最慢 Speed 记 0；deepseek-pro 前台 Agent metadata 不可用，Speed 保守记 0 且有唯一确认误报（Precision 15）。",
+    rows:[
+      ["kimi",92.308,C.win,"GT1·GT2·GT3 · 1332s","92.308"],
+      ["doubao-2.0-pro",90,C.acc,"GT1·GT3 · 68s 最快","90.000"],
+      ["qwen3.8-max",88.462,C.acc,"GT1·GT3 · 342s","88.462"],
+      ["luna",74.692,C.warn,"GT1 · 346s","74.692"],
+      ["step-3.7-flash",69.346,C.warn,"GT1 · 561s","69.346"],
+      ["doubao-2.0-code",69.231,C.warn,"GT1 · 216s","69.231"],
+      ["doubao-2.1-turbo",64.577,C.warn,"GT1 · 644s","64.577"],
+      ["mimo-v2.5-pro",63.038,C.warn,"GT1 · 2127s","63.038"],
+      ["LongCat",47.769,C.warn,"GT2 · 2735s","47.769"],
+      ["deepseek-flash",28.923,C.fail,"0 GT · 428s","28.923"],
+      ["glm-5.2",28.385,C.fail,"0 GT · 485s","28.385"],
+      ["minimax-m3",28.154,C.fail,"0 GT · 431s","28.154"],
+      ["mimo-v2.5",27.615,C.fail,"0 GT · 521s","27.615"],
+      ["grok-4.5",22,C.fail,"0 GT · 3028s 最慢","22.000"],
+      ["deepseek-pro",15,C.fail,"0 GT · 1 误报","15.000"]]
+  }
+};
+const TAB_ORDER = [["shortStrict","短任务·严格"],["shortLenient","短任务·宽松"],["longStrict","长任务·严格"],["longLenient","长任务·宽松"],["reviewer","Reviewer"],["critic","Critic 盲审"]];
+
+const DELTAS = [
+  ["step-3.7-flash",4,"-265K"],["deepseek-flash",3,"+646K"],["mimo-v2.5",3,"+158K"],["doubao-2.0-code",3,"+89K"],
+  ["composer-2.5 †",2,"N/A"],["hy3 §",2,"N/A · gate FAIL"],["LongCat-2.0",1,"-181K"],["deepseek-pro",1,"+1.07M"],["doubao-2.1-turbo",1,"-127K"],
+  ["mimo-v2.5-pro",1,"-229K · gate FAIL"],["luna",0,"+574K"],["kimi",0,"+609K"],["qwen3.8-max",0,"+302K"],
+  ["glm-5.2",0,"+199K"],["doubao-2.0-pro",0,"+53K"],["grok-4.5 ‡",0,"N/A"],["minimax-m3",-2,"-606K"]];
+
+const EVALS = [
+  {cls:"t1",rank:"#1",model:"qwen3.8-max",mini:"长 8/10 · Reviewer #3",
+   axes:[["短 A/B","16/16","win"],["长 strict","8/10","win"],["Reviewer","7/8 · #3","warn"]],
+   pt:"<b>长任务持续执行冠军，短任务实现强者。</b>cross-path equality、<code>check_range</code> 参数化与高质量注释是当前证据中最完整的实现组合。",
+   more:"三轴判断：长任务能力最强（coverage 0.85），短任务正确性稳定；Reviewer replay-v2 第 3、资源 2/2、性能中位数 112.138 ms（deep+wide 双项口径中最快），但暴露 <code>cross_hashability</code> 缺口。token 总量偏高但非最高（短 B 满分组第 5 高），每严格 milestone 446,954 为前 5 名最低——单位效率最优。",
+   weak:"短板：B 条件 863K token；phi_3 计划无助推也无损害；0/2 完整闭环项目；Reviewer 泛化不是 8/8。"},
+  {cls:"t2",rank:"#2",model:"gpt-5.6-luna",mini:"长 6/10 · Reviewer #1",
+   axes:[["短 A","16/16 · #1","win"],["长 strict","6/10","win"],["Reviewer","8/8 · #1","win"]],
+   pt:"<b>Reviewer 调试冠军，防御性与泛化强。</b>异常安全等值比较、溢出处理和大数格式化体现最强边界意识。",
+   more:"三轴判断：Reviewer 轴综合完成度最高（官方 16/16 + 资源 2/2 + 8/8 + Gate 通过）；但 151.672 ms 并非最快，qwen 更低。A07 仅 9 次请求、306K token，B07 增至 22 次、880K 且 raw 不变，强制读计划显著损害效率。",
+   weak:"短板：B07 22 次请求、token 成本高；长任务数据来自 provider 403 后的补充重跑，稳定性证据少。"},
+  {cls:"t3",rank:"#3",model:"kimi-for-coding",mini:"Critic #1 · Reviewer #2",
+   axes:[["短 A/B","16/16 · 前4","win"],["长 strict","5/10","win"],["Critic","92.3 · #1","win"]],
+   pt:"<b>Critic 盲审冠军，跨条件最稳定的通用候选。</b>唯一完整命中 GT1/GT2/GT3；不是每项第一，但在不同任务入口下最少出现明显掉点。",
+   more:"四轴判断：Critic 轴 92.308 分登顶（Recall/Precision/Depth/Format 均满分，0 false positive，代价是 1332s 最慢之一）；面对未知任务形态最稳妥；短 A 194K 为满分四家最低，只因 extension 1/2 屈居第 4——若通过该项，按 token 决胜短 A 冠军将是 kimi。Reviewer 152.541 ms 略慢于 qwen，补充满分不能消除短 B 高成本。",
+   weak:"短板：短 B 804K、长任务 3.94M、Critic 1332s 墙钟偏慢；14 次测试零缺陷发现；dependency_layers 层内未显式排序。"},
+  {cls:"",rank:"#4/#6",model:"glm-5.2",mini:"长原始 3/10 · 修订 5/10 · Reviewer #7",
+   axes:[["短 A/B","16/16","win"],["长 strict","3→5/10","warn"],["Reviewer","7/8 · #7","warn"]],
+   pt:"<b>任务限定的短任务实现强者。</b>B14 的 <code>_NodeRegistry</code>、hash bucket、<code>__slots__</code> 与显式排序在短任务中表现成熟。",
+   more:"三轴判断：短任务代码结构是强项；长任务分开看——原始 phi_2 仅 3/10，F3 反馈修订后 5/10，修订证明定向修复能力但不等同独立 pass-1；F3 只改了 <code>delivery_spool/__init__.py</code>，增量约 513K token。Reviewer 第 7 且失败 <code>cross_hashability</code>，不能宣称全局质量上限。",
+   weak:"短板：长任务推进弱于 qwen/luna/kimi；修订累计 4.33M token；短任务优秀设计未完全泛化。"},
+  {cls:"",rank:"#5",model:"mimo-v2.5-pro",mini:"长 3/10 · Reviewer #9",
+   axes:[["短 B raw","15/16 · 190K","win"],["长 strict","3/10","warn"],["Reviewer","7/8 · #9","warn"]],
+   pt:"<b>极高效率，但有类型、审计和泛化缺口。</b>deque-based Kahn O(n+e) 正确、token 为 B 条件最低（190K；30 次运行中仅 A13 的 184.6K 更低），但接受了错误的 <code>capacity=1.5</code> 并因 <code>.pytest_cache</code> Gate FAIL。",
+   more:"三轴判断：短任务单位成本优势成立（phi_3 让 raw +1、token -55%）；formal-15 中它是唯一 Gate FAIL，strict 0/16 与 raw 15/16 必须同时保留。长任务 Gate PASS、3/10；Reviewer 第 9 且失败 <code>cross_hashability</code>——更准确的结论是“高性价比且可修复”，不是“只有 Gate 误伤”。",
+   weak:"短板：一个真实类型缺陷 + 一次审计违规；Reviewer 泛化缺口；长任务完成度中等。"},
+  {cls:"",rank:"#7",model:"deepseek-v4-flash",mini:"长 2/10 · Reviewer #13",
+   axes:[["短 A→B","13→16/16","warn"],["长 strict","2/10 · cov .45","warn"],["Reviewer","6/8 · #13","fail"]],
+   pt:"<b>计划能补短任务，Reviewer 资源能力偏弱。</b>长任务 coverage 0.45 为 2/10 组最高；phi_3 增益 +3。",
+   more:"三轴判断：phi_3 明显助推短任务，但持续推进和大规模调试没有同步提升。Reviewer 资源 1/2、补充 6/8（deep_50000 超时 + cross_hashability 未过）；replay-v2 从旧的 0/8 到 6/8 主要是评测隔离粒度修正，不应误读为代码突变。",
+   weak:"短板：25 次请求、900K token；carrier 死代码与冗余扫描；规模性能是跨任务共同风险。"},
+  {cls:"",rank:"#8",model:"deepseek-v4-pro",mini:"长 2/10 · Reviewer #8",
+   axes:[["短 A/B","15→16/16","warn"],["长 strict","2/10","warn"],["Reviewer","7/8 · #8","warn"]],
+   pt:"<b>短任务功能强，但资源效率差。</b>Reviewer 功能与资源不差，但不能抵消短长任务的高成本与算法问题。",
+   more:"三轴判断：小规模短任务功能覆盖强；长任务推进弱，短 B 出现 O(n²) 注册，约 2 亿次比较后导致 20,000 节点资源超时，适合局部功能而非连续交付。",
+   weak:"短板：短 B 1.41M token（满分模型最高）、31 次请求有返工；dependency 注册复杂度是主要风险。"},
+  {cls:"",rank:"#9",model:"doubao-2.1-turbo",mini:"长 2/10 · Reviewer #4",
+   axes:[["短 B","16/16 · 603K","win"],["长 strict","2/10","warn"],["Reviewer","7/8 · #4","warn"]],
+   pt:"<b>Reviewer 明显强于长任务名次。</b>短 B 可靠、Reviewer 第 4（115.425 ms），长任务低分更像推进不足。",
+   more:"三轴判断：2/10 组中最不应被长任务单一名次低估的候选——无重大算法缺陷，调试能力处于前列；A 条件只失 <code>rp_plain_dict</code>，B 侧以 603K token 达到 16/16。",
+   weak:"短板：长任务 coverage 仅 0.30；短任务验证投入偏多，成本高于结果相近的低成本方案。"},
+  {cls:"",rank:"#10",model:"minimax-m3",mini:"长 2/10 · Reviewer #10",
+   axes:[["短 A→B","14→12/16","fail"],["长 strict","2/10 · cov .25","warn"],["Reviewer","7/8 · #10","warn"]],
+   pt:"<b>计划反向，但 Reviewer 调试并非失效。</b>唯一 raw 退步（-2）的模型；replay-v2 官方与资源测试通过。",
+   more:"三轴判断：证据支持“计划依赖和长任务推进弱”，不支持“所有 dependency_layers 调试都失败”——形式化短 B11 仍记录静默丢节点、资源 1/2；另一个 replay-v2 调试产物通过资源 2/2，应明确区分两次运行。", 
+   weak:"短板：phi_3 raw Δ=-2；长任务 coverage 为参与排名候选中最低（0.25，未排名的 step 0.10 更低）；早期核心逻辑缺陷仍是风险信号。"},
+  {cls:"",rank:"raw #9",model:"doubao-2.0-pro",mini:"长 raw 4/10 · gate FAIL · Reviewer #5",
+   axes:[["短 B","15/16","warn"],["长 raw","4/10 · FAIL","fail"],["Reviewer","7/8 · #5","warn"]],
+   pt:"<b>Gate FAIL 掩盖了中等代码完成度。</b>宽松 raw 4/10、coverage 0.50 超过多名 gate PASS 候选。",
+   more:"三轴判断：宽松 raw 与 Reviewer 都显示实际实现能力，但严格发布必须保留 Gate 清零——问题是该次运行的协议纪律（6/7），不是完全不会写代码。经济学最亮眼：raw 4/10 仅用 897,544 token，Tok/Crit 89,754.40 为全场最低（qwen 8/10 用 3.58M），最值得修好纪律后复测。", 
+   weak:"短板：长任务具体运行 6/7 指令合规；短 B 仍有 ttl_strict_types 缺陷。"},
+  {cls:"",rank:"raw #10",model:"mimo-v2.5",mini:"长 raw 4/10 · gate FAIL · Reviewer #11",
+   axes:[["短 B","16/16 · #1","win"],["长 raw","4/10 · FAIL","fail"],["Reviewer","7/8 · #11","warn"]],
+   pt:"<b>短任务计划冠军，长任务纪律翻车。</b>B 条件 16/16、342K token 第 1；长任务 raw 4/10 但 Gate FAIL。",
+   more:"三轴判断：“强模型规划、弱模型执行”在短任务成功的案例，但没有迁移到长任务项目纪律；长任务 Gate 是该次运行的有效结果，不能被 Reviewer 通过反向抹掉。A13 的 184,589 token 还是 formal-15 全部 30 个 cell 中最低，短任务效率优势是真实的。", 
+   weak:"短板：当前宽松榜第 10；长任务 6/7 指令合规且 token 6.22M；短长任务能力迁移断裂。"},
+  {cls:"",rank:"raw #12",model:"LongCat-2.0",mini:"短 B 16/16 · 长 raw 3/10 · Reviewer Gate FAIL",
+   axes:[["短 B","16/16","warn"],["长 raw","3/10 · FAIL","fail"],["Reviewer","7/8 · Gate FAIL","purple"]],
+   pt:"<b>短任务能力尚可，工程纪律不稳定。</b>Reviewer 官方 16/16、资源 2/2，但因额外创建 <code>test_targeted.py</code> 再次 Gate FAIL。",
+   more:"三轴判断：代码实现不能按 strict 0 解读（Reviewer 功能/资源证明这点）；但 workspace 纪律在两个具体运行中都出现问题，严格发布流程中不可靠。Reviewer replay-v2 严格第 14、宽松第 11；长任务严格未排名、宽松第 12。", 
+   weak:"短板：Gate 违规重复出现；provider 无 cache，短 B input 838K 全价计费。"},
+  {cls:"",rank:"raw #19",model:"doubao-2.0-code",mini:"长 raw 1/10 · Reviewer #12",
+   axes:[["短 A→B","12→15/16","warn"],["长 raw","1/10 · FAIL","fail"],["Reviewer","6/8 · #12","fail"]],
+   pt:"<b>短任务局部改善，长任务推进弱。</b>phi_3 带来 raw +3；Reviewer 官方 16/16 但资源 1/2、补充 6/8（deep_50000 超时 + cross_hashability）。",
+   more:"三轴判断：计划能改善局部完成度，Reviewer 能完成大部分功能检查，但规模性能与长任务推进没跟上，不适合连续交付工作流。短任务 formal 两侧的 <code>res_dependency_20000</code> 均超时，B 侧 <code>dl_deep_iterative</code> 也超时。", 
+   weak:"短板：当前宽松榜第 19；长任务 6/7 合规且 raw 仅 1/10；Reviewer 资源 1/2、补充 6/8。"},
+  {cls:"",rank:"raw #20",model:"step-3.7-flash",mini:"长 raw 0/10 · Reviewer #6",
+   axes:[["短 B","16/16 · +4","win"],["长 raw","0/10 · FAIL","fail"],["Reviewer","7/8 · #6","warn"]],
+   pt:"<b>计划强力助推短任务，长任务却垫底。</b>raw 增益 +4 全场最大；Reviewer 第 6 明显好于长任务结果。",
+   more:"三轴判断：更像计划驱动下的局部修补者，而非闭环执行模型——B 条件 326,756 token 是满分组最便宜的一次运行，且仅 9 次请求；“死规格执行器”定位下有真实价值。Reviewer 第 6 不能抵消长任务零 milestone，但说明“各项能力都弱”的旧概括过于绝对。", 
+   weak:"短板：当前宽松榜第 20；长任务 6/7 合规且 raw 0/10；O(n²) 资源缺陷；验证投入偏少。"},
+  {cls:"",rank:"短任务正式",model:"composer-2.5",mini:"Formal A15/B15 · Cursor harness",
+   axes:[["短 A→B","14→16/16","win"],["长任务","N/A","purple"],["Reviewer","N/A","purple"]],
+   pt:"<b>短任务 B 提升明显，但资源性能仍有缺口。</b>phi_3 带来 raw +2、strict task +2；B15 的 dependency 注册仍未通过 20,000 节点资源测试。",
+   more:"三轴判断：计划吸收能力较强，B 条件可进入满分组；它是 formal-15 的 Cursor harness 正式候选，token N/A，只有短任务证据，没有长任务或 Reviewer 数据，不能参与完整模型排序。A/B 两侧 <code>res_dependency_20000</code> 均超时。", 
+   weak:"短板：A 条件 2 个 criterion 未通过；resource 在 A/B 均 1/2；长任务 / Reviewer / token 数据缺失。"},
+  {cls:"",rank:"长任务补充",model:"claude-fable-5 (max)",mini:"长 raw 8/10 · gate FAIL",
+   axes:[["短任务","N/A","purple"],["长 raw","8/10 · FAIL","fail"],["Reviewer","N/A","purple"]],
+   pt:"<b>宽松榜第 2，raw 完成度追平 qwen。</b>phi_6 raw 8/10、17/20、coverage 0.85 与长任务冠军持平，但 <code>src/__init__.py</code> 的系统性 workspace audit 判定 Gate FAIL，严格榜未排名。",
+   more:"长任务判断：原始完成度是全部 20 个候选中最高一档，指令 6/7 是唯一与 qwen 的分差来源；token 3.99M 与 qwen 的 3.58M 同档。agent-6 发生 task.lost 后通过 resume 完成，运行稳定性应单独记录。只有长任务单轴证据（supplemental），没有短任务或 Reviewer 数据，不能参与完整模型排序。", 
+   weak:"短板：Gate FAIL 失去严格榜排名资格；指令合规 6/7；单轴证据。"},
+  {cls:"",rank:"长任务补充",model:"claude-fable-5 (high)",mini:"长 raw 8/10 · gate FAIL",
+   axes:[["短任务","N/A","purple"],["长 raw","8/10 · FAIL","fail"],["Reviewer","N/A","purple"]],
+   pt:"<b>宽松榜第 3，同门 high 档同样 8/10。</b>phi_5 raw 8/10、16/20、coverage 0.80；与 max 档的差距仅在通过 criterion 数（16 对 17）。",
+   more:"长任务判断：token 3.56M 略低于 max 档，raw milestone 相同——high 档在长任务上的性价比不差于 max。失分集中在 <code>OF1</code> 与 <code>DS1</code> 各 0/2，差距不宜泛化为整体能力差。同样因 workspace audit Gate FAIL，严格榜未排名；单轴证据。", 
+   weak:"短板：Gate FAIL；指令合规 6/7；单轴证据。"},
+  {cls:"",rank:"长任务补充",model:"claude-sonnet-5 (max)",mini:"长 raw 7/10 · gate FAIL",
+   axes:[["短任务","N/A","purple"],["长 raw","7/10 · FAIL","fail"],["Reviewer","N/A","purple"]],
+   pt:"<b>宽松榜第 4，但 token 成本全场最高。</b>phi_7 raw 7/10、15/20、coverage 0.75；11.64M 推理 token 是全部候选之最，每通过 criterion 776K。",
+   more:"长任务判断：完成度仅次于 qwen 与 fable-5 双档，但单位效率是高分组中最差的一档——同样的 raw 进度，qwen 用 3.58M、它用 11.64M（约 3.25 倍）。同时触发 ResourceSLA 超 10M 软阈值，并在 provider 503 后 resume；Gate FAIL（workspace audit）使其严格榜未排名。", 
+   weak:"短板：Gate FAIL；11.64M token 效率垫底；指令合规 6/7。"},
+  {cls:"",rank:"短+长补充",model:"grok-4.5 (high)",mini:"短 16/16 · 长 raw 5/10",
+   axes:[["短 A/B","16/16 ‡","win"],["长 raw","5/10 · FAIL","fail"],["Critic","22.0 · 0 GT","fail"]],
+   pt:"<b>短任务补充满分，长任务隐藏的效率亮点。</b>A16/B16 双 16/16（token N/A）；长任务 raw 5/10 但 15/20、coverage 0.75，排在同 5/10 但 cov 0.55 的 kimi/glm5.2.fix 之前；每通过 criterion 约 110K token，是 ≥5/10 档最低、全场第二低。", 
+   more:"多轴判断：短任务 A→B raw ±0，A16/B16 均满分且资源 2/2；不把 planner 未运行解读为“计划无效”。长任务 1.65M 总 token 换来 15/20 的 criterion 覆盖，单位效率显著优于同分段对手（provider capacity failure 后重试完成）。但 Critic 盲审 0 GT 命中、22 分、3028s 最慢——实现能力强于审查能力的典型案例。", 
+   weak:"短板：长任务 Gate FAIL 且指令合规仅 5/7（补充候选中最低）；Critic 盲审双候选均未发现预设缺陷。"},
+  {cls:"",rank:"短+长补充",model:"hy3 (max)",mini:"短 A 14/16 · 长 raw 2/10",
+   axes:[["短 A→B","14→16raw §","warn"],["长 raw","2/10 · FAIL","fail"],["Critic","N/A","purple"]],
+   pt:"<b>短任务 B raw 满分但 Gate 翻车，长任务高成本低完成度。</b>短 A 14/16（rp_isolation、ttl_strict_types 未过），短 B raw 16/16 却因 .pytest_cache 触发 Gate、strict 清零；长任务 raw 2/10、6/20。",
+   more:"多轴判断：全程英文 prompt 的补充运行（token N/A）；B 条件 raw +2 但 strict task Δ=-2——与 mimo-v2.5-pro 同款的 .pytest_cache 纪律问题，不能 posthoc 删缓存冒充原始单次结果。短任务资源 2/2，而长任务 5.14M token 仅换 2/10，每通过 criterion 856K；这种短长任务反差比单一 raw 分数更值得关注。", 
+   weak:"短板：长短任务双 Gate FAIL；长任务 5.14M token 换 2/10；Critic 盲审未参加。"}
+];
+
+/* Reviewer 是独立的 B11 快速发现 / 快速修复评价，不与其他轴组合推导。 */
+const REVIEW_EVALS = {
+  "qwen3.8-max":"strict / lenient #3 · official 16/16 · resource 2/2 · supplemental 7/8。修复产物双项性能中位数 112.138 ms，为可比候选最快；唯一残留是 <code>cross_hashability</code>，属于修得快且接近一次修全。",
+  "gpt-5.6-luna":"strict / lenient #1 · official 16/16 · resource 2/2 · supplemental 8/8。补充检查全部通过，修复完整度最高；产物双项中位数 151.672 ms，质量优先但运行性能不占优。",
+  "kimi-for-coding":"strict / lenient #2 · official 16/16 · resource 2/2 · supplemental 8/8。与 luna 同为仅有的两个 8/8，一次修全；产物双项中位数 152.541 ms，为完整修复组较慢者。",
+  "glm-5.2":"strict / lenient #7 · official 16/16 · resource 2/2 · supplemental 7/8 · 117.286 ms。修复质量与产物性能均属中上，唯一残留是多数候选共有的 <code>cross_hashability</code>。",
+  "mimo-v2.5-pro":"strict / lenient #9 · official 16/16 · resource 2/2 · supplemental 7/8 · 119.739 ms。B11 主体修复达标，但 <code>cross_hashability</code> 未过，属于可快速修到可用、尚非一次到位。",
+  "deepseek-v4-flash":"strict #13 / lenient #14 · official 16/16 · resource 1/2 · supplemental 6/8。<code>deep_50000</code> 与 <code>res_dependency_20000</code> 均超时，另失 <code>cross_hashability</code>；63.297 ms 仅来自通过的 wide 单项，不能据此称为快速修复。",
+  "deepseek-v4-pro":"strict / lenient #8 · official 16/16 · resource 2/2 · supplemental 7/8 · 118.536 ms。B11 修复合格且规模检查通过，仅残留 <code>cross_hashability</code>。",
+  "doubao-2.1-turbo":"strict / lenient #4 · official 16/16 · resource 2/2 · supplemental 7/8 · 115.425 ms。7/8 组中产物性能第二快，快速修复能力处于前列，唯一残留是 <code>cross_hashability</code>。",
+  "minimax-m3":"strict / lenient #10 · official 16/16 · resource 2/2 · supplemental 7/8 · 121.195 ms。本次 replay-v2 产物证明 B11 修复有效，仅残留 <code>cross_hashability</code>；不引用其他运行推断本次 Reviewer 能力。",
+  "doubao-2.0-pro":"strict / lenient #5 · official 16/16 · resource 2/2 · supplemental 7/8 · 116.831 ms。修复完整度与产物性能均衡，唯一残留是 <code>cross_hashability</code>。",
+  "mimo-v2.5":"strict #11 / lenient #12 · official 16/16 · resource 2/2 · supplemental 7/8 · 124.323 ms。主体修复完整，但在 7/8 组中产物性能最慢，且 <code>cross_hashability</code> 未过。",
+  "LongCat-2.0":"strict #14 / lenient #11 · raw official 16/16 · resource 2/2 · supplemental 7/8 · 123.907 ms。功能修复达标，但额外创建 <code>test_targeted.py</code> 触发 workspace audit，属于代码修好而交付纪律未通过。",
+  "doubao-2.0-code":"strict #12 / lenient #13 · official 16/16 · resource 1/2 · supplemental 6/8。<code>deep_50000</code>、<code>res_dependency_20000</code> 超时并失 <code>cross_hashability</code>；61.646 ms 仅为 wide 单项，不代表整体修复快。",
+  "step-3.7-flash":"strict / lenient #6 · official 16/16 · resource 2/2 · supplemental 7/8 · 117.036 ms。B11 修复质量和产物性能均处中上，唯一残留是 <code>cross_hashability</code>。",
+  "composer-2.5":"N/A：未参加本轮 14 候选 Reviewer replay-v2，没有 B11 快速发现 / 快速修复证据，不做推断。",
+  "claude-fable-5 (max)":"N/A：未参加 Reviewer replay-v2，没有 B11 快速发现 / 快速修复证据，不做推断。",
+  "claude-fable-5 (high)":"N/A：未参加 Reviewer replay-v2，没有 B11 快速发现 / 快速修复证据，不做推断。",
+  "claude-sonnet-5 (max)":"N/A：未参加 Reviewer replay-v2，没有 B11 快速发现 / 快速修复证据，不做推断。",
+  "grok-4.5 (high)":"N/A：未参加 Reviewer replay-v2，没有 B11 快速发现 / 快速修复证据，不做推断。",
+  "hy3 (max)":"N/A：未参加 Reviewer replay-v2，没有 B11 快速发现 / 快速修复证据，不做推断。"
+};
+
+/* ================= 渲染 ================= */
+const $ = s=>document.querySelector(s);
+
+/* 榜单 */
+function renderBoard(key){
+  const b = BOARDS[key];
+  $("#board-title").textContent = b.title;
+  $("#board-src").textContent = b.src;
+  $("#board-sub").textContent = b.sub;
+  $("#board-note").textContent = b.note;
+  $("#board-legend").innerHTML = b.legend.map(([c,t])=>`<span><i style="background:${c}"></i>${t}</span>`).join("");
+  const rowsEl = $("#board-rows");
+  rowsEl.innerHTML = "";
+  b.rows.forEach((r,i)=>{
+    const [name,val,color,sub,valText] = r;
+    const row = document.createElement("div");
+    row.className = "row";
+    const pct = Math.max((val/b.max)*100, val===0?0:2);
+    row.innerHTML = `
+      <div class="rk ${i<2&&val>=b.max?'top':''}">${i+1}</div>
+      <div class="nm">${name}${sub?`<small>${sub}</small>`:""}</div>
+      <div class="track"><div class="bar" data-w="${pct}" style="background:${color}"></div></div>
+      <div class="val" style="color:${color}">${valText||val+b.unit}</div>`;
+    rowsEl.appendChild(row);
+    setTimeout(()=>{
+      row.classList.add("on");
+      row.querySelector(".bar").style.width = pct+"%";
+    }, 60 + i*55);
+  });
+}
+const tabsEl = $("#tabs");
+TAB_ORDER.forEach(([key,label],i)=>{
+  const btn = document.createElement("button");
+  btn.className = "tab"+(i===0?" active":"");
+  btn.textContent = label;
+  btn.onclick = ()=>{
+    tabsEl.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    btn.classList.add("active");
+    renderBoard(key);
+  };
+  tabsEl.appendChild(btn);
+});
+renderBoard("shortStrict");
+
+/* A/B delta */
+const dl = $("#delta-list");
+const DMAX = 4;
+DELTAS.forEach(([name,d,tk],i)=>{
+  const row = document.createElement("div");
+  row.className = "drow";
+  const cls = d>0?"pos":(d<0?"neg":"zero");
+  const w = Math.abs(d)/DMAX*48;
+  row.innerHTML = `
+    <div class="nm">${name}</div>
+    <div class="axis"><div class="dbar ${cls}" data-w="${w}"></div></div>
+    <div><span class="dv ${cls}">${d>0?"+"+d:d===0?"±0":d}</span><br><span class="tk">${tk}</span></div>`;
+  dl.appendChild(row);
+});
+
+/* 模型评价卡 */
+const eg = $("#eval-grid");
+EVALS.forEach((e,i)=>{
+  const card = document.createElement("article");
+  const reviewer = REVIEW_EVALS[e.model] || "N/A：Reviewer 数据缺失，不做推断。";
+  card.className = `ecard ${e.cls} rv ${"d"+(i%4+1>4?4:(i%2)+1)}`;
+  card.innerHTML = `
+    <div class="head"><span class="rank">${e.rank}</span><span class="model">${e.model}</span><span class="mini">${e.mini}</span></div>
+    <div class="axes">${e.axes.map(([k,v,c])=>`<div class="axis-chip"><div class="k">${k}</div><div class="v ${c}">${v}</div></div>`).join("")}</div>
+    <div class="pt">${e.pt}</div>
+    <div class="review-only ${reviewer.startsWith("N/A")?"na":""}"><span class="rk">REVIEWER 单轴 · B11 快速发现 / 快速修复</span>${reviewer}</div>
+    <div class="more"><div class="more-inner">${e.more}<span class="weak">${e.weak}</span></div></div>
+    <div class="toggle">展开原有多轴判断 <span class="arr">▾</span></div>`;
+  card.addEventListener("click",()=>card.classList.toggle("open"));
+  eg.appendChild(card);
+});
+
+/* ================= 动效驱动 ================= */
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* 滚动进度 + 顶栏 */
+addEventListener("scroll",()=>{
+  const h = document.documentElement;
+  const p = h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  $("#progress").style.width = p+"%";
+  $("#topbar").classList.toggle("scrolled", h.scrollTop>30);
+},{passive:true});
+
+/* 进入视口 reveal */
+const io = new IntersectionObserver(es=>{
+  es.forEach(en=>{
+    if(en.isIntersecting){ en.target.classList.add("on"); io.unobserve(en.target); }
+  });
+},{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+/* delta 柱入场 */
+const ioD = new IntersectionObserver(es=>{
+  es.forEach(en=>{
+    if(!en.isIntersecting) return;
+    ioD.unobserve(en.target);
+    [...en.target.children].forEach((row,i)=>{
+      setTimeout(()=>{
+        row.classList.add("on");
+        const bar = row.querySelector(".dbar");
+        if(bar && !bar.classList.contains("zero")) bar.style.width = bar.dataset.w+"%";
+      }, i*50);
+    });
+  });
+},{threshold:.15});
+ioD.observe(dl);
+
+/* 数字滚动 */
+const ioN = new IntersectionObserver(es=>{
+  es.forEach(en=>{
+    if(!en.isIntersecting) return;
+    ioN.unobserve(en.target);
+    const el = en.target, target = +el.dataset.count, dur = 1100;
+    if(reduced){ el.textContent = target; return; }
+    const t0 = performance.now();
+    (function tick(t){
+      const k = Math.min((t-t0)/dur,1);
+      el.textContent = Math.round(target*(1-Math.pow(1-k,3)));
+      if(k<1) requestAnimationFrame(tick);
+    })(t0);
+  });
+},{threshold:.5});
+document.querySelectorAll("[data-count]").forEach(el=>ioN.observe(el));
+
+/* 冠军卡光标跟随 */
+document.querySelectorAll(".champ").forEach(c=>{
+  c.addEventListener("pointermove",e=>{
+    const r = c.getBoundingClientRect();
+    c.style.setProperty("--mx",(e.clientX-r.left)+"px");
+    c.style.setProperty("--my",(e.clientY-r.top)+"px");
+  });
+});
+</script>
+</body>
+</html>
