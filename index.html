@@ -302,30 +302,30 @@ const C = {win:"#3DDC97",acc:"#37DCF2",warn:"#FFB454",fail:"#FF5C7A",purple:"#A7
 
 const BOARDS = {
   shortStrict:{
-    title:"短任务 · 严格榜（A 条件）",sub:"仅读 TASKS.md · official criterion 数（gate 清零后）· 满分 16 · 18 候选",
+    title:"短任务 · 严格榜（A 条件）",sub:"仅读 TASKS.md · official criterion 数（gate 清零后）· 满分 16 · 19 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 满分"],[C.acc,"gate PASS 未满分"],[C.purple,"composer-2.5（Cursor harness †）"]],
     note:"A 条件 6 个满分：luna / glm-5.2 / qwen / grok-4.5 ‡ / kimi / doubao-seed-evolving ✦。‡ = subtest_14 grok-4.5 high effort 补充（token N/A）；§ = subtest_15 hy3 max effort 英文 prompt 补充（token N/A）；✦ = doubao-seed-evolving 隔离补充运行（token N/A）。原冻结榜未覆盖，补充结果为隔离运行。",
     rows:[
-      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],
+      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],["k3 (low) ✦",16,C.win],
       ["deepseek-pro",15,C.acc],["doubao-2.1-turbo",15,C.acc],["LongCat",15,C.acc],["doubao-2.0-pro",15,C.acc],
       ["minimax-m3",14,C.acc],["mimo-v2.5-pro",14,C.acc],["hy3 §",14,C.acc],["composer-2.5 †",14,C.purple],
       ["deepseek-flash",13,C.acc],["mimo-v2.5",13,C.acc],["step-3.7-flash",12,C.acc],["doubao-2.0-code",12,C.acc]]
   },
   shortLenient:{
-    title:"短任务 · 宽松榜（A 条件）",sub:"raw criterion 数（不清零）· ExecutionCompleted 优先 · 满分 16 · 18 候选",
+    title:"短任务 · 宽松榜（A 条件）",sub:"raw criterion 数（不清零）· ExecutionCompleted 优先 · 满分 16 · 19 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 raw 满分"],[C.warn,"gate PASS 未满分"],[C.purple,"composer-2.5 †"],[C.brown,"execution 未完成"]],
     note:"A02（deepseek-flash）与 A10（doubao-2.0-code）execution 未完整走完（gate 仍 PASS，分数不清零），宽松榜按 Execution 优先把两者排到末位。‡ = subtest_14 grok-4.5 补充（满分第 4）；§ = subtest_15 hy3 英文 prompt 补充（14/16 第 12，失败 rp_isolation 与 ttl_strict_types）。",
     rows:[
-      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],
+      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],["k3 (low) ✦",16,C.win],
       ["deepseek-pro",15,C.warn],["doubao-2.1-turbo",15,C.warn],["LongCat",15,C.warn],["doubao-2.0-pro",15,C.warn],
       ["mimo-v2.5-pro",14,C.warn],["minimax-m3",14,C.warn],["hy3 §",14,C.warn],["composer-2.5 †",14,C.purple],
       ["mimo-v2.5",13,C.warn],["step-3.7-flash",12,C.warn],
       ["deepseek-flash",13,C.brown,"exec 未完成"],["doubao-2.0-code",12,C.brown,"exec 未完成"]]
   },
   shortBStrict:{
-    title:"短任务 · 严格榜（B 条件）",sub:"读 TASKS.md + frozen-phi3-plan.md · official criterion 数（gate 清零后）· 满分 16 · 18 候选",
+    title:"短任务 · 严格榜（B 条件）",sub:"读 TASKS.md + frozen-phi3-plan.md · official criterion 数（gate 清零后）· 满分 16 · 19 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 满分 · res 2/2"],[C.acc,"16/16 · res 1/2"],[C.warn,"15/16"],[C.fail,"Gate FAIL（strict 清零）"]],
     note:"B 条件额外提供 phi_3 实施计划。8 个模型 16/16 + res 2/2 满分；step-3.7-flash 和 evolving 以 res 1/2 排在满分组之后。mimo-v2.5-pro 和 hy3 因 .pytest_cache Gate FAIL，strict 清零。✦ = doubao-seed-evolving 隔离补充。",
@@ -333,7 +333,7 @@ const BOARDS = {
       ["mimo-v2.5",16,C.win,"342k 最省"],["doubao-2.1-turbo",16,C.win,"603k"],["glm-5.2",16,C.win,"625k"],
       ["kimi",16,C.win,"804k"],["qwen3.8-max",16,C.win,"863k"],["LongCat",16,C.win,"869k"],
       ["deepseek-flash",16,C.win,"900k"],["grok-4.5 ‡",16,C.win,"N/A"],
-      ["step-3.7-flash",16,C.acc,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.acc,"N/A · res 1/2"],
+      ["step-3.7-flash",16,C.acc,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.acc,"N/A · res 1/2"],["k3 (low) ✦",16,C.acc,"N/A · res 1/2"],
       ["deepseek-pro",16,C.acc,"1.41M · res 1/2"],["composer-2.5 †",16,C.acc,"N/A · res 1/2"],
       ["doubao-2.0-pro",15,C.warn,"276k · ttl_strict_types"],["doubao-2.0-code",15,C.warn,"469k · res 1/2"],
       ["minimax-m3",12,C.fail,"647k · 计划反向 -2"],
@@ -341,7 +341,7 @@ const BOARDS = {
       ["hy3 §",0,C.fail,"gate FAIL · raw 16/16 · .pytest_cache","未排名"]]
   },
   shortBLenient:{
-    title:"短任务 · 宽松榜（B 条件）",sub:"raw criterion 数（不清零）· 满分 16 · 18 候选",
+    title:"短任务 · 宽松榜（B 条件）",sub:"raw criterion 数（不清零）· 满分 16 · 19 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 raw 满分"],[C.warn,"15/16 raw"],[C.fail,"Gate FAIL 但保留 raw"],[C.brown,"12/16 · 计划反向"]],
     note:"宽松榜保留 raw 完成度，Gate FAIL 不清零。hy3 raw 16/16 但 Gate FAIL；mimo-v2.5-pro raw 15/16 但 Gate FAIL。minimax-m3 是唯一 A->B 退步（-2）的模型。✦ = doubao-seed-evolving。",
@@ -349,7 +349,7 @@ const BOARDS = {
       ["mimo-v2.5",16,C.win,"342k"],["doubao-2.1-turbo",16,C.win,"603k"],["glm-5.2",16,C.win,"625k"],
       ["kimi",16,C.win,"804k"],["qwen3.8-max",16,C.win,"863k"],["LongCat",16,C.win,"869k"],
       ["deepseek-flash",16,C.win,"900k"],["grok-4.5 ‡",16,C.win,"N/A"],
-      ["step-3.7-flash",16,C.win,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.win,"N/A · res 1/2"],
+      ["step-3.7-flash",16,C.win,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.win,"N/A · res 1/2"],["k3 (low) ✦",16,C.win,"N/A · res 1/2"],
       ["hy3 §",16,C.fail,"gate FAIL · .pytest_cache"],
       ["deepseek-pro",16,C.warn,"1.41M · res 1/2"],["composer-2.5 †",16,C.warn,"N/A · res 1/2"],
       ["doubao-2.0-pro",15,C.warn,"276k"],["doubao-2.0-code",15,C.warn,"469k · res 1/2"],
