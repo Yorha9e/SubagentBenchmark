@@ -213,7 +213,7 @@ footer{padding:44px 0;text-align:center;color:var(--txt3);font-size:12px;border-
     <h1>没有<span class="g2">全能王</span>，<br>只有<span class="g1">四条证据轴</span>上的强者</h1>
     <p class="lead">短任务 17 候选（4 任务 16 criterion）、长任务 20 候选（2 项目 10 milestone）、Reviewer 调试（B11 修复）与 Critic 盲审（15 候选 · 双盲候选 A/B · 总分 100）四条独立证据轴的完整对比。严格榜 gate 一票否决，宽松榜保留 raw 完成度。</p>
     <div class="stats">
-      <div class="stat"><div class="num" data-count="21">0</div><div class="lbl">长任务候选</div></div>
+      <div class="stat"><div class="num" data-count="22">0</div><div class="lbl">长任务候选</div></div>
       <div class="stat"><div class="num win" data-count="4">0</div><div class="lbl">独立证据轴</div></div>
       <div class="stat"><div class="num warn" data-count="16">0</div><div class="lbl">短任务 criterion</div></div>
       <div class="stat"><div class="num" data-count="10">0</div><div class="lbl">长任务 milestone</div></div>
@@ -356,7 +356,7 @@ const BOARDS = {
       ["mimo-v2.5-pro",15,C.fail,"gate FAIL · 190k"],["minimax-m3",12,C.brown,"647k · 计划反向"]]
   },
   longStrict:{
-    title:"长任务 · 严格榜",sub:"strict milestone 数（gate 通过且 criterion 全过）· 满分 10 · 21 候选中 11 个 gate FAIL/indeterminate 未排名",
+    title:"长任务 · 严格榜",sub:"strict milestone 数（gate 通过且 criterion 全过）· 满分 10 · 22 候选中 12 个 gate FAIL/indeterminate 未排名",
     src:"closed_loop_v2/supplemental/results/strict-leaderboard.csv",max:10,unit:"/10",
     legend:[[C.win,"gate PASS · 原始轮"],[C.purple,"补充 / 重跑 / F3 修订"],[C.fail,"gate FAIL（未排名）"]],
     note:"subtest_7_rerun 为 luna 重跑；glm5.2.fix 为 F3 受控修订轮（累计 token）。新增 phi_5/phi_6/phi_7/subtest_14/subtest_15 均因 src/__init__.py 的系统性 workspace audit 判定 Gate FAIL，只记录未排名区。所有候选完整闭环项目数 0/2。",
@@ -369,10 +369,11 @@ const BOARDS = {
       ["doubao-2.0-pro",0,C.fail,"gate FAIL · raw 4/10","未排名"],["mimo-v2.5",0,C.fail,"gate FAIL · raw 4/10","未排名"],
       ["LongCat",0,C.fail,"gate FAIL · raw 3/10","未排名"],["hy3 (max)",0,C.fail,"gate FAIL · raw 2/10","未排名"],
       ["doubao-2.0-code",0,C.fail,"gate FAIL · raw 1/10","未排名"],["step-3.7-flash",0,C.fail,"gate FAIL · raw 0/10","未排名"],
-      ["doubao-seed-evolving ✦",0,C.fail,"gate indeterminate · raw 5/10","未排名"]]
+      ["doubao-seed-evolving ✦",0,C.fail,"gate indeterminate · raw 5/10","未排名"],
+      ["k3 (low effort) ✦",0,C.fail,"gate indeterminate · raw 5/10 · 13/20","未排名"]]
   },
   longLenient:{
-    title:"长任务 · 宽松榜",sub:"raw milestone 数（gate 不阻断，全部 21 行参与）· 满分 10",
+    title:"长任务 · 宽松榜",sub:"raw milestone 数（gate 不阻断，全部 22 行参与）· 满分 10",
     src:"closed_loop_v2/supplemental/results/lenient-leaderboard.csv",max:10,unit:"/10",
     legend:[[C.win,"gate PASS · 5+ milestone"],[C.warn,"gate PASS"],[C.brown,"gate FAIL 但有 raw 完成度"]],
     note:"claude-fable-5 (max/high) raw 8/10 追平 qwen，但 gate FAIL 且指令 6/7 对 7/7，列第 2、3；grok-4.5 raw 5/10 且 coverage 0.75，排在同 5/10 但 cov 0.55 的 kimi/glm5.2.fix 之前。宽松榜不发布正式赢家，仅展示 gate FAIL 候选的原始完成度。",
@@ -383,7 +384,7 @@ const BOARDS = {
       ["doubao-2.0-pro",4,C.brown,"gate FAIL"],["mimo-v2.5",4,C.brown,"gate FAIL"],
       ["mimo-v2.5-pro",3,C.warn,"补充"],["LongCat",3,C.brown,"gate FAIL"],["glm-5.2(原始)",3,C.warn,"补充 phi_2"],
       ["deepseek-flash",2,C.warn,"原始"],["deepseek-pro",2,C.warn,"原始"],["doubao-2.1-turbo",2,C.warn,"原始"],["hy3 (max)",2,C.brown,"gate FAIL · subtest_15"],
-      ["minimax-m3",2,C.warn,"补充"],["doubao-seed-evolving ✦",5,C.brown,"gate indeterminate · 12/20 crit"],["doubao-2.0-code",1,C.brown,"gate FAIL"],["step-3.7-flash",0,C.brown,"gate FAIL"]]
+      ["minimax-m3",2,C.warn,"补充"],["doubao-seed-evolving ✦",5,C.brown,"gate indeterminate · 12/20 crit"],["k3 (low effort) ✦",5,C.brown,"gate indeterminate · 13/20 crit · low effort"],["doubao-2.0-code",1,C.brown,"gate FAIL"],["step-3.7-flash",0,C.brown,"gate FAIL"]]
   },
   reviewer:{
     title:"Reviewer Debug · replay-v2 严格确定性榜",sub:"B11 dependency_layers 快速发现 / 快速修复 · 满分 8 · 15 参评 + 6 未参评",
