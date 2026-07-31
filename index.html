@@ -213,12 +213,12 @@ footer{padding:44px 0;text-align:center;color:var(--txt3);font-size:12px;border-
     <h1>没有<span class="g2">全能王</span>，<br>只有<span class="g1">四条证据轴</span>上的强者</h1>
     <p class="lead">短任务 17 候选（4 任务 16 criterion）、长任务 20 候选（2 项目 10 milestone）、Reviewer 调试（B11 修复）与 Critic 盲审（15 候选 · 双盲候选 A/B · 总分 100）四条独立证据轴的完整对比。严格榜 gate 一票否决，宽松榜保留 raw 完成度。</p>
     <div class="stats">
-      <div class="stat"><div class="num" data-count="22">0</div><div class="lbl">长任务候选</div></div>
+      <div class="stat"><div class="num" data-count="27">0</div><div class="lbl">长任务候选</div></div>
       <div class="stat"><div class="num win" data-count="4">0</div><div class="lbl">独立证据轴</div></div>
       <div class="stat"><div class="num warn" data-count="16">0</div><div class="lbl">短任务 criterion</div></div>
       <div class="stat"><div class="num" data-count="10">0</div><div class="lbl">长任务 milestone</div></div>
       <div class="stat"><div class="num purple" data-count="8">0</div><div class="lbl">Reviewer 补充检查</div></div>
-      <div class="stat"><div class="num" data-count="16">0</div><div class="lbl">Critic 候选</div></div>
+      <div class="stat"><div class="num" data-count="19">0</div><div class="lbl">Critic 候选</div></div>
     </div>
   </div>
   <div class="scroll-hint"><div class="mouse"></div>SCROLL</div>
@@ -302,38 +302,38 @@ const C = {win:"#3DDC97",acc:"#37DCF2",warn:"#FFB454",fail:"#FF5C7A",purple:"#A7
 
 const BOARDS = {
   shortStrict:{
-    title:"短任务 · 严格榜（A 条件）",sub:"仅读 TASKS.md · official criterion 数（gate 清零后）· 满分 16 · 19 候选",
+    title:"短任务 · 严格榜（A 条件）",sub:"仅读 TASKS.md · official criterion 数（gate 清零后）· 满分 16 · 24 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 满分"],[C.acc,"gate PASS 未满分"],[C.purple,"composer-2.5（Cursor harness †）"]],
     note:"A 条件 6 个满分：luna / glm-5.2 / qwen / grok-4.5 ‡ / kimi / doubao-seed-evolving ✦。‡ = subtest_14 grok-4.5 high effort 补充（token N/A）；§ = subtest_15 hy3 max effort 英文 prompt 补充（token N/A）；✦ = doubao-seed-evolving 隔离补充运行（token N/A）。原冻结榜未覆盖，补充结果为隔离运行。",
     rows:[
-      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],["k3 (low) ✦",16,C.win],
+      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],["k3 (low) ✦",16,C.win],["gemini-3.6-flash ✦",16,C.win],["gemini-3-flash ✦",16,C.win],["gemini-3.1-pro ✦",16,C.win],["gemini-3.5-flash ✦",16,C.win],["gemini-pro-agent ✦",16,C.win],["deepseek-flash (v2)",16,C.win],
       ["deepseek-pro",15,C.acc],["doubao-2.1-turbo",15,C.acc],["LongCat",15,C.acc],["doubao-2.0-pro",15,C.acc],
       ["minimax-m3",14,C.acc],["mimo-v2.5-pro",14,C.acc],["hy3 §",14,C.acc],["composer-2.5 †",14,C.purple],
-      ["deepseek-flash",13,C.acc],["mimo-v2.5",13,C.acc],["step-3.7-flash",12,C.acc],["doubao-2.0-code",12,C.acc]]
+      ["mimo-v2.5",13,C.acc],["step-3.7-flash",12,C.acc],["doubao-2.0-code",12,C.acc]]
   },
   shortLenient:{
-    title:"短任务 · 宽松榜（A 条件）",sub:"raw criterion 数（不清零）· ExecutionCompleted 优先 · 满分 16 · 19 候选",
+    title:"短任务 · 宽松榜（A 条件）",sub:"raw criterion 数（不清零）· ExecutionCompleted 优先 · 满分 16 · 24 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 raw 满分"],[C.warn,"gate PASS 未满分"],[C.purple,"composer-2.5 †"],[C.brown,"execution 未完成"]],
-    note:"A02（deepseek-flash）与 A10（doubao-2.0-code）execution 未完整走完（gate 仍 PASS，分数不清零），宽松榜按 Execution 优先把两者排到末位。‡ = subtest_14 grok-4.5 补充（满分第 4）；§ = subtest_15 hy3 英文 prompt 补充（14/16 第 12，失败 rp_isolation 与 ttl_strict_types）。",
+    note:"A10（doubao-2.0-code）execution 未完整走完。‡ = subtest_14 grok-4.5 补充（满分第 4）；§ = subtest_15 hy3 英文 prompt 补充（14/16 第 12，失败 rp_isolation 与 ttl_strict_types）。",
     rows:[
-      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],["k3 (low) ✦",16,C.win],
+      ["luna",16,C.win],["glm-5.2",16,C.win],["qwen3.8-max",16,C.win],["grok-4.5 ‡",16,C.win],["kimi",16,C.win],["doubao-seed-evolving ✦",16,C.win],["k3 (low) ✦",16,C.win],["gemini-3.6-flash ✦",16,C.win],["gemini-3-flash ✦",16,C.win],["gemini-3.1-pro ✦",16,C.win],["gemini-3.5-flash ✦",16,C.win],["gemini-pro-agent ✦",16,C.win],["deepseek-flash (v2)",16,C.win],
       ["deepseek-pro",15,C.warn],["doubao-2.1-turbo",15,C.warn],["LongCat",15,C.warn],["doubao-2.0-pro",15,C.warn],
       ["mimo-v2.5-pro",14,C.warn],["minimax-m3",14,C.warn],["hy3 §",14,C.warn],["composer-2.5 †",14,C.purple],
       ["mimo-v2.5",13,C.warn],["step-3.7-flash",12,C.warn],
-      ["deepseek-flash",13,C.brown,"exec 未完成"],["doubao-2.0-code",12,C.brown,"exec 未完成"]]
+      ["doubao-2.0-code",12,C.brown,"exec 未完成"]]
   },
   shortBStrict:{
-    title:"短任务 · 严格榜（B 条件）",sub:"读 TASKS.md + frozen-phi3-plan.md · official criterion 数（gate 清零后）· 满分 16 · 19 候选",
+    title:"短任务 · 严格榜（B 条件）",sub:"读 TASKS.md + frozen-phi3-plan.md · official criterion 数（gate 清零后）· 满分 16 · 24 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 满分 · res 2/2"],[C.acc,"16/16 · res 1/2"],[C.warn,"15/16"],[C.fail,"Gate FAIL（strict 清零）"]],
     note:"B 条件额外提供 phi_3 实施计划。8 个模型 16/16 + res 2/2 满分；step-3.7-flash 和 evolving 以 res 1/2 排在满分组之后。mimo-v2.5-pro 和 hy3 因 .pytest_cache Gate FAIL，strict 清零。✦ = doubao-seed-evolving 隔离补充。",
     rows:[
       ["mimo-v2.5",16,C.win,"342k 最省"],["doubao-2.1-turbo",16,C.win,"603k"],["glm-5.2",16,C.win,"625k"],
       ["kimi",16,C.win,"804k"],["qwen3.8-max",16,C.win,"863k"],["LongCat",16,C.win,"869k"],
-      ["deepseek-flash",16,C.win,"900k"],["grok-4.5 ‡",16,C.win,"N/A"],
-      ["step-3.7-flash",16,C.acc,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.acc,"N/A · res 1/2"],["k3 (low) ✦",16,C.acc,"N/A · res 1/2"],
+      ["deepseek-flash (v2)",16,C.win,"res 2/2"],["grok-4.5 ‡",16,C.win,"N/A"],
+      ["step-3.7-flash",16,C.acc,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.acc,"N/A · res 1/2"],["k3 (low) ✦",16,C.acc,"N/A · res 1/2"],["gemini-3.6-flash ✦",16,C.win,"res 2/2 · 两轮一致"],["gemini-3-flash ✦",16,C.win,"res 2/2"],["gemini-3.1-pro ✦",16,C.win,"res 2/2"],["gemini-3.5-flash ✦",16,C.win,"res 2/2"],["gemini-pro-agent ✦",16,C.win,"res 2/2"],
       ["deepseek-pro",16,C.acc,"1.41M · res 1/2"],["composer-2.5 †",16,C.acc,"N/A · res 1/2"],
       ["doubao-2.0-pro",15,C.warn,"276k · ttl_strict_types"],["doubao-2.0-code",15,C.warn,"469k · res 1/2"],
       ["minimax-m3",12,C.fail,"647k · 计划反向 -2"],
@@ -341,74 +341,89 @@ const BOARDS = {
       ["hy3 §",0,C.fail,"gate FAIL · raw 16/16 · .pytest_cache","未排名"]]
   },
   shortBLenient:{
-    title:"短任务 · 宽松榜（B 条件）",sub:"raw criterion 数（不清零）· 满分 16 · 19 候选",
+    title:"短任务 · 宽松榜（B 条件）",sub:"raw criterion 数（不清零）· 满分 16 · 24 候选",
     src:"final-leaderboard-spec-conformant-v2-with-subtest14-subtest15.md",max:16,unit:"/16",
     legend:[[C.win,"16/16 raw 满分"],[C.warn,"15/16 raw"],[C.fail,"Gate FAIL 但保留 raw"],[C.brown,"12/16 · 计划反向"]],
     note:"宽松榜保留 raw 完成度，Gate FAIL 不清零。hy3 raw 16/16 但 Gate FAIL；mimo-v2.5-pro raw 15/16 但 Gate FAIL。minimax-m3 是唯一 A->B 退步（-2）的模型。✦ = doubao-seed-evolving。",
     rows:[
       ["mimo-v2.5",16,C.win,"342k"],["doubao-2.1-turbo",16,C.win,"603k"],["glm-5.2",16,C.win,"625k"],
       ["kimi",16,C.win,"804k"],["qwen3.8-max",16,C.win,"863k"],["LongCat",16,C.win,"869k"],
-      ["deepseek-flash",16,C.win,"900k"],["grok-4.5 ‡",16,C.win,"N/A"],
-      ["step-3.7-flash",16,C.win,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.win,"N/A · res 1/2"],["k3 (low) ✦",16,C.win,"N/A · res 1/2"],
+      ["deepseek-flash (v2)",16,C.win,"res 2/2"],["grok-4.5 ‡",16,C.win,"N/A"],
+      ["step-3.7-flash",16,C.win,"327k · res 1/2"],["doubao-seed-evolving ✦",16,C.win,"N/A · res 1/2"],["k3 (low) ✦",16,C.win,"N/A · res 1/2"],["gemini-3.6-flash ✦",16,C.win,"res 2/2 · 两轮一致"],["gemini-3-flash ✦",16,C.win,"res 2/2"],["gemini-3.1-pro ✦",16,C.win,"res 2/2"],["gemini-3.5-flash ✦",16,C.win,"res 2/2"],["gemini-pro-agent ✦",16,C.win,"res 2/2"],
       ["hy3 §",16,C.fail,"gate FAIL · .pytest_cache"],
       ["deepseek-pro",16,C.warn,"1.41M · res 1/2"],["composer-2.5 †",16,C.warn,"N/A · res 1/2"],
       ["doubao-2.0-pro",15,C.warn,"276k"],["doubao-2.0-code",15,C.warn,"469k · res 1/2"],
       ["mimo-v2.5-pro",15,C.fail,"gate FAIL · 190k"],["minimax-m3",12,C.brown,"647k · 计划反向"]]
   },
   longStrict:{
-    title:"长任务 · 严格榜",sub:"strict milestone 数（gate 通过且 criterion 全过）· 满分 10 · 22 候选中 12 个 gate FAIL/indeterminate 未排名",
+    title:"长任务 · 严格榜",sub:"strict milestone 数（gate 通过且 criterion 全过）· 满分 10 · 27 候选中 17 个 gate FAIL/indeterminate 未排名",
     src:"closed_loop_v2/supplemental/results/strict-leaderboard.csv",max:10,unit:"/10",
     legend:[[C.win,"gate PASS · 原始轮"],[C.purple,"补充 / 重跑 / F3 修订"],[C.fail,"gate FAIL（未排名）"]],
     note:"subtest_7_rerun 为 luna 重跑；glm5.2.fix 为 F3 受控修订轮（累计 token）。新增 phi_5/phi_6/phi_7/subtest_14/subtest_15 均因 src/__init__.py 的系统性 workspace audit 判定 Gate FAIL，只记录未排名区。所有候选完整闭环项目数 0/2。",
     rows:[
-      ["qwen3.8-max",8,C.win,"原始"],["luna",6,C.purple,"补充重跑"],["kimi",5,C.win,"原始"],["glm-5.2(修订)",5,C.purple,"F3 修订"],
+      ["qwen3.8-max",8,C.win,"原始"],["deepseek-flash (v2)",7,C.win,"14/20 · gate PASS"],["luna",6,C.purple,"补充重跑"],["kimi",5,C.win,"原始"],["glm-5.2(修订)",5,C.purple,"F3 修订"],
       ["mimo-v2.5-pro",3,C.purple,"补充"],["glm-5.2(原始)",3,C.purple,"补充 phi_2"],
-      ["deepseek-flash",2,C.win,"原始"],["deepseek-pro",2,C.win,"原始"],["doubao-2.1-turbo",2,C.win,"原始"],["minimax-m3",2,C.purple,"补充"],
+      ["deepseek-pro",2,C.win,"原始"],["doubao-2.1-turbo",2,C.win,"原始"],["minimax-m3",2,C.purple,"补充"],
       ["claude-fable-5 (max)",0,C.fail,"gate FAIL · raw 8/10","未排名"],["claude-fable-5 (high)",0,C.fail,"gate FAIL · raw 8/10","未排名"],
       ["claude-sonnet-5 (max)",0,C.fail,"gate FAIL · raw 7/10","未排名"],["grok-4.5 (high)",0,C.fail,"gate FAIL · raw 5/10","未排名"],
       ["doubao-2.0-pro",0,C.fail,"gate FAIL · raw 4/10","未排名"],["mimo-v2.5",0,C.fail,"gate FAIL · raw 4/10","未排名"],
       ["LongCat",0,C.fail,"gate FAIL · raw 3/10","未排名"],["hy3 (max)",0,C.fail,"gate FAIL · raw 2/10","未排名"],
       ["doubao-2.0-code",0,C.fail,"gate FAIL · raw 1/10","未排名"],["step-3.7-flash",0,C.fail,"gate FAIL · raw 0/10","未排名"],
       ["doubao-seed-evolving ✦",0,C.fail,"gate indeterminate · raw 5/10","未排名"],
-      ["k3 (low effort) ✦",0,C.fail,"gate indeterminate · raw 5/10 · 13/20","未排名"]]
+      ["k3 (low effort) ✦",0,C.fail,"gate indeterminate · raw 5/10 · 13/20","未排名"],
+      ["gemini-3.6-flash ✦",0,C.fail,"gate indeterminate · raw 7/10 · 15/20 · 两轮一致","未排名"],
+      ["gemini-3-flash ✦",0,C.fail,"gate indeterminate · raw 3/10 · 8/20","未排名"],
+      ["gemini-3.1-pro ✦",0,C.fail,"gate indeterminate · raw 2/10 · 6/20","未排名"],
+      ["gemini-3.5-flash ✦",0,C.fail,"gate indeterminate · raw 0/10 · 0/20 桩代码","未排名"],
+      ["gemini-pro-agent ✦",0,C.fail,"gate indeterminate · raw 3/10 · 9/20","未排名"]]
   },
   longLenient:{
-    title:"长任务 · 宽松榜",sub:"raw milestone 数（gate 不阻断，全部 22 行参与）· 满分 10",
+    title:"长任务 · 宽松榜",sub:"raw milestone 数（gate 不阻断，全部 27 行参与）· 满分 10",
     src:"closed_loop_v2/supplemental/results/lenient-leaderboard.csv",max:10,unit:"/10",
     legend:[[C.win,"gate PASS · 5+ milestone"],[C.warn,"gate PASS"],[C.brown,"gate FAIL 但有 raw 完成度"]],
     note:"claude-fable-5 (max/high) raw 8/10 追平 qwen，但 gate FAIL 且指令 6/7 对 7/7，列第 2、3；grok-4.5 raw 5/10 且 coverage 0.75，排在同 5/10 但 cov 0.55 的 kimi/glm5.2.fix 之前。宽松榜不发布正式赢家，仅展示 gate FAIL 候选的原始完成度。",
     rows:[
       ["qwen3.8-max",8,C.win,"原始"],["claude-fable-5 (max)",8,C.brown,"gate FAIL · phi_6"],["claude-fable-5 (high)",8,C.brown,"gate FAIL · phi_5"],
-      ["claude-sonnet-5 (max)",7,C.brown,"gate FAIL · phi_7"],["luna",6,C.win,"补充重跑"],["grok-4.5 (high)",5,C.brown,"gate FAIL · subtest_14"],
+      ["claude-sonnet-5 (max)",7,C.brown,"gate FAIL · phi_7"],["deepseek-flash (v2)",7,C.win,"14/20 crit"],["luna",6,C.win,"补充重跑"],["grok-4.5 (high)",5,C.brown,"gate FAIL · subtest_14"],
       ["kimi",5,C.win,"原始"],["glm-5.2(修订)",5,C.win,"F3 修订"],
       ["doubao-2.0-pro",4,C.brown,"gate FAIL"],["mimo-v2.5",4,C.brown,"gate FAIL"],
       ["mimo-v2.5-pro",3,C.warn,"补充"],["LongCat",3,C.brown,"gate FAIL"],["glm-5.2(原始)",3,C.warn,"补充 phi_2"],
-      ["deepseek-flash",2,C.warn,"原始"],["deepseek-pro",2,C.warn,"原始"],["doubao-2.1-turbo",2,C.warn,"原始"],["hy3 (max)",2,C.brown,"gate FAIL · subtest_15"],
-      ["minimax-m3",2,C.warn,"补充"],["doubao-seed-evolving ✦",5,C.brown,"gate indeterminate · 12/20 crit"],["k3 (low effort) ✦",5,C.brown,"gate indeterminate · 13/20 crit · low effort"],["doubao-2.0-code",1,C.brown,"gate FAIL"],["step-3.7-flash",0,C.brown,"gate FAIL"]]
+      ["deepseek-pro",2,C.warn,"原始"],["doubao-2.1-turbo",2,C.warn,"原始"],["hy3 (max)",2,C.brown,"gate FAIL · subtest_15"],
+      ["minimax-m3",2,C.warn,"补充"],["doubao-seed-evolving ✦",5,C.brown,"gate indeterminate · 12/20 crit"],["k3 (low effort) ✦",5,C.brown,"gate indeterminate · 13/20 crit · low effort"],["gemini-3.6-flash ✦",7,C.brown,"gate indeterminate · 15/20 crit · 两轮一致"],["gemini-pro-agent ✦",3,C.brown,"gate indeterminate · 9/20 crit"],["gemini-3-flash ✦",3,C.brown,"gate indeterminate · 8/20 crit"],["gemini-3.1-pro ✦",2,C.brown,"gate indeterminate · 6/20 crit"],["gemini-3.5-flash ✦",0,C.brown,"gate indeterminate · 0/20 桩代码"],["doubao-2.0-code",1,C.brown,"gate FAIL"],["step-3.7-flash",0,C.brown,"gate FAIL"]]
   },
   reviewer:{
-    title:"Reviewer Debug · replay-v2 严格确定性榜",sub:"B11 dependency_layers 快速发现 / 快速修复 · 满分 8 · 15 参评 + 6 未参评",
+    title:"Reviewer Debug · replay-v2 严格确定性榜",sub:"B11 dependency_layers 快速发现 / 快速修复 · 满分 8 · 20 参评 + 6 未参评",
     src:"reviewerresult/results/debug-subagent-v1-replay-v2/leaderboard.md",max:8,unit:"/8",
     legend:[[C.win,"8/8 补充检查满分"],[C.warn,"7/8"],[C.fail,"6/8 · deep_50000 超时 + cross_hashability"],[C.purple,"Gate FAIL（LongCat）"]],
-    note:"所有参评候选 raw 官方功能均 16/16；doubao-seed-evolving ✦ 性能中位数 79.8 ms 为全榜最快（deep 84.6 + wide 75.0），且 cross_hashability 通过。qwen 的 112.138 ms 次快。subtest_2/10 的 61.6/63.3 ms 仅含通过的 wide 单项，口径不可比；两者还分别失败 deep_50000、cross_hashability 与资源检查。Reviewer token、代理墙钟数据均不可用。",
+    note:"所有参评候选 raw 官方功能均 16/16；deepseek-flash (v2) 为模型更新后数据（旧版 6/8 · resource 1/2）。doubao-seed-evolving ✦ 性能中位数 79.8 ms 为全榜最快（deep 84.6 + wide 75.0），且 cross_hashability 通过。qwen 的 112.138 ms 次快。subtest_2/10 的 61.6/63.3 ms 仅含通过的 wide 单项，口径不可比；两者还分别失败 deep_50000、cross_hashability 与资源检查。Reviewer token、代理墙钟数据均不可用。",
     rows:[
       ["luna",8,C.win,"#1 · 151.672 ms"],["kimi",8,C.win,"#2 · 152.541 ms"],
       ["doubao-seed-evolving ✦",8,C.win,"#3 · 79.8 ms 最快"],
-      ["qwen3.8-max",7,C.warn,"#4 · 112.138 ms"],["doubao-2.1-turbo",7,C.warn,"#5 · 115.425 ms"],
+      ["gemini-3.6-flash ✦",8,C.win,"#4 · 60.1 ms 最快 · 两轮一致"],
+      ["gemini-3-flash ✦",8,C.win,"#5 · 97.6 ms"],
+      ["gemini-3.1-pro ✦",8,C.win,"#6 · 75.7 ms"],
+      ["gemini-3.5-flash ✦",8,C.win,"#7 · 8/8"],
+      ["gemini-pro-agent ✦",8,C.win,"#8 · 76.0 ms"],
+      ["deepseek-flash (v2)",8,C.win,"#13 · 8/8"],["qwen3.8-max",7,C.warn,"#9 · 112.138 ms"],["doubao-2.1-turbo",7,C.warn,"#10 · 115.425 ms"],
       ["doubao-2.0-pro",7,C.warn,"#6 · 116.831 ms"],["step-3.7-flash",7,C.warn,"#7 · 117.036 ms"],
       ["glm-5.2",7,C.warn,"#8 · 117.286 ms"],["deepseek-pro",7,C.warn,"#9 · 118.536 ms"],
       ["mimo-v2.5-pro",7,C.warn,"#10 · 119.739 ms"],["minimax-m3",7,C.warn,"#11 · 121.195 ms"],
       ["mimo-v2.5",7,C.warn,"#12 · 124.323 ms"],["doubao-2.0-code",6,C.fail,"#13 · 资源 1/2"],
-      ["deepseek-flash",6,C.fail,"#14 · 资源 1/2"],["LongCat-2.0",7,C.purple,"#15 · Gate FAIL"]]
+      ["LongCat-2.0",7,C.purple,"#15 · Gate FAIL"]]
   },
   critic:{
-    title:"Critic 盲审 · critic-model-select-v1 总榜",sub:"16 候选审查盲化 candidate-A/B · 总分 100 = Recall 50 + Precision 20 + Depth 15 + Speed 10 + Format 5",
+    title:"Critic 盲审 · critic-model-select-v1 总榜",sub:"21 候选审查盲化 candidate-A/B · 总分 100 = Recall 50 + Precision 20 + Depth 15 + Speed 10 + Format 5",
     src:"critic-model-select-v1/score-summary.json",max:100,unit:"",
     legend:[[C.win,"3/3 GT 全中"],[C.acc,"命中 2 GT"],[C.warn,"命中 1 GT"],[C.fail,"未命中 GT"]],
-    note:"kimi 与 doubao-seed-evolving ✦ 是唯二完整命中 GT1/GT2/GT3 的 Critic；evolving 1354s 略慢于 kimi 1332s，两者总分持平。doubao-2.0-pro 68.4s 最快、90 分性价比最高但漏 GT2。grok-4.5 经 4 次 Provider 400 后以 high effort 完成纳入，3028s 最慢 Speed 记 0；deepseek-pro 前台 Agent metadata 不可用，Speed 保守记 0 且有唯一确认误报（Precision 15）。✦ = doubao-seed-evolving 隔离补充运行。",
+    note:"kimi、doubao-seed-evolving ✦、gemini-3.6-flash ✦ 和 deepseek-flash (v2) 是唯四完整命中 GT1/GT2/GT3 的 Critic；deepseek-flash (v2) 为模型更新后数据（旧版：0 GT · 28.9 分）；gemini 两轮复测结果完全一致（GT全中·8/8 reviewer·15/20长任务），133s 比 kimi/evolving 快 10 倍。doubao-2.0-pro 68s 最快但漏 GT2。✦ = 隔离补充运行。",
     rows:[
       ["kimi",92.308,C.win,"GT1·GT2·GT3 · 1332s","92.308"],
       ["doubao-seed-evolving ✦",92.308,C.win,"GT1·GT2·GT3 · 1354s","92.308"],
+      ["gemini-3.6-flash ✦",92.308,C.win,"GT1·GT2·GT3 · 133s · 两轮一致","92.308"],
+      ["gemini-3-flash ✦",88.462,C.acc,"GT1·GT2 · 漏GT3","88.462"],
+      ["gemini-3.1-pro ✦",88.462,C.acc,"GT1·GT3 · 漏GT2","88.462"],
+      ["gemini-3.5-flash ✦",88.462,C.acc,"GT1·GT3 · 漏GT2","88.462"],
+      ["gemini-pro-agent ✦",88.462,C.acc,"GT1·GT3 · 漏GT2","88.462"],
       ["doubao-2.0-pro",90,C.acc,"GT1·GT3 · 68s 最快","90.000"],
       ["qwen3.8-max",88.462,C.acc,"GT1·GT3 · 342s","88.462"],
       ["luna",74.692,C.warn,"GT1 · 346s","74.692"],
@@ -417,7 +432,7 @@ const BOARDS = {
       ["doubao-2.1-turbo",64.577,C.warn,"GT1 · 644s","64.577"],
       ["mimo-v2.5-pro",63.038,C.warn,"GT1 · 2127s","63.038"],
       ["LongCat",47.769,C.warn,"GT2 · 2735s","47.769"],
-      ["deepseek-flash",28.923,C.fail,"0 GT · 428s","28.923"],
+      ["deepseek-flash (v2)",88.462,C.acc,"GT1·GT2·GT3","88.462"],
       ["glm-5.2",28.385,C.fail,"0 GT · 485s","28.385"],
       ["minimax-m3",28.154,C.fail,"0 GT · 431s","28.154"],
       ["mimo-v2.5",27.615,C.fail,"0 GT · 521s","27.615"],
@@ -428,7 +443,7 @@ const BOARDS = {
 const TAB_ORDER = [["shortStrict","短任务·严格A"],["shortLenient","短任务·宽松A"],["shortBStrict","短任务·严格B"],["shortBLenient","短任务·宽松B"],["longStrict","长任务·严格"],["longLenient","长任务·宽松"],["reviewer","Reviewer"],["critic","Critic 盲审"]];
 
 const DELTAS = [
-  ["step-3.7-flash",4,"-265K"],["deepseek-flash",3,"+646K"],["mimo-v2.5",3,"+158K"],["doubao-2.0-code",3,"+89K"],
+  ["step-3.7-flash",4,"-265K"],["deepseek-flash (v2)",0,"res 2/2"],["mimo-v2.5",3,"+158K"],["doubao-2.0-code",3,"+89K"],
   ["composer-2.5 †",2,"N/A"],["hy3 §",2,"N/A · gate FAIL"],["LongCat-2.0",1,"-181K"],["deepseek-pro",1,"+1.07M"],["doubao-2.1-turbo",1,"-127K"],
   ["mimo-v2.5-pro",1,"-229K · gate FAIL"],["luna",0,"+574K"],["kimi",0,"+609K"],["qwen3.8-max",0,"+302K"],
   ["glm-5.2",0,"+199K"],["doubao-2.0-pro",0,"+53K"],["grok-4.5 ‡",0,"N/A"],["minimax-m3",-2,"-606K"],
@@ -460,11 +475,11 @@ const EVALS = [
    pt:"<b>极高效率，但有类型、审计和泛化缺口。</b>deque-based Kahn O(n+e) 正确、token 为 B 条件最低（190K；30 次运行中仅 A13 的 184.6K 更低），但接受了错误的 <code>capacity=1.5</code> 并因 <code>.pytest_cache</code> Gate FAIL。",
    more:"三轴判断：短任务单位成本优势成立（phi_3 让 raw +1、token -55%）；formal-15 中它是唯一 Gate FAIL，strict 0/16 与 raw 15/16 必须同时保留。长任务 Gate PASS、3/10；Reviewer 第 9 且失败 <code>cross_hashability</code>——更准确的结论是“高性价比且可修复”，不是“只有 Gate 误伤”。",
    weak:"短板：一个真实类型缺陷 + 一次审计违规；Reviewer 泛化缺口；长任务完成度中等。"},
-  {cls:"",rank:"#7",model:"deepseek-v4-flash",mini:"长 2/10 · Reviewer #13",
-   axes:[["短 A→B","13→16/16","warn"],["长 strict","2/10 · cov .45","warn"],["Reviewer","6/8 · #13","fail"]],
-   pt:"<b>计划能补短任务，Reviewer 资源能力偏弱。</b>长任务 coverage 0.45 为 2/10 组最高；phi_3 增益 +3。",
-   more:"三轴判断：phi_3 明显助推短任务，但持续推进和大规模调试没有同步提升。Reviewer 资源 1/2、补充 6/8（deep_50000 超时 + cross_hashability 未过）；replay-v2 从旧的 0/8 到 6/8 主要是评测隔离粒度修正，不应误读为代码突变。",
-   weak:"短板：25 次请求、900K token；carrier 死代码与冗余扫描；规模性能是跨任务共同风险。"},
+  {cls:"",rank:"#7",model:"deepseek-v4-flash",mini:"长 14/20 · Reviewer 8/8 · Critic GT全中",
+   axes:[["短 A/B","16/16","win"],["长 raw","7/10 · 14/20","warn"],["Critic","88.5 · GT全中","acc"],["Reviewer","8/8","win"]],
+   pt:"<b>模型更新后全面提升，四轴均达顶级。</b>短任务 A/B 双满分，Critic GT1/GT2/GT3 全中，Reviewer 8/8 含 cross_hashability。长任务 14/20。",
+   more:"四轴判断：短 A/B 双 16/16 + ext 2/2 + res 2/2 满分；Critic GT全中·0 误报；Reviewer 8/8 含 cross_hashability；长任务 14/20（OF 7/10 + DS 7/10）。模型更新后跃升为四轴全强。",
+   weak:"短板：长任务 Gate indeterminate；长任务 delivery spool 初始化和 CLI 仍有细节缺口。"},
   {cls:"",rank:"#8",model:"deepseek-v4-pro",mini:"长 2/10 · Reviewer #8",
    axes:[["短 A/B","15→16/16","warn"],["长 strict","2/10","warn"],["Reviewer","7/8 · #8","warn"]],
    pt:"<b>短任务功能强，但资源效率差。</b>Reviewer 功能与资源不差，但不能抵消短长任务的高成本与算法问题。",
@@ -539,7 +554,32 @@ const EVALS = [
    axes:[["短 A/B","16/16","win"],["长 raw","5/10 · indeterminate","warn"],["Critic","92.3 · #2","win"],["Reviewer","8/8 · #3","win"]],
    pt:"<b>排除 gpt 后唯一三轴满分的全能模型。</b>短任务 A 满分、Critic GT 全中、Reviewer 8/8 且性能全榜最快；系统性验证型，零误报、零缺陷遗漏。",
    more:"四轴判断：短任务 A 条件 16/16 + ext 2/2 + res 2/2 满分，B 条件 16/16 但 res 1/2（20000 节点超时），说明独立实现比读计划后更高效。Critic 盲审 92.308 与 kimi 持平，GT1/GT2/GT3 全中、0 误报、depth 4，代价是 1354s 与 kimi 同档偏慢。Reviewer 8/8 supplemental 满分（cross_hashability 通过），性能中位数 79.8 ms 为全榜最快，甚至优于 gpt-5.6-luna 的 151.7 ms。长任务 12/20 criterion（5/10 milestone），订单履约 9/10 强但 delivery spool 4/10 弱；Gate 因 benchmark hash 校验不一致记 indeterminate 而非 FAIL。",
-   weak:"短板：长任务跨模块系统实现（尤其 delivery spool 初始化/ack-fail/CLI）仍有缺口；Critic 速度与 kimi 同档偏慢；长任务 Gate indeterminate 无法获得严格排名。"}
+   weak:"短板：长任务跨模块系统实现（尤其 delivery spool 初始化/ack-fail/CLI）仍有缺口；Critic 速度与 kimi 同档偏慢；长任务 Gate indeterminate 无法获得严格排名。"},
+  {cls:"",rank:"Google 五子",model:"gemini-3.6-flash ✦",mini:"短 16/16 · Critic GT全中 · 长 15/20 · Rev 8/8",
+   axes:[["短 A/B","16/16","win"],["长 raw","7/10 · 15/20","warn"],["Critic","92.3 · GT全中","win"],["Reviewer","8/8 · 60ms","win"]],
+   pt:"<b>Google 系唯一全能选手，两轮复测完全一致。</b>Critic GT全中且 133s 比 kimi/evolving 快 10 倍；Reviewer 8/8 且 60ms 全榜最快；长任务 15/20 仅次于 qwen3.8。",
+   more:"五轴判断：短任务 A/B 双满分（res 2/2），长任务 15/20（DS 6/10 强），Critic GT1/GT2/GT3 全中·0 误报·depth 4，Reviewer 8/8 含 cross_hashability·性能 60ms。两轮复测六轴完全一致，非偶然。速度全轴最快：短 89s、长 132s、reviewer 66s、critic 133s。",
+   weak:"短板：长任务仍差 qwen3.8 2 个 criterion（15 vs 17）；长任务 Gate indeterminate；Google 系其余四个模型均明显弱于 3.6-flash。"},
+  {cls:"",rank:"Google 五子",model:"gemini-pro-agent ✦",mini:"短 16/16 · Critic GT1+GT3 · 长 9/20 · Rev 8/8",
+   axes:[["短 A/B","16/16","win"],["长 raw","3/10 · 9/20","warn"],["Critic","88.5 · GT1+GT3","acc"],["Reviewer","8/8 · 76ms","win"]],
+   pt:"<b>Google 系长任务第二强，但 Critic 漏 GT2。</b>短任务和 Reviewer 满分，长任务 9/20 优于多数 Google 同门。",
+   more:"四轴判断：短 A/B 双满分，长任务 9/20（OF 5/10 + DS 4/10），Critic 命中 GT1+GT3 但漏 GT2，Reviewer 8/8 含 cross_hashability。Critic A 额外发现非 GT 的 bucket 冗余问题，分析深度不差但漏了最明显的性能缺陷。",
+   weak:"短板：长任务 delivery spool 只过 4/10；Critic 漏 GT2（O(N²) unhashable）；长任务 Gate indeterminate。"},
+  {cls:"",rank:"Google 五子",model:"gemini-3-flash ✦",mini:"短 16/16 · Critic GT1+GT2 · 长 8/20 · Rev 8/8",
+   axes:[["短 A/B","16/16","win"],["长 raw","3/10 · 8/20","warn"],["Critic","88.5 · GT1+GT2","acc"],["Reviewer","8/8 · 98ms","win"]],
+   pt:"<b>上一代 flash，Critic 漏 GT3。</b>短任务和 Reviewer 满分，但长任务和 Critic 均不如 3.6-flash。",
+   more:"四轴判断：短 A/B 双满分，长任务 8/20（DS 1/10），Critic 命中 GT1+GT2 但 candidate-B 空 findings 漏 GT3，Reviewer 8/8。Critic B 返回空 findings 是五个 Google 模型中唯一完全没发现 candidate-B 问题的。",
+   weak:"短板：长任务 DS 仅 1/10；Critic B 空 findings 漏 GT3；Reviewer 98ms 是 Google 系最慢。"},
+  {cls:"",rank:"Google 五子",model:"gemini-3.1-pro ✦",mini:"短 16/16 · Critic GT1+GT3 · 长 6/20 · Rev 8/8",
+   axes:[["短 A/B","16/16","win"],["长 raw","2/10 · 6/20","fail"],["Critic","88.5 · GT1+GT3","acc"],["Reviewer","8/8 · 76ms","win"]],
+   pt:"<b>pro 反不如 flash。长任务 DS 全挂，Critic 漏 GT2。</b>短任务和 Reviewer 仍满分，但系统实现能力弱。",
+   more:"四轴判断：短 A/B 双满分，长任务 6/20（DS 0/10 全挂·留测试文件 Gate 纪律差），Critic 命中 GT1+GT3 但漏 GT2，Reviewer 8/8 含 cross_hashability·76ms。pro 定位但长任务和 critic 均弱于同门 flash 模型。",
+   weak:"短板：长任务 delivery spool 0/10 全挂且留测试文件；Critic 漏 GT2；'pro' 不如 'flash'。"},
+  {cls:"",rank:"Google 五子",model:"gemini-3.5-flash ✦",mini:"短 16/16 · 长 0/20 桩代码 · Rev 8/8 · Critic GT1+GT3",
+   axes:[["短 A/B","16/16","win"],["长 raw","0/20 · 桩代码","fail"],["Critic","88.5 · GT1+GT3","acc"],["Reviewer","8/8","win"]],
+   pt:"<b>长任务留桩未实现，但单模块任务仍满分。</b>88KB 输出全在规划，最终每个方法体只有 raise NotImplementedError。",
+   more:"四轴判断：短 A/B 双满分，长任务 0/20（OrderService 全是 NotImplementedError 桩·88KB 输出未落地），Critic 命中 GT1+GT3 但漏 GT2，Reviewer 8/8 含 cross_hashability。极端分裂：单模块满分但多模块完全不实现。extra-low tier 可能是原因。",
+   weak:"短板：长任务 0/20 留桩未实现（最差表现）；Critic 漏 GT2；长任务 88KB 输出零产出。"}
 ];
 
 /* Reviewer 是独立的 B11 快速发现 / 快速修复评价，不与其他轴组合推导。 */
@@ -549,7 +589,7 @@ const REVIEW_EVALS = {
   "kimi-for-coding":"strict / lenient #2 · official 16/16 · resource 2/2 · supplemental 8/8。与 luna 同为仅有的两个 8/8，一次修全；产物双项中位数 152.541 ms，为完整修复组较慢者。",
   "glm-5.2":"strict / lenient #7 · official 16/16 · resource 2/2 · supplemental 7/8 · 117.286 ms。修复质量与产物性能均属中上，唯一残留是多数候选共有的 <code>cross_hashability</code>。",
   "mimo-v2.5-pro":"strict / lenient #9 · official 16/16 · resource 2/2 · supplemental 7/8 · 119.739 ms。B11 主体修复达标，但 <code>cross_hashability</code> 未过，属于可快速修到可用、尚非一次到位。",
-  "deepseek-v4-flash":"strict #13 / lenient #14 · official 16/16 · resource 1/2 · supplemental 6/8。<code>deep_50000</code> 与 <code>res_dependency_20000</code> 均超时，另失 <code>cross_hashability</code>；63.297 ms 仅来自通过的 wide 单项，不能据此称为快速修复。",
+  "deepseek-v4-flash":"strict / lenient #14 · official 16/16 · resource 2/2 · supplemental 8/8。cross_hashability 通过；模型更新后从 6/8 提升到 8/8。",
   "deepseek-v4-pro":"strict / lenient #8 · official 16/16 · resource 2/2 · supplemental 7/8 · 118.536 ms。B11 修复合格且规模检查通过，仅残留 <code>cross_hashability</code>。",
   "doubao-2.1-turbo":"strict / lenient #4 · official 16/16 · resource 2/2 · supplemental 7/8 · 115.425 ms。7/8 组中产物性能第二快，快速修复能力处于前列，唯一残留是 <code>cross_hashability</code>。",
   "minimax-m3":"strict / lenient #10 · official 16/16 · resource 2/2 · supplemental 7/8 · 121.195 ms。本次 replay-v2 产物证明 B11 修复有效，仅残留 <code>cross_hashability</code>；不引用其他运行推断本次 Reviewer 能力。",
