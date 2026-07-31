@@ -415,11 +415,12 @@ const BOARDS = {
     title:"Critic 盲审 · critic-model-select-v1 总榜",sub:"21 候选审查盲化 candidate-A/B · 总分 100 = Recall 50 + Precision 20 + Depth 15 + Speed 10 + Format 5",
     src:"critic-model-select-v1/score-summary.json",max:100,unit:"",
     legend:[[C.win,"3/3 GT 全中"],[C.acc,"命中 2 GT"],[C.warn,"命中 1 GT"],[C.fail,"未命中 GT"]],
-    note:"kimi、doubao-seed-evolving ✦、gemini-3.6-flash ✦ 和 deepseek-flash (v2) 是唯四完整命中 GT1/GT2/GT3 的 Critic；deepseek-flash (v2) 为模型更新后数据（旧版：0 GT · 28.9 分）；gemini 两轮复测结果完全一致（GT全中·8/8 reviewer·15/20长任务），133s 比 kimi/evolving 快 10 倍。doubao-2.0-pro 68s 最快但漏 GT2。✦ = 隔离补充运行。",
+    note:"kimi、doubao-seed-evolving ✦、gemini-3.6-flash ✦ 和 deepseek-flash (v2) 是唯四完整命中 GT1/GT2/GT3 的 Critic；deepseek-flash (v2) 为模型更新后数据（旧版：0 GT · 28.9 分），全中 GT 但 depth 最高 3（缺实测验证），总分 94.5 高于 kimi/evolving；gemini 两轮复测结果完全一致（GT全中·8/8 reviewer·15/20长任务），133s 比 kimi/evolving 快 10 倍。doubao-2.0-pro 68s 最快但漏 GT2。✦ = 隔离补充运行。",
     rows:[
       ["kimi",92.308,C.win,"GT1·GT2·GT3 · 1332s","92.308"],
       ["doubao-seed-evolving ✦",92.308,C.win,"GT1·GT2·GT3 · 1354s","92.308"],
       ["gemini-3.6-flash ✦",92.308,C.win,"GT1·GT2·GT3 · 133s · 两轮一致","92.308"],
+      ["deepseek-flash (v2)",94.462,C.win,"GT1·GT2·GT3 · 462s · depth 3","94.462"],
       ["gemini-3-flash ✦",88.462,C.acc,"GT1·GT2 · 漏GT3","88.462"],
       ["gemini-3.1-pro ✦",88.462,C.acc,"GT1·GT3 · 漏GT2","88.462"],
       ["gemini-3.5-flash ✦",88.462,C.acc,"GT1·GT3 · 漏GT2","88.462"],
@@ -432,7 +433,7 @@ const BOARDS = {
       ["doubao-2.1-turbo",64.577,C.warn,"GT1 · 644s","64.577"],
       ["mimo-v2.5-pro",63.038,C.warn,"GT1 · 2127s","63.038"],
       ["LongCat",47.769,C.warn,"GT2 · 2735s","47.769"],
-      ["deepseek-flash (v2)",88.462,C.acc,"GT1·GT2·GT3","88.462"],
+      
       ["glm-5.2",28.385,C.fail,"0 GT · 485s","28.385"],
       ["minimax-m3",28.154,C.fail,"0 GT · 431s","28.154"],
       ["mimo-v2.5",27.615,C.fail,"0 GT · 521s","27.615"],
