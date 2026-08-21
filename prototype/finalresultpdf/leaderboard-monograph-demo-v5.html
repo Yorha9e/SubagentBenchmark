@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE SUBAGENT MONOGRAPH 2026 — 杂志质感与沉降压迫感 DEMO V5</title>
+
+  <!-- Google Fonts: Noto Serif SC, Noto Sans SC, Playfair Display & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=LXGW+WenKai:wght@400;700&family=Noto+Sans+SC:wght@700;900&family=Noto+Serif+SC:wght@400;700;900&family=Playfair+Display:ital,wght@0,900;1,700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            mono: {
+              bg: '#0c0e12',
+              slab: '#141720',
+              slabHover: '#1c202d',
+              vermillion: '#d9381e',
+              paper: '#eae8e1',
+              muted: '#656e7b',
+              border: '#282d3b'
+            }
+          },
+          fontFamily: {
+            serif: ['"Noto Serif SC"', '"Playfair Display"', 'serif'],
+            script: ['"LXGW WenKai"', 'serif'],
+            sans: ['"Noto Sans SC"', 'sans-serif'],
+            code: ['"Fira Code"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    ::selection { background: #d9381e; color: #ffffff; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0c0e12; }
+    ::-webkit-scrollbar-thumb { background: #d9381e; }
+
+    body {
+      background-color: #0c0e12;
+      color: #eae8e1;
+      font-family: "Noto Serif SC", serif;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* Magazine Heavy Architectural Slab */
+    .magazine-slab {
+      background: #141720;
+      border-top: 5px solid #282d3b;
+      border-bottom: 1px solid #282d3b;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .magazine-slab:hover {
+      border-top-color: #d9381e;
+      background: #191c28;
+      transform: translateY(-3px);
+    }
+
+    .heavy-vermillion-tag {
+      background: #d9381e;
+      color: #ffffff;
+      font-family: "Fira Code", monospace;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    /* Massive Editorial Number Overlay */
+    .editorial-bg-num {
+      font-family: "Playfair Display", "Noto Serif SC", serif;
+      font-weight: 900;
+      line-height: 0.8;
+      color: rgba(255, 255, 255, 0.04);
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen p-4 sm:p-10">
+
+  <!-- Top Magazine Header -->
+  <header class="border-b-4 border-mono-vermillion pb-6 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+    <div class="space-y-2">
+      <div class="flex items-center space-x-3 text-xs font-code text-mono-vermillion uppercase tracking-widest font-bold">
+        <span>VOL. 2026 // ISSUE 04</span>
+        <span>•</span>
+        <span>SPECIAL EDITION</span>
+      </div>
+      <h1 class="text-4xl sm:text-7xl font-black font-sans tracking-tight text-white leading-none">
+        THE SUBAGENT MONOGRAPH
+      </h1>
+      <p class="font-script text-sm sm:text-base text-mono-paper/80">
+        “杂志质感与沉降压迫感排版 — 32+ 候选模型四轴自治执行力特刊”
+      </p>
+    </div>
+
+    <!-- Mode Selector -->
+    <div class="flex items-center border-2 border-mono-border bg-mono-slab p-1 font-code text-xs font-bold">
+      <button onclick="setMonographTab('spotlight')" id="mbtn-spotlight" class="px-5 py-2 transition bg-mono-vermillion text-white">
+        01 / 沉降特写 (SPOTLIGHT)
+      </button>
+      <button onclick="setMonographTab('grid')" id="mbtn-grid" class="px-5 py-2 transition text-slate-400 hover:text-white border-l border-mono-border">
+        02 / 杂志长卷 (EDITORIAL)
+      </button>
+      <button onclick="setMonographTab('blueprint')" id="mbtn-blueprint" class="px-5 py-2 transition text-slate-400 hover:text-white border-l border-mono-border">
+        03 / 拓扑编排 (TOPOLOGY)
+      </button>
+    </div>
+  </header>
+
+  <!-- Massive Headline Numbers Strip -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 border-b border-mono-border pb-12">
+    <div class="magazine-slab p-6 relative overflow-hidden">
+      <div class="editorial-bg-num absolute -right-2 -bottom-4 text-7xl">34</div>
+      <span class="font-code text-xs text-mono-vermillion font-bold block">01 / TOTAL CANDIDATES</span>
+      <span class="text-3xl font-black font-sans text-white mt-2 block">34 款模型</span>
+      <span class="font-script text-xs text-slate-400 mt-1 block">全覆盖基准测量</span>
+    </div>
+
+    <div class="magazine-slab p-6 relative overflow-hidden">
+      <div class="editorial-bg-num absolute -right-2 -bottom-4 text-7xl">19</div>
+      <span class="font-code text-xs text-mono-vermillion font-bold block">02 / MAX AUTONOMY</span>
+      <span class="text-3xl font-black font-sans text-white mt-2 block">19 / 20 指标</span>
+      <span class="font-script text-xs text-slate-400 mt-1 block">gpt-5.6-sol 独占第一</span>
+    </div>
+
+    <div class="magazine-slab p-6 relative overflow-hidden">
+      <div class="editorial-bg-num absolute -right-2 -bottom-4 text-7xl">58</div>
+      <span class="font-code text-xs text-emerald-400 font-bold block">03 / MIN LATENCY</span>
+      <span class="text-3xl font-black font-sans text-emerald-400 mt-2 block">58.1 ms ★</span>
+      <span class="font-script text-xs text-slate-400 mt-1 block">muse-spark-1.2 极速王</span>
+    </div>
+
+    <div class="magazine-slab p-6 relative overflow-hidden">
+      <div class="editorial-bg-num absolute -right-2 -bottom-4 text-7xl">98</div>
+      <span class="font-code text-xs text-mono-vermillion font-bold block">04 / CRITIC RECALL</span>
+      <span class="text-3xl font-black font-sans text-white mt-2 block">98.2 分 ★</span>
+      <span class="font-script text-xs text-slate-400 mt-1 block">gemini-3.6 盲审冠冕</span>
+    </div>
+  </section>
+
+  <!-- MAIN DEMO CONTENT AREA -->
+  <main id="monograph-main" class="space-y-12">
+    <!-- Rendered dynamically by JS -->
+  </main>
+
+  <footer class="border-t-4 border-mono-border mt-20 pt-8 pb-12 flex justify-between items-center font-code text-xs text-mono-muted">
+    <div>THE SUBAGENT MONOGRAPH • DEMO V5</div>
+    <div>DESIGNED FOR HEAVY ARCHITECTURAL MASS</div>
+  </footer>
+
+  <!-- DEMO DATA & LOGIC -->
+  <script>
+    const MODELS = [
+      {
+        name: "GROK-4.6 ✦",
+        tag: "✦ 全能综合第一",
+        short: "16/16 满分",
+        long: "16/20 (8/10)",
+        rev: "92.6 ms",
+        critic: "90.0分 (3 GT)",
+        quote: "在短任务、长任务、Reviewer 毫秒级测试以及 Critic 盲审四大维度上均进入第一梯队，表现出极其稳健的指令遵循与边界严密性。",
+        analysis: "短任务 A/B 均为 16/16 + ext 2/2 + res 2/2；长任务 16/20 高度完成；Critic 3 GT 全中 0 误报 (90.0分)；Reviewer 92.6ms。无短板选型。"
+      },
+      {
+        name: "GPT-5.6-SOL ✦",
+        tag: "🛡️ 长任务自治 MVP",
+        short: "16/16 满分",
+        long: "19/20 (9/10) ★",
+        rev: "8/8 满分",
+        critic: "97.5分 (d4)",
+        quote: "长任务 delivery spool 10/10，总体达成 19/20 个完成指标，深度达 depth 4，是当前证据下最强的长任务自治交付者。",
+        analysis: "短任务与 Reviewer 全满，Critic 三个 GT 全中；长任务只漏 OF1-C2 输入校验，Delivery Spool 侧实现完全闭环。"
+      },
+      {
+        name: "MUSE-SPARK-1.2 ✦",
+        tag: "⚡ Reviewer 极速王",
+        short: "16/16 满分",
+        long: "17/20 (8/10)",
+        rev: "58.1 ms ★ 最快",
+        critic: "90.0分 (3 GT)",
+        quote: "以 58.1 ms 的极致速度横扫 Reviewer 8/8 榜单！长任务达到 17/20，表现出惊人的调试与响应效率。",
+        analysis: "Reviewer 调试中位数 58.1ms 创下全场最高速；短任务 16/16，长任务 17/20 (8/10 milestone) 追平 qwen3.8-max。"
+      },
+      {
+        name: "OX-OPENROUTER ✦",
+        tag: "✦ OpenRouter 标杆",
+        short: "16/16 满分",
+        long: "14/20 (7/10)",
+        rev: "73.5 ms 满档速",
+        critic: "87.0分 (3 GT)",
+        quote: "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms 满档速；Critic 盲审抓出全部 3 个 Ground Truth。",
+        analysis: "短任务两侧资源与扩展项 2/2 全部过门线；Reviewer 在 B11 依赖层调试中实现 8/8 完整修复，73.5ms 响应极其敏捷。"
+      },
+      {
+        name: "GEMINI-3.6-FLASH ✦",
+        tag: "🔍 Critic 逻辑盲审王",
+        short: "16/16 满分",
+        long: "15/20 (7/10)",
+        rev: "60.1 ms 极速",
+        critic: "98.2分 ★ 独占#1",
+        quote: "98.235 分独占 Critic 盲审榜首！133s 最速全抓 3 GT 且 depth 4，两轮复测结果完全一致。",
+        analysis: "短 A/B 双满分且资源 2/2；Critic GT1/GT2/GT3 全中、0 误报、depth 4；Reviewer 8/8 含 cross_hashability·60ms 极速。"
+      }
+    ];
+
+    let currentMonographTab = 'spotlight';
+
+    function setMonographTab(t) {
+      currentMonographTab = t;
+      document.querySelectorAll('header button').forEach(b => {
+        b.className = 'px-5 py-2 transition text-slate-400 hover:text-white border-l border-mono-border';
+      });
+      document.getElementById(`mbtn-${t}`).className = 'px-5 py-2 transition bg-mono-vermillion text-white font-bold';
+      renderMonographDemo();
+    }
+
+    function renderMonographDemo() {
+      const container = document.getElementById('monograph-main');
+
+      if (currentMonographTab === 'spotlight') {
+        let spotlightHtml = MODELS.map((m, i) => `
+          <article class="magazine-slab p-8 sm:p-10 relative overflow-hidden">
+            <!-- Background Watermark Number -->
+            <div class="editorial-bg-num absolute -right-6 -bottom-10 text-[160px] pointer-events-none">0${i+1}</div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
+              <!-- Left Model Title Column -->
+              <div class="md:col-span-4 space-y-3">
+                <span class="inline-block heavy-vermillion-tag px-3 py-1 text-xs uppercase">${m.tag}</span>
+                <h2 class="text-3xl sm:text-5xl font-black font-sans text-white tracking-tight">${m.name}</h2>
+                <div class="font-code text-xs text-mono-muted pt-2 border-t border-mono-border">
+                  CHAPTER 0${i+1} // MONOGRAPH SPECIMEN
+                </div>
+              </div>
+
+              <!-- Center Narrative Quote -->
+              <div class="md:col-span-5 space-y-3 border-l-2 border-mono-vermillion pl-6">
+                <p class="font-script text-base text-mono-paper leading-relaxed italic">
+                  “${m.quote}”
+                </p>
+                <p class="font-serif text-xs text-slate-400 leading-relaxed pt-2">
+                  ${m.analysis}
+                </p>
+              </div>
+
+              <!-- Right 4-Axis Telemetry Slabs -->
+              <div class="md:col-span-3 grid grid-cols-2 gap-3 font-code text-xs">
+                <div class="bg-black/60 p-3 border border-mono-border">
+                  <span class="text-slate-500 block text-[10px]">短任务遵循</span>
+                  <span class="text-white font-bold text-sm mt-0.5 block">${m.short}</span>
+                </div>
+                <div class="bg-black/60 p-3 border border-mono-border">
+                  <span class="text-slate-500 block text-[10px]">长任务自治</span>
+                  <span class="text-white font-bold text-sm mt-0.5 block">${m.long}</span>
+                </div>
+                <div class="bg-black/60 p-3 border border-mono-border">
+                  <span class="text-slate-500 block text-[10px]">Reviewer</span>
+                  <span class="text-emerald-400 font-bold text-sm mt-0.5 block">${m.rev}</span>
+                </div>
+                <div class="bg-black/60 p-3 border border-mono-border">
+                  <span class="text-slate-500 block text-[10px]">Critic 盲审</span>
+                  <span class="text-mono-vermillion font-bold text-sm mt-0.5 block">${m.critic}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        `).join('');
+
+        container.innerHTML = `
+          <div class="space-y-8">
+            ${spotlightHtml}
+          </div>
+        `;
+      } else if (currentMonographTab === 'grid') {
+        let gridRows = MODELS.map((m, i) => `
+          <tr class="border-b border-mono-border hover:bg-mono-slabHover font-code text-xs transition">
+            <td class="p-4 font-bold text-white font-serif text-sm">${m.name}</td>
+            <td class="p-4"><span class="heavy-vermillion-tag px-2 py-0.5 text-[10px]">${m.tag}</span></td>
+            <td class="p-4 text-white font-bold">${m.short}</td>
+            <td class="p-4 text-mono-paper font-bold">${m.long}</td>
+            <td class="p-4 text-emerald-400 font-bold">${m.rev}</td>
+            <td class="p-4 text-mono-vermillion font-bold">${m.critic}</td>
+          </tr>
+        `).join('');
+
+        container.innerHTML = `
+          <div class="magazine-slab p-8 space-y-6">
+            <h3 class="text-2xl font-bold font-sans text-white">02 / 杂志大榜矩阵 (EDITORIAL MATRIX)</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left font-code">
+                <thead class="bg-black text-xs text-mono-paper border-b-2 border-mono-vermillion uppercase">
+                  <tr>
+                    <th class="p-4">MODEL NAME</th>
+                    <th class="p-4">SPECIMEN TAG</th>
+                    <th class="p-4">SHORT SPEC</th>
+                    <th class="p-4">LONG AUTONOMY</th>
+                    <th class="p-4">REVIEWER LATENCY</th>
+                    <th class="p-4">CRITIC SCORE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${gridRows}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else if (currentMonographTab === 'blueprint') {
+        container.innerHTML = `
+          <div class="magazine-slab p-10 text-center space-y-8">
+            <h3 class="text-3xl font-black font-sans text-white">03 / 多模型协同拓扑 (SUBAGENT TOPOLOGY)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 font-code text-xs">
+              <div class="p-6 border-t-4 border-mono-vermillion bg-black/60 space-y-2">
+                <span class="text-mono-vermillion font-bold block">01 / PLANNER</span>
+                <span class="text-white font-bold text-sm block">kimi-k3 / gpt-5.6-sol</span>
+                <span class="text-slate-400 text-[10px] block">100% Instruction Match</span>
+              </div>
+              <div class="p-6 border-t-4 border-white bg-black/60 space-y-2">
+                <span class="text-white font-bold block">02 / SHORTCODER</span>
+                <span class="text-white font-bold text-sm block">step-3.7-flash</span>
+                <span class="text-slate-400 text-[10px] block">327K Low Token Cost</span>
+              </div>
+              <div class="p-6 border-t-4 border-emerald-500 bg-black/60 space-y-2">
+                <span class="text-emerald-400 font-bold block">03 / REVIEWER</span>
+                <span class="text-white font-bold text-sm block">muse-spark-1.2 (58ms)</span>
+                <span class="text-slate-400 text-[10px] block">Record Speed Latency</span>
+              </div>
+              <div class="p-6 border-t-4 border-mono-vermillion bg-black/60 space-y-2">
+                <span class="text-mono-vermillion font-bold block">04 / CRITIC</span>
+                <span class="text-white font-bold text-sm block">gemini-3.6-flash</span>
+                <span class="text-slate-400 text-[10px] block">98.2 PT Depth 4</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMonographDemo();
+    });
+  </script>
+</body>
+</html>

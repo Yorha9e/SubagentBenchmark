@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE SUBAGENT GAZETTE — 报刊主题下的多维展现范式 DEMO V16</title>
+
+  <!-- Google Fonts: Playfair Display, Noto Serif SC, LXGW WenKai, Fira Code & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@300;400;700;900&family=LXGW+WenKai:wght@400;700&family=Noto+Serif+SC:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            granite: {
+              bg: '#050507',
+              paper: '#0c0c11',
+              border: '#1c1c26',
+              slate: '#787884',
+              white: '#ffffff'
+            }
+          },
+          fontFamily: {
+            serif: ['"Noto Serif SC"', '"Playfair Display"', 'Georgia', 'serif'],
+            script: ['"LXGW WenKai"', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+            code: ['"Fira Code"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Dataset & Engine -->
+  <script src="./data/dataset.js"></script>
+  <script src="./js/benchmark-engine.js"></script>
+
+  <style>
+    ::selection { background: #ffffff; color: #000000; }
+    ::-webkit-scrollbar { display: none; }
+
+    body {
+      background-color: #050507;
+      color: #e4e4e6;
+      font-family: "Noto Serif SC", serif;
+      overflow: hidden;
+      perspective: 1400px;
+    }
+
+    .hairline-b { border-bottom: 1px solid #1c1c26; }
+    .hairline-t { border-top: 1px solid #1c1c26; }
+    .hairline-r { border-right: 1px solid #1c1c26; }
+
+    .archival-label {
+      font-family: "Fira Code", monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #787884;
+    }
+
+    .archival-sheet {
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      padding: 5rem 3.5rem 3.5rem 3.5rem;
+      background: #0a0a0e;
+      border: 1px solid #1c1c26;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform-origin: left center;
+    }
+
+    #laser-cut-line {
+      position: fixed;
+      top: 50%; left: 0; right: 0;
+      height: 2px;
+      background: #ffffff;
+      box-shadow: 0 0 20px #ffffff;
+      z-index: 95;
+      transform: scaleX(0);
+      pointer-events: none;
+    }
+
+    /* Dedicated Model Specimen Dossier */
+    #model-dossier-portal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 7, 0.96);
+      backdrop-filter: blur(25px);
+      z-index: 200;
+      padding: 4rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    #model-dossier-portal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Quadrant Node */
+    .quadrant-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .quadrant-node:hover {
+      transform: translate(-50%, -50%) scale(1.3);
+      z-index: 40;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="laser-cut-line"></div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#050507]/95 backdrop-blur-md px-8 py-4 border-b border-[#1c1c26] flex justify-between items-center archival-label">
+    <div class="flex items-center space-x-3 text-white font-bold">
+      <span class="w-2.5 h-2.5 bg-white inline-block"></span>
+      <span class="font-sans font-extrabold tracking-wider text-xs">THE SUBAGENT GAZETTE</span>
+    </div>
+
+    <!-- 4 Diverse Presentation Mode Switcher WITHIN the Gazette Theme -->
+    <div class="flex items-center space-x-1 border border-white/20 p-1">
+      <button onclick="showSheet(0)" id="mode-0" class="px-3 py-1 bg-white text-black font-bold">📜 01 / 报头号外</button>
+      <button onclick="showSheet(1)" id="mode-1" class="px-3 py-1 text-slate-400 hover:text-white">🔍 02 / 交互矩阵</button>
+      <button onclick="showSheet(2)" id="mode-2" class="px-3 py-1 text-slate-400 hover:text-white">🌌 03 / 报刊象限</button>
+      <button onclick="showSheet(3)" id="mode-3" class="px-3 py-1 text-slate-400 hover:text-white">⚙️ 04 / 协同拓扑</button>
+    </div>
+  </header>
+
+  <!-- 3D ARCHIVAL PAPER SHEETS -->
+  <main class="relative w-screen h-screen overflow-hidden" id="sheets-wrapper">
+
+    <!-- MODE 01: GAZETTE FRONT-PAGE (报头号外) -->
+    <div class="archival-sheet active" id="sheet-0" style="opacity: 1; pointer-events: auto;">
+      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+        <span>MODE 01 // GAZETTE FRONT-PAGE SPREAD</span>
+        <span>THE SUBAGENT MONOGRAPH BUREAU</span>
+        <span>AUG 2026</span>
+      </div>
+
+      <div class="my-auto space-y-6 max-w-4xl z-10 sheet-content">
+        <span class="archival-label text-white bg-white/10 px-3 py-1 font-bold">
+          [ISSUE 2026 // HARNESS VERIFIED // 34 MODELS]
+        </span>
+        <h1 class="text-5xl sm:text-8xl font-black font-sans tracking-tighter text-white uppercase leading-none">
+          THE SUBAGENT GAZETTE
+        </h1>
+        <p class="font-script text-base sm:text-2xl text-slate-300 leading-relaxed italic">
+          “保持《GAZETTE》报刊与阅览室主题。切换顶部导航，在 4 种不同表现范式间探索数据。”
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 hairline-t pt-6 archival-label items-end sheet-content">
+        <div><span class="text-white font-bold block">01 / TOTAL SPECIES</span><span>34 款全量模型剖析</span></div>
+        <div><span class="text-white font-bold block">02 / AUTONOMY PEAK</span><span>19 / 20 指标 (gpt-5.6-sol)</span></div>
+        <div><span class="text-white font-bold block">03 / REVIEWER SPEED</span><span>58.1 ms (muse-spark-1.2)</span></div>
+        <div class="text-right"><span class="text-white font-bold block animate-bounce">↓ 切换顶部视角或滚轮切页</span></div>
+      </div>
+    </div>
+
+    <!-- MODE 02: OPTICAL INSPECTION VIEWPORT (点击档案卡) -->
+    <div class="archival-sheet" id="sheet-1">
+      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+        <span>MODE 02 // GAZETTE INSPECTION TABLE</span>
+        <span class="text-white font-bold">点击任意行可查阅模型专属档案卡</span>
+        <span>02 / 04</span>
+      </div>
+
+      <div class="my-auto space-y-4 w-full z-10 sheet-content">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-code text-xs">
+            <thead class="bg-black text-slate-400 hairline-b">
+              <tr>
+                <th class="p-3">MODEL IDENTIFIER (点击进入专属卡)</th>
+                <th class="p-3">TAG</th>
+                <th class="p-3">SHORT (16)</th>
+                <th class="p-3">LONG (10)</th>
+                <th class="p-3">REVIEWER (修复数 + 时延)</th>
+                <th class="p-3">CRITIC SCORE</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/10" id="matrix-tbody">
+              <!-- Dynamically filled by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center archival-label hairline-t pt-4">
+        <span>MODE 02 / 04</span>
+        <span>THE SUBAGENT GAZETTE</span>
+        <span>CLICK ANY MODEL ROW FOR SPECIMEN DOSSIER</span>
+      </div>
+    </div>
+
+    <!-- MODE 03: ARCHIVAL GAZETTE QUADRANT MAP (报刊象限星图) -->
+    <div class="archival-sheet" id="sheet-2">
+      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+        <span>MODE 03 // ARCHIVAL QUADRANT MAP</span>
+        <span class="text-white font-bold">X: REVIEWER LATENCY (MS) | Y: CRITIC SCORE</span>
+        <span>03 / 04</span>
+      </div>
+
+      <div class="my-auto w-full h-[450px] border border-white/15 relative overflow-hidden bg-black/40 p-6 z-10 sheet-content" id="quadrant-board">
+        <div class="absolute left-1/2 top-0 bottom-0 border-r border-dashed border-white/20"></div>
+        <div class="absolute top-1/2 left-0 right-0 border-b border-dashed border-white/20"></div>
+        <div class="absolute top-3 left-4 archival-label text-white">QUADRANT I: ULTRA CHAMPIONS</div>
+        <div class="absolute top-3 right-4 archival-label text-slate-400">QUADRANT II: LOGIC TITANS</div>
+        <div id="quadrant-nodes-box"></div>
+      </div>
+
+      <div class="flex justify-between items-center archival-label hairline-t pt-4">
+        <span>MODE 03 / 04</span>
+        <span>THE SUBAGENT GAZETTE</span>
+        <span>CLICK STAR NODE FOR MODEL DOSSIER</span>
+      </div>
+    </div>
+
+    <!-- MODE 04: PIPELINE TOPOLOGY (小队协同拓扑) -->
+    <div class="archival-sheet" id="sheet-3">
+      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+        <span>MODE 04 // PIPELINE TOPOLOGY</span>
+        <span class="text-white font-bold">四轴多模型协同拓扑蓝图</span>
+        <span>04 / 04</span>
+      </div>
+
+      <div class="my-auto w-full space-y-6 z-10 sheet-content">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 font-serif">
+          <div class="p-6 border border-white/20 bg-black/60 space-y-2">
+            <span class="archival-label text-white font-bold block">01 / PLANNER</span>
+            <span class="text-white font-bold text-base block">kimi-k3 / gpt-5.6-sol</span>
+            <span class="text-slate-400 text-xs block font-script">100% 指令遵从，拆解精准。</span>
+          </div>
+          <div class="p-6 border border-white/20 bg-black/60 space-y-2">
+            <span class="archival-label text-white font-bold block">02 / SHORTCODER</span>
+            <span class="text-white font-bold text-base block">step-3.7 / glm-5.2</span>
+            <span class="text-slate-400 text-xs block font-script">极速代码交付，仅 327K token。</span>
+          </div>
+          <div class="p-6 border border-white/20 bg-black/60 space-y-2">
+            <span class="archival-label text-white font-bold block">03 / REVIEWER</span>
+            <span class="text-white font-bold text-base block">muse-spark-1.2</span>
+            <span class="text-slate-400 text-xs block font-script">8/8 修复全过 (58.1ms)。</span>
+          </div>
+          <div class="p-6 border border-white/20 bg-black/60 space-y-2">
+            <span class="archival-label text-white font-bold block">04 / CRITIC</span>
+            <span class="text-white font-bold text-base block">gemini-3.6-flash</span>
+            <span class="text-slate-400 text-xs block font-script">98.2 分独占 #1，0 误报。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center archival-label hairline-t pt-4">
+        <span>MODE 04 / 04</span>
+        <span>THE SUBAGENT GAZETTE</span>
+        <span>END OF MONOGRAPH</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- DEDICATED MODEL DOSSIER PORTAL (专属模型档案卡) -->
+  <div id="model-dossier-portal">
+    <div class="flex justify-between items-center hairline-b pb-4 archival-label">
+      <span>MODEL SPECIMEN DOSSIER // ARCHIVAL CARD</span>
+      <button onclick="closeDossierPortal()" class="px-4 py-1.5 border border-white text-white bg-white/10 font-bold hover:bg-white hover:text-black transition">
+        ✕ 返回总榜 (RETURN TO GAZETTE)
+      </button>
+    </div>
+
+    <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start" id="dossier-card-body"></div>
+
+    <div class="flex justify-between items-center hairline-t pt-4 archival-label">
+      <span>SUBAGENT BENCHMARK HARNESS</span>
+      <span>2026 GAZETTE ARCHIVE</span>
+    </div>
+  </div>
+
+  <script>
+    let currentIdx = 0;
+    const totalSheets = 4;
+    let isAnimating = false;
+    let engine;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      engine = new BenchmarkEngine();
+      renderAllViews();
+    });
+
+    function renderAllViews() {
+      const models = engine.models;
+
+      // 1. Matrix View
+      const matrixTbody = document.getElementById('matrix-tbody');
+      matrixTbody.innerHTML = models.map(m => `
+        <tr class="hover:bg-white/10 cursor-pointer font-code text-xs transition" onclick="openDossierPortal('${m.id}')">
+          <td class="p-3 font-bold text-white font-serif text-sm flex items-center space-x-2">
+            <i class="fa-solid fa-file-lines text-slate-500"></i>
+            <span>${m.name}</span>
+          </td>
+          <td class="p-3"><span class="archival-label text-white border border-white/20 px-2 py-0.5">${m.tag}</span></td>
+          <td class="p-3 text-emerald-400 font-bold">${m.shortTxt}</td>
+          <td class="p-3 text-cyan-400 font-bold">${m.longTxt}</td>
+          <td class="p-3 text-white font-bold">${m.revFixes} (${m.revLatency}ms)</td>
+          <td class="p-3 text-purple-400 font-bold">${m.criticTxt}</td>
+        </tr>
+      `).join('');
+
+      // 2. Quadrant Nodes
+      const quadBox = document.getElementById('quadrant-nodes-box');
+      models.forEach(m => {
+        const posX = Math.max(10, Math.min(90, 100 - ((m.revLatency - 50) / 110) * 80));
+        const posY = Math.max(10, Math.min(90, 100 - ((m.criticScore - 20) / 80) * 80));
+
+        const node = document.createElement('div');
+        node.className = 'quadrant-node group';
+        node.style.left = `${posX}%`;
+        node.style.top = `${posY}%`;
+        node.onclick = () => openDossierPortal(m.id);
+
+        node.innerHTML = `
+          <div class="w-6 h-6 rounded-full border border-white bg-black flex items-center justify-center">
+            <span class="w-2 h-2 rounded-full bg-white"></span>
+          </div>
+          <div class="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black border border-white/30 px-2 py-0.5 text-[10px] text-white font-mono opacity-90">
+            ${m.name} (${m.revLatency}ms)
+          </div>
+        `;
+        quadBox.appendChild(node);
+      });
+    }
+
+    function openDossierPortal(modelId) {
+      const m = engine.models.find(x => x.id === modelId) || engine.models[0];
+      const portal = document.getElementById('model-dossier-portal');
+      const body = document.getElementById('dossier-card-body');
+
+      body.innerHTML = `
+        <div class="md:col-span-5 space-y-4 hairline-r pr-8">
+          <span class="archival-label text-white bg-white/10 px-3 py-1 font-bold">[SPECIMEN DOSSIER]</span>
+          <h2 class="text-4xl sm:text-6xl font-black font-sans text-white tracking-tight">${m.name}</h2>
+          <p class="font-script text-base text-slate-200 leading-relaxed border-l-2 border-white pl-4 italic">
+            “${m.quote}”
+          </p>
+          <p class="font-serif text-xs text-slate-400 leading-relaxed">
+            ${m.analysis}
+          </p>
+        </div>
+
+        <div class="md:col-span-7 space-y-6">
+          <h3 class="archival-label text-white text-sm font-bold border-b border-white/20 pb-2">四轴底层基准实测数据</h3>
+
+          <div class="grid grid-cols-2 gap-4 font-code text-xs">
+            <div class="bg-black p-4 border border-white/20 space-y-1">
+              <span class="text-slate-500 block text-[10px]">短任务遵循率</span>
+              <span class="text-emerald-400 font-bold text-lg block">${m.shortTxt}</span>
+            </div>
+
+            <div class="bg-black p-4 border border-white/20 space-y-1">
+              <span class="text-slate-500 block text-[10px]">长任务自治闭环</span>
+              <span class="text-cyan-400 font-bold text-lg block">${m.longTxt}</span>
+            </div>
+
+            <div class="bg-black p-4 border border-white/20 space-y-1">
+              <span class="text-slate-500 block text-[10px]">Reviewer 通过修复数 & 时延</span>
+              <span class="text-white font-bold text-sm block">${m.revFixes}</span>
+              <span class="text-slate-400 text-[10px] block">响应时延: ${m.revLatency} ms</span>
+            </div>
+
+            <div class="bg-black p-4 border border-white/20 space-y-1">
+              <span class="text-slate-500 block text-[10px]">Critic 盲审综合得分</span>
+              <span class="text-purple-400 font-bold text-lg block">${m.criticTxt}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      portal.classList.add('active');
+      gsap.fromTo('#dossier-card-body', { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" });
+    }
+
+    function closeDossierPortal() {
+      document.getElementById('model-dossier-portal').classList.remove('active');
+    }
+
+    function showSheet(targetIdx) {
+      if (targetIdx < 0 || targetIdx >= totalSheets || isAnimating) return;
+      isAnimating = true;
+
+      const oldSheet = document.getElementById(`sheet-${currentIdx}`);
+      const newSheet = document.getElementById(`sheet-${targetIdx}`);
+      const direction = targetIdx > currentIdx ? 1 : -1;
+
+      document.querySelectorAll('header button').forEach((b, i) => {
+        b.className = i === targetIdx 
+          ? 'px-3 py-1 bg-white text-black font-bold' 
+          : 'px-3 py-1 text-slate-400 hover:text-white';
+      });
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          currentIdx = targetIdx;
+          isAnimating = false;
+        }
+      });
+
+      tl.to('#laser-cut-line', { scaleX: 1, duration: 0.3, ease: "power3.inOut" })
+        .to('#laser-cut-line', { opacity: 0, duration: 0.2 });
+
+      if (oldSheet && currentIdx !== targetIdx) {
+        tl.to(oldSheet, {
+          rotateY: direction * -20,
+          scale: 0.94,
+          x: direction * -80,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.inOut",
+          onComplete: () => {
+            oldSheet.classList.remove('active');
+            gsap.set(oldSheet, { opacity: 0, pointerEvents: "none" });
+          }
+        }, "-=0.4");
+      }
+
+      newSheet.classList.add('active');
+      gsap.set(newSheet, { opacity: 0, scale: 1.04, rotateY: direction * 20, x: direction * 80, pointerEvents: "auto" });
+
+      tl.to(newSheet, { opacity: 1, scale: 1, rotateY: 0, x: 0, duration: 0.95, ease: "power4.out" }, currentIdx === targetIdx ? 0 : "-=0.5");
+    }
+
+    let cooldown = false;
+    window.addEventListener('wheel', (e) => {
+      if (cooldown || isAnimating) return;
+      cooldown = true;
+      if (e.deltaY > 20) showSheet(currentIdx + 1);
+      else if (e.deltaY < -20) showSheet(currentIdx - 1);
+      setTimeout(() => { cooldown = false; }, 850);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"benchmark_id":"short-python-stdlib-v1","condition":"A","expected_model":"volcano/doubao-seed-2.1-turbo","group":"G2","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"A08","wave":"G2-A"}

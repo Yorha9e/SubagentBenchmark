@@ -1,0 +1,1140 @@
+{
+  "base_report": "short/results/final-report-spec-conformant-v2.json",
+  "benchmark_id": "short-python-stdlib-v1+subtest14+subtest15-supplemental",
+  "conditions": {
+    "A": 17,
+    "B": 17
+  },
+  "entry_count": 34,
+  "ranking_axes": {
+    "lenient": [
+      {
+        "direction": "high",
+        "name": "ExecutionCompleted"
+      },
+      {
+        "direction": "high",
+        "name": "RawCriterionCount"
+      },
+      {
+        "direction": "high",
+        "name": "AcceptanceCoverage"
+      },
+      {
+        "direction": "high",
+        "name": "InstructionComplianceRate"
+      },
+      {
+        "direction": "high",
+        "name": "ExtensionCapabilityCount"
+      },
+      {
+        "direction": "low",
+        "name": "InferenceTokensPerPassedCriterion"
+      }
+    ],
+    "strict": [
+      {
+        "direction": "high",
+        "name": "InstructionGate"
+      },
+      {
+        "direction": "high",
+        "name": "StrictTaskCount"
+      },
+      {
+        "direction": "high",
+        "name": "OfficialCriterionCount"
+      },
+      {
+        "direction": "high",
+        "name": "ExtensionCapabilityCount"
+      },
+      {
+        "direction": "high",
+        "name": "ResourceCapabilityCount"
+      },
+      {
+        "direction": "low",
+        "name": "InferenceTokensPerStrictTask"
+      },
+      {
+        "direction": "low",
+        "name": "InferenceTokensPerPassedCriterion"
+      }
+    ]
+  },
+  "rankings": {
+    "lenient": {
+      "A": [
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 19127.0,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "GPT/gpt-5.6-luna",
+          "rank": 1,
+          "slot": "A07",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 26651.625,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "volcano/glm-5.2",
+          "rank": 2,
+          "slot": "A14",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 35072.0625,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "qwen/qwen3.8-max-preview",
+          "rank": 3,
+          "slot": "A06",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "grok/grok-4.5",
+          "rank": 4,
+          "slot": "A16",
+          "supplemental": "subtest14"
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": 12131.3125,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "kimi-code/kimi-for-coding",
+          "rank": 5,
+          "slot": "A04",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 22706.6,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 15
+          },
+          "model": "deepseek/deepseek-v4-pro",
+          "rank": 6,
+          "slot": "A03",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 48648.26666666667,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 15
+          },
+          "model": "volcano/doubao-seed-2.1-turbo",
+          "rank": 7,
+          "slot": "A08",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 70049.86666666667,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 15
+          },
+          "model": "MT/LongCat-2.0",
+          "rank": 8,
+          "slot": "A01",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": 14891.066666666668,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 15
+          },
+          "model": "volcano/doubao-seed-2.0-pro",
+          "rank": 9,
+          "slot": "A09",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.875,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 29930.14285714286,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 14
+          },
+          "model": "mimo/mimo-v2.5-pro",
+          "rank": 10,
+          "slot": "A12",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.875,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 89515.21428571429,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 14
+          },
+          "model": "volcano/minimax-m3",
+          "rank": 11,
+          "slot": "A11",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.875,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 14
+          },
+          "model": "tx/hy3",
+          "rank": 12,
+          "slot": "A17",
+          "supplemental": "subtest15"
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.875,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": null,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 14
+          },
+          "model": "composer/composer-2.5",
+          "rank": 13,
+          "slot": "A15",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.8125,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 0,
+            "InferenceTokensPerPassedCriterion": 14199.153846153846,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 13
+          },
+          "model": "mimo/mimo-v2.5",
+          "rank": 14,
+          "slot": "A13",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.75,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 49321.75,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 12
+          },
+          "model": "stepfun/step-3.7-flash",
+          "rank": 15,
+          "slot": "A05",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.8125,
+            "ExecutionCompleted": 0,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 19538.69230769231,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 13
+          },
+          "model": "deepseek/deepseek-v4-flash",
+          "rank": 16,
+          "slot": "A02",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "AcceptanceCoverage": 0.75,
+            "ExecutionCompleted": 0,
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": 31655.25,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 12
+          },
+          "model": "volcano/doubao-seed-2.0-code",
+          "rank": 17,
+          "slot": "A10",
+          "supplemental": null
+        }
+      ],
+      "B": [
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 20422.25,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "stepfun/step-3.7-flash",
+          "rank": 1,
+          "slot": "B05",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 21384.3125,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "mimo/mimo-v2.5",
+          "rank": 2,
+          "slot": "B13",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 37660.3125,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "volcano/doubao-seed-2.1-turbo",
+          "rank": 3,
+          "slot": "B08",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 39061.9375,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "volcano/glm-5.2",
+          "rank": 4,
+          "slot": "B14",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 50220.6875,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "kimi-code/kimi-for-coding",
+          "rank": 5,
+          "slot": "B04",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 53963.875,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "qwen/qwen3.8-max-preview",
+          "rank": 6,
+          "slot": "B06",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 54329.9375,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "MT/LongCat-2.0",
+          "rank": 7,
+          "slot": "B01",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 55029.8125,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "GPT/gpt-5.6-luna",
+          "rank": 8,
+          "slot": "B07",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 56279.375,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "deepseek/deepseek-v4-flash",
+          "rank": 9,
+          "slot": "B02",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 87967.75,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "deepseek/deepseek-v4-pro",
+          "rank": 10,
+          "slot": "B03",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "composer/composer-2.5",
+          "rank": 11,
+          "slot": "B15",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 16
+          },
+          "model": "grok/grok-4.5",
+          "rank": 11,
+          "slot": "B16",
+          "supplemental": "subtest14"
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 1.0,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InstructionComplianceRate": 0.0,
+            "RawCriterionCount": 16
+          },
+          "model": "tx/hy3",
+          "rank": 13,
+          "slot": "B17",
+          "supplemental": "subtest15"
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 18405.4,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 15
+          },
+          "model": "volcano/doubao-seed-2.0-pro",
+          "rank": 14,
+          "slot": "B09",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 12688.0,
+            "InstructionComplianceRate": 0.0,
+            "RawCriterionCount": 15
+          },
+          "model": "mimo/mimo-v2.5-pro",
+          "rank": 15,
+          "slot": "B12",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 0.75,
+            "ExecutionCompleted": 1,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 53916.666666666664,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 12
+          },
+          "model": "volcano/minimax-m3",
+          "rank": 16,
+          "slot": "B11",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "AcceptanceCoverage": 0.9375,
+            "ExecutionCompleted": 0,
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 31285.8,
+            "InstructionComplianceRate": 1.0,
+            "RawCriterionCount": 15
+          },
+          "model": "volcano/doubao-seed-2.0-code",
+          "rank": 17,
+          "slot": "B10",
+          "supplemental": null
+        }
+      ]
+    },
+    "strict": {
+      "A": [
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 19127.0,
+            "InferenceTokensPerStrictTask": 76508.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "GPT/gpt-5.6-luna",
+          "rank": 1,
+          "slot": "A07",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 26651.625,
+            "InferenceTokensPerStrictTask": 106606.5,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "volcano/glm-5.2",
+          "rank": 2,
+          "slot": "A14",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 35072.0625,
+            "InferenceTokensPerStrictTask": 140288.25,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "qwen/qwen3.8-max-preview",
+          "rank": 3,
+          "slot": "A06",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "grok/grok-4.5",
+          "rank": 4,
+          "slot": "A16",
+          "supplemental": "subtest14"
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": 12131.3125,
+            "InferenceTokensPerStrictTask": 48525.25,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "kimi-code/kimi-for-coding",
+          "rank": 5,
+          "slot": "A04",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 22706.6,
+            "InferenceTokensPerStrictTask": 113533.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 15,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 3
+          },
+          "model": "deepseek/deepseek-v4-pro",
+          "rank": 6,
+          "slot": "A03",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 48648.26666666667,
+            "InferenceTokensPerStrictTask": 243241.33333333334,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 15,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 3
+          },
+          "model": "volcano/doubao-seed-2.1-turbo",
+          "rank": 7,
+          "slot": "A08",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 70049.86666666667,
+            "InferenceTokensPerStrictTask": 350249.3333333333,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 15,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 3
+          },
+          "model": "MT/LongCat-2.0",
+          "rank": 8,
+          "slot": "A01",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": 14891.066666666668,
+            "InferenceTokensPerStrictTask": 74455.33333333333,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 15,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 3
+          },
+          "model": "volcano/doubao-seed-2.0-pro",
+          "rank": 9,
+          "slot": "A09",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 89515.21428571429,
+            "InferenceTokensPerStrictTask": 417737.6666666667,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 14,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 3
+          },
+          "model": "volcano/minimax-m3",
+          "rank": 10,
+          "slot": "A11",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 29930.14285714286,
+            "InferenceTokensPerStrictTask": 209511.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 14,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 2
+          },
+          "model": "mimo/mimo-v2.5-pro",
+          "rank": 11,
+          "slot": "A12",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 14,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 2
+          },
+          "model": "tx/hy3",
+          "rank": 12,
+          "slot": "A17",
+          "supplemental": "subtest15"
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 14,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 2
+          },
+          "model": "composer/composer-2.5",
+          "rank": 13,
+          "slot": "A15",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 19538.69230769231,
+            "InferenceTokensPerStrictTask": 127001.5,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 13,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 2
+          },
+          "model": "deepseek/deepseek-v4-flash",
+          "rank": 14,
+          "slot": "A02",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 0,
+            "InferenceTokensPerPassedCriterion": 14199.153846153846,
+            "InferenceTokensPerStrictTask": 92294.5,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 13,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 2
+          },
+          "model": "mimo/mimo-v2.5",
+          "rank": 15,
+          "slot": "A13",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 49321.75,
+            "InferenceTokensPerStrictTask": 591861.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 12,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 1
+          },
+          "model": "stepfun/step-3.7-flash",
+          "rank": 16,
+          "slot": "A05",
+          "supplemental": null
+        },
+        {
+          "condition": "A",
+          "metrics": {
+            "ExtensionCapabilityCount": 1,
+            "InferenceTokensPerPassedCriterion": 31655.25,
+            "InferenceTokensPerStrictTask": 379863.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 12,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 1
+          },
+          "model": "volcano/doubao-seed-2.0-code",
+          "rank": 17,
+          "slot": "A10",
+          "supplemental": null
+        }
+      ],
+      "B": [
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 21384.3125,
+            "InferenceTokensPerStrictTask": 85537.25,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "mimo/mimo-v2.5",
+          "rank": 1,
+          "slot": "B13",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 37660.3125,
+            "InferenceTokensPerStrictTask": 150641.25,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "volcano/doubao-seed-2.1-turbo",
+          "rank": 2,
+          "slot": "B08",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 39061.9375,
+            "InferenceTokensPerStrictTask": 156247.75,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "volcano/glm-5.2",
+          "rank": 3,
+          "slot": "B14",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 50220.6875,
+            "InferenceTokensPerStrictTask": 200882.75,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "kimi-code/kimi-for-coding",
+          "rank": 4,
+          "slot": "B04",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 53963.875,
+            "InferenceTokensPerStrictTask": 215855.5,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "qwen/qwen3.8-max-preview",
+          "rank": 5,
+          "slot": "B06",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 54329.9375,
+            "InferenceTokensPerStrictTask": 217319.75,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "MT/LongCat-2.0",
+          "rank": 6,
+          "slot": "B01",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 55029.8125,
+            "InferenceTokensPerStrictTask": 220119.25,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "GPT/gpt-5.6-luna",
+          "rank": 7,
+          "slot": "B07",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 56279.375,
+            "InferenceTokensPerStrictTask": 225117.5,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "deepseek/deepseek-v4-flash",
+          "rank": 8,
+          "slot": "B02",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 4
+          },
+          "model": "grok/grok-4.5",
+          "rank": 9,
+          "slot": "B16",
+          "supplemental": "subtest14"
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 20422.25,
+            "InferenceTokensPerStrictTask": 81689.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 4
+          },
+          "model": "stepfun/step-3.7-flash",
+          "rank": 10,
+          "slot": "B05",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 87967.75,
+            "InferenceTokensPerStrictTask": 351871.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 4
+          },
+          "model": "deepseek/deepseek-v4-pro",
+          "rank": 11,
+          "slot": "B03",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 16,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 4
+          },
+          "model": "composer/composer-2.5",
+          "rank": 12,
+          "slot": "B15",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 18405.4,
+            "InferenceTokensPerStrictTask": 92027.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 15,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 3
+          },
+          "model": "volcano/doubao-seed-2.0-pro",
+          "rank": 13,
+          "slot": "B09",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 31285.8,
+            "InferenceTokensPerStrictTask": 156429.0,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 15,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 3
+          },
+          "model": "volcano/doubao-seed-2.0-code",
+          "rank": 14,
+          "slot": "B10",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": 53916.666666666664,
+            "InferenceTokensPerStrictTask": 215666.66666666666,
+            "InstructionGate": 1,
+            "OfficialCriterionCount": 12,
+            "ResourceCapabilityCount": 1,
+            "StrictTaskCount": 3
+          },
+          "model": "volcano/minimax-m3",
+          "rank": 15,
+          "slot": "B11",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 0,
+            "OfficialCriterionCount": 0,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 0
+          },
+          "model": "mimo/mimo-v2.5-pro",
+          "rank": 16,
+          "slot": "B12",
+          "supplemental": null
+        },
+        {
+          "condition": "B",
+          "metrics": {
+            "ExtensionCapabilityCount": 2,
+            "InferenceTokensPerPassedCriterion": null,
+            "InferenceTokensPerStrictTask": null,
+            "InstructionGate": 0,
+            "OfficialCriterionCount": 0,
+            "ResourceCapabilityCount": 2,
+            "StrictTaskCount": 0
+          },
+          "model": "tx/hy3",
+          "rank": 16,
+          "slot": "B17",
+          "supplemental": "subtest15"
+        }
+      ]
+    }
+  },
+  "schema_version": 1,
+  "supplemental_sources": [
+    "short_subtest14_grok_high/results/subtest14-grok-high-report.json",
+    "short_subtest15_english/results/subtest15-english-report.json"
+  ]
+}

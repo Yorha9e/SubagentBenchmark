@@ -1,0 +1,987 @@
+{
+  "AcceptanceCoverage": 0.3,
+  "ClosedLoopProjectCount": 0,
+  "InstructionGate": null,
+  "MilestoneStrictCount": 0,
+  "benchmark_version": "closed-loop-v2",
+  "criterion_count": 20,
+  "criterion_pass_count": 6,
+  "decision_infrastructure_indeterminate": true,
+  "evaluated_at": "2026-07-30T10:18:58.910830+00:00",
+  "infrastructure_indeterminate_evidence": [
+    "instruction_audit"
+  ],
+  "instruction": {
+    "benchmark_version": "closed-loop-v2",
+    "checks": [
+      {
+        "diagnostics": [
+          "changed asset: validation/run_validation.py"
+        ],
+        "id": "frozen_assets",
+        "observable": true,
+        "passed": null,
+        "status": "infrastructure_indeterminate"
+      },
+      {
+        "diagnostics": "D:/vscode/kimisubagentexplore/subagentbenchmark/prototype/finalresultpdf/longtaskresult/gemini31pro/runs/workspace",
+        "id": "workspace_exists",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": [
+          "source outside allowed package boundaries: src/__init__.py",
+          "unauthorized workspace file: order.db",
+          "unauthorized workspace file: spool_test/state.json",
+          "unauthorized workspace file: spool_test/state.lock",
+          "unauthorized workspace file: test.lock",
+          "unauthorized workspace file: test_lock.py",
+          "unauthorized workspace file: test_order.py"
+        ],
+        "id": "workspace_non_source",
+        "observable": true,
+        "passed": false,
+        "status": "failed"
+      },
+      {
+        "diagnostics": {
+          "errors": {},
+          "missing_or_unparsed": []
+        },
+        "id": "allowed_packages_parse",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": {
+          "OrderService": {
+            "__init__": {
+              "async": false,
+              "keyword_only": [
+                "clock",
+                "id_factory"
+              ],
+              "keyword_only_defaults": [
+                false,
+                false
+              ],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "db_path"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "cancel_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "create_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "idempotency_key",
+                "items"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "get_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "pay_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id",
+                "payment_id",
+                "amount_cents"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "set_stock": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "sku",
+                "quantity"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "ship_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            }
+          },
+          "Spool": {
+            "__init__": {
+              "async": false,
+              "keyword_only": [
+                "clock",
+                "limits",
+                "lock_timeout",
+                "failpoint"
+              ],
+              "keyword_only_defaults": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "root"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "ack": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id",
+                "lease_token"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "claim": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "worker_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "enqueue": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id",
+                "payload",
+                "available_at"
+              ],
+              "positional_defaults": 1,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "fail": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id",
+                "lease_token",
+                "error"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "get": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "initialize": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "list_messages": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "status"
+              ],
+              "positional_defaults": 1,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "recover": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            }
+          },
+          "parse_errors": {}
+        },
+        "id": "public_exports_and_signatures",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": {
+          "imports": {
+            "src/delivery_spool/__init__.py": [
+              {
+                "line": 3,
+                "root": "__future__",
+                "source": "__future__"
+              },
+              {
+                "line": 4,
+                "root": "os",
+                "source": "os"
+              },
+              {
+                "line": 5,
+                "root": "sys",
+                "source": "sys"
+              },
+              {
+                "line": 6,
+                "root": "json",
+                "source": "json"
+              },
+              {
+                "line": 7,
+                "root": "uuid",
+                "source": "uuid"
+              },
+              {
+                "line": 8,
+                "root": "time",
+                "source": "time"
+              },
+              {
+                "line": 9,
+                "root": "math",
+                "source": "math"
+              },
+              {
+                "line": 10,
+                "root": "secrets",
+                "source": "secrets"
+              },
+              {
+                "line": 11,
+                "root": "dataclasses",
+                "source": "dataclasses"
+              },
+              {
+                "line": 50,
+                "root": "msvcrt",
+                "source": "msvcrt"
+              },
+              {
+                "line": 62,
+                "root": "fcntl",
+                "source": "fcntl"
+              },
+              {
+                "line": 77,
+                "root": "msvcrt",
+                "source": "msvcrt"
+              },
+              {
+                "line": 84,
+                "root": "fcntl",
+                "source": "fcntl"
+              }
+            ],
+            "src/delivery_spool/__main__.py": [
+              {
+                "line": 3,
+                "root": "sys",
+                "source": "sys"
+              },
+              {
+                "line": 4,
+                "root": "json",
+                "source": "json"
+              },
+              {
+                "line": 5,
+                "root": "argparse",
+                "source": "argparse"
+              },
+              {
+                "line": 6,
+                "root": "time",
+                "source": "time"
+              },
+              {
+                "line": 8,
+                "root": "<relative>",
+                "source": "."
+              }
+            ],
+            "src/order_fulfillment/__init__.py": [
+              {
+                "line": 3,
+                "root": "__future__",
+                "source": "__future__"
+              },
+              {
+                "line": 5,
+                "root": "sqlite3",
+                "source": "sqlite3"
+              },
+              {
+                "line": 6,
+                "root": "math",
+                "source": "math"
+              }
+            ],
+            "src/order_fulfillment/__main__.py": [
+              {
+                "line": 3,
+                "root": "sys",
+                "source": "sys"
+              },
+              {
+                "line": 4,
+                "root": "json",
+                "source": "json"
+              },
+              {
+                "line": 5,
+                "root": "argparse",
+                "source": "argparse"
+              },
+              {
+                "line": 6,
+                "root": "time",
+                "source": "time"
+              },
+              {
+                "line": 7,
+                "root": "uuid",
+                "source": "uuid"
+              },
+              {
+                "line": 8,
+                "root": "traceback",
+                "source": "traceback"
+              },
+              {
+                "line": 10,
+                "root": "<relative>",
+                "source": "."
+              }
+            ]
+          },
+          "violations": []
+        },
+        "id": "standard_library_only_imports",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": {
+          "violations": [
+            {
+              "kind": "forbidden_import",
+              "line": 8,
+              "path": "src/order_fulfillment/__main__.py",
+              "root": "traceback",
+              "source": "traceback"
+            }
+          ]
+        },
+        "id": "no_forbidden_network_process_or_dynamic_code",
+        "observable": true,
+        "passed": false,
+        "status": "failed"
+      },
+      {
+        "diagnostics": "Not observable from final workspace files.",
+        "id": "process_no_delegation_attempt",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      },
+      {
+        "diagnostics": "Not observable from final workspace files.",
+        "id": "process_no_hidden_evaluator_read_attempt",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      },
+      {
+        "diagnostics": "AST-visible behavior is audited, but execution history is not observable from final files.",
+        "id": "process_no_network_attempt",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      },
+      {
+        "diagnostics": "Final workspace files cannot prove that runtime writes stayed within declared storage.",
+        "id": "writes_only_declared_storage",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      }
+    ],
+    "decision_infrastructure_indeterminate": true,
+    "instruction_gate": null,
+    "schema_version": 2,
+    "slot": "subtest_5",
+    "workspace": "D:/vscode/kimisubagentexplore/subagentbenchmark/prototype/finalresultpdf/longtaskresult/gemini31pro/runs/workspace"
+  },
+  "model": "stepfun/step-3.7-flash",
+  "projects": [
+    {
+      "closed_loop_success": false,
+      "id": "order_fulfillment",
+      "milestones": [
+        {
+          "capability_id": "order.persistence_contract",
+          "criteria": [
+            {
+              "capability_id": "order.schema_reopen",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen",
+                "-v"
+              ],
+              "diagnostics": "test_schema_initialize_and_reopen (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen) ... FAIL\n\n======================================================================\nFAIL: test_schema_initialize_and_reopen (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-f0j828od\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 63, in test_schema_initialize_and_reopen\n    with expect_domain_error(self, OrderError, \"SCHEMA_MISMATCH\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 148, in __exit__\n    next(self.gen)\n    ~~~~^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-f0j828od\\closed_loop_v2\\evaluator\\_support.py\", line 98, in expect_domain_error\n    with case.assertRaises(error_type) as caught:\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: OrderError not raised\n\n----------------------------------------------------------------------\nRan 1 test in 0.141s\n\nFAILED (failures=1)\n",
+              "duration_ms": 339.926,
+              "id": "OF1-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen"
+            },
+            {
+              "capability_id": "order.validation",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation",
+                "-v"
+              ],
+              "diagnostics": "test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) ... \n  test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (clock_value=True) ... FAIL\n  test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(1, <closed_loop_v2.evaluator._support.DeterministicIds object at 0x000001BE4CF8D250>)) ... FAIL\n  test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(<closed_loop_v2.evaluator._support.FakeClock object at 0x000001BE4CF8CA70>, 1)) ... FAIL\n\n======================================================================\nFAIL: test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (clock_value=True)\n----------------------------------------------------------------------\nsrc.order_fulfillment.OrderError: Booleans are not allowed here\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-8gmcwxf2\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 137, in test_input_and_dependency_validation\n    with expect_domain_error(self, OrderError, \"INVALID_DEPENDENCY\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-8gmcwxf2\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'INVALID_INPUT' != 'INVALID_DEPENDENCY'\n- INVALID_INPUT\n+ INVALID_DEPENDENCY\n\n\n======================================================================\nFAIL: test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(1, <closed_loop_v2.evaluator._support.DeterministicIds object at 0x000001BE4CF8D250>))\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-8gmcwxf2\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 143, in test_input_and_dependency_validation\n    with expect_domain_error(self, OrderError, \"INVALID_INPUT\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 148, in __exit__\n    next(self.gen)\n    ~~~~^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-8gmcwxf2\\closed_loop_v2\\evaluator\\_support.py\", line 98, in expect_domain_error\n    with case.assertRaises(error_type) as caught:\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: OrderError not raised\n\n======================================================================\nFAIL: test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(<closed_loop_v2.evaluator._support.FakeClock object at 0x000001BE4CF8CA70>, 1))\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-8gmcwxf2\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 143, in test_input_and_dependency_validation\n    with expect_domain_error(self, OrderError, \"INVALID_INPUT\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 148, in __exit__\n    next(self.gen)\n    ~~~~^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-8gmcwxf2\\closed_loop_v2\\evaluator\\_support.py\", line 98, in expect_domain_error\n    with case.assertRaises(error_type) as caught:\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: OrderError not raised\n\n----------------------------------------------------------------------\nRan 1 test in 0.671s\n\nFAILED (failures=3)\n",
+              "duration_ms": 869.574,
+              "id": "OF1-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation"
+            }
+          ],
+          "id": "OF1",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.atomic_create",
+          "criteria": [
+            {
+              "capability_id": "order.multi_sku_atomic_reservation",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_multi_sku_reservation_is_atomic",
+                "-v"
+              ],
+              "diagnostics": "test_multi_sku_reservation_is_atomic (closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_multi_sku_reservation_is_atomic) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.091s\n\nOK\n",
+              "duration_ms": 279.577,
+              "id": "OF2-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_multi_sku_reservation_is_atomic"
+            },
+            {
+              "capability_id": "order.create_idempotency",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_create_idempotency_and_conflict",
+                "-v"
+              ],
+              "diagnostics": "test_create_idempotency_and_conflict (closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_create_idempotency_and_conflict) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.096s\n\nOK\n",
+              "duration_ms": 286.439,
+              "id": "OF2-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_create_idempotency_and_conflict"
+            }
+          ],
+          "id": "OF2",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.payment_state",
+          "criteria": [
+            {
+              "capability_id": "order.payment_idempotency",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount",
+                "-v"
+              ],
+              "diagnostics": "test_payment_idempotency_conflicts_and_amount (closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount) ... FAIL\n\n======================================================================\nFAIL: test_payment_idempotency_conflicts_and_amount (closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount)\n----------------------------------------------------------------------\nsrc.order_fulfillment.OrderError: Wrong amount\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-hazi95rt\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 290, in test_payment_idempotency_conflicts_and_amount\n    with expect_domain_error(self, OrderError, \"PAYMENT_CONFLICT\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-hazi95rt\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'AMOUNT_MISMATCH' != 'PAYMENT_CONFLICT'\n- AMOUNT_MISMATCH\n+ PAYMENT_CONFLICT\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.116s\n\nFAILED (failures=1)\n",
+              "duration_ms": 314.776,
+              "id": "OF3-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount"
+            },
+            {
+              "capability_id": "order.state_machine",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_explicit_state_machine",
+                "-v"
+              ],
+              "diagnostics": "test_explicit_state_machine (closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_explicit_state_machine) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.113s\n\nOK\n",
+              "duration_ms": 283.909,
+              "id": "OF3-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_explicit_state_machine"
+            }
+          ],
+          "id": "OF3",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.inventory_concurrency",
+          "criteria": [
+            {
+              "capability_id": "order.cancel_release",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_cancel_releases_once_and_shipped_cannot_cancel",
+                "-v"
+              ],
+              "diagnostics": "test_cancel_releases_once_and_shipped_cannot_cancel (closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_cancel_releases_once_and_shipped_cannot_cancel) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.175s\n\nOK\n",
+              "duration_ms": 345.713,
+              "id": "OF4-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_cancel_releases_once_and_shipped_cannot_cancel"
+            },
+            {
+              "capability_id": "order.no_oversell",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_two_instances_cannot_oversell",
+                "-v"
+              ],
+              "diagnostics": "test_two_instances_cannot_oversell (closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_two_instances_cannot_oversell) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.397s\n\nOK\n",
+              "duration_ms": 579.628,
+              "id": "OF4-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_two_instances_cannot_oversell"
+            }
+          ],
+          "id": "OF4",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.cli",
+          "criteria": [
+            {
+              "capability_id": "order.cli_happy_path",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_all_commands_emit_one_json_line",
+                "-v"
+              ],
+              "diagnostics": "test_all_commands_emit_one_json_line (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_all_commands_emit_one_json_line) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.835s\n\nOK\n",
+              "duration_ms": 1019.544,
+              "id": "OF5-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_all_commands_emit_one_json_line"
+            },
+            {
+              "capability_id": "order.cli_errors",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence",
+                "-v"
+              ],
+              "diagnostics": "test_error_codes_exit_codes_and_persistence (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence) ... \n  test_error_codes_exit_codes_and_persistence (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence) (command='get', request=None, raw_input='{\"order_id\":\"x\"}\\n{\"order_id\":\"y\"}\\n') ... FAIL\n\n======================================================================\nFAIL: test_error_codes_exit_codes_and_persistence (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence) (command='get', request=None, raw_input='{\"order_id\":\"x\"}\\n{\"order_id\":\"y\"}\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-4mc6t899\\closed_loop_v2\\evaluator\\test_order_cli.py\", line 114, in test_error_codes_exit_codes_and_persistence\n    assert_cli_error(\n    ~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<3 lines>...\n        code=\"INVALID_INPUT\",\n        ^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-4mc6t899\\closed_loop_v2\\evaluator\\_support.py\", line 263, in assert_cli_error\n    case.assertEqual(error[\"code\"], code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'NOT_FOUND' != 'INVALID_INPUT'\n- NOT_FOUND\n+ INVALID_INPUT\n\n\n----------------------------------------------------------------------\nRan 1 test in 1.478s\n\nFAILED (failures=1)\n",
+              "duration_ms": 1653.984,
+              "id": "OF5-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence"
+            }
+          ],
+          "id": "OF5",
+          "strict_success": false
+        }
+      ]
+    },
+    {
+      "closed_loop_success": false,
+      "id": "delivery_spool",
+      "milestones": [
+        {
+          "capability_id": "spool.durable_schema",
+          "criteria": [
+            {
+              "capability_id": "spool.initialize_corruption",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed",
+                "-v"
+              ],
+              "diagnostics": "test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) ... ERROR\n\n======================================================================\nERROR: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-t62dt5l9\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 43, in test_initialize_reopen_and_fail_closed\n    spool = make_spool(root, clock)\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-t62dt5l9\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nFAILED (errors=1)\n",
+              "duration_ms": 200.393,
+              "id": "DS1-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed"
+            },
+            {
+              "capability_id": "spool.canonical_idempotency",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits",
+                "-v"
+              ],
+              "diagnostics": "test_canonical_payload_idempotency_and_limits (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits) ... ERROR\n\n======================================================================\nERROR: test_canonical_payload_idempotency_and_limits (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nm4i0706\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 213, in test_canonical_payload_idempotency_and_limits\n    spool = make_spool(root, clock, limits=Limits(max_messages=3, max_payload_bytes=100))\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nm4i0706\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.011s\n\nFAILED (errors=1)\n",
+              "duration_ms": 247.824,
+              "id": "DS1-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits"
+            }
+          ],
+          "id": "DS1",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.claim",
+          "criteria": [
+            {
+              "capability_id": "spool.claim_order_token_privacy",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy",
+                "-v"
+              ],
+              "diagnostics": "test_claim_order_attempt_and_token_privacy (closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy) ... ERROR\n\n======================================================================\nERROR: test_claim_order_attempt_and_token_privacy (closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-0w2p4nfc\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 305, in test_claim_order_attempt_and_token_privacy\n    spool = make_spool(root, clock, limits=Limits(lease_seconds=4))\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-0w2p4nfc\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nFAILED (errors=1)\n",
+              "duration_ms": 203.145,
+              "id": "DS2-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy"
+            },
+            {
+              "capability_id": "spool.no_double_claim",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner",
+                "-v"
+              ],
+              "diagnostics": "test_concurrent_claim_has_single_winner (closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner) ... ERROR\n\n======================================================================\nERROR: test_concurrent_claim_has_single_winner (closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-9wxffidm\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 339, in test_concurrent_claim_has_single_winner\n    spool = make_spool(root, FakeClock(50), limits=Limits(lease_seconds=30))\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-9wxffidm\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.010s\n\nFAILED (errors=1)\n",
+              "duration_ms": 197.409,
+              "id": "DS2-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner"
+            }
+          ],
+          "id": "DS2",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.delivery_outcomes",
+          "criteria": [
+            {
+              "capability_id": "spool.token_authorization",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token",
+                "-v"
+              ],
+              "diagnostics": "test_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token) ... ERROR\n\n======================================================================\nERROR: test_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-1cwlsl14\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 363, in test_ack_and_fail_require_exact_token\n    spool = make_spool(root, clock)\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-1cwlsl14\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.008s\n\nFAILED (errors=1)\n",
+              "duration_ms": 204.21,
+              "id": "DS3-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token"
+            },
+            {
+              "capability_id": "spool.retry_dead",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition",
+                "-v"
+              ],
+              "diagnostics": "test_retry_delay_and_dead_transition (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition) ... ERROR\n\n======================================================================\nERROR: test_retry_delay_and_dead_transition (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-r7uifpaw\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 409, in test_retry_delay_and_dead_transition\n    spool = make_spool(root, clock, limits=limits)\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-r7uifpaw\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.011s\n\nFAILED (errors=1)\n",
+              "duration_ms": 216.757,
+              "id": "DS3-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition"
+            }
+          ],
+          "id": "DS3",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.recovery_reads",
+          "criteria": [
+            {
+              "capability_id": "spool.recover_boundary",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency",
+                "-v"
+              ],
+              "diagnostics": "test_recover_boundary_and_idempotency (closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency) ... ERROR\n\n======================================================================\nERROR: test_recover_boundary_and_idempotency (closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-7x592kyj\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 446, in test_recover_boundary_and_idempotency\n    spool = make_spool(\n        root,\n        clock,\n        limits=Limits(max_attempts=2, lease_seconds=5, retry_delay=100),\n    )\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-7x592kyj\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.010s\n\nFAILED (errors=1)\n",
+              "duration_ms": 229.221,
+              "id": "DS4-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency"
+            },
+            {
+              "capability_id": "spool.reopen_get_list",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list",
+                "-v"
+              ],
+              "diagnostics": "test_reopen_get_and_sorted_list (closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list) ... ERROR\n\n======================================================================\nERROR: test_reopen_get_and_sorted_list (closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-4_o48cjz\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 485, in test_reopen_get_and_sorted_list\n    spool = make_spool(root, clock)\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-4_o48cjz\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 29, in make_spool\n    return Spool(\n        root,\n    ...<3 lines>...\n        failpoint=failpoint,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nFAILED (errors=1)\n",
+              "duration_ms": 191.298,
+              "id": "DS4-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list"
+            }
+          ],
+          "id": "DS4",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.atomic_cli",
+          "criteria": [
+            {
+              "capability_id": "spool.atomic_replace_failpoints",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state",
+                "-v"
+              ],
+              "diagnostics": "yTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='claim', failpoint='after_lock')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='claim', failpoint='before_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='claim', failpoint='after_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='ack', failpoint='after_lock')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='ack', failpoint='before_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='ack', failpoint='after_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='fail', failpoint='after_lock')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='fail', failpoint='before_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='fail', failpoint='after_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='recover', failpoint='after_lock')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='recover', failpoint='before_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) (mutation='recover', failpoint='after_replace')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 162, in test_failpoints_cleanup_and_old_or_new_state\n    baseline_spool = Spool(\n        root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n======================================================================\nERROR: test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-si2a0glr\\closed_loop_v2\\evaluator\\test_spool_atomicity.py\", line 235, in test_failpoints_cleanup_and_old_or_new_state\n    unlocked = Spool(\n        lock_root,\n    ...<3 lines>...\n        failpoint=None,\n    )\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\gemini31pro\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 97, in __init__\n    raise SpoolError(\"INVALID_INPUT\", \"Invalid root\")\nsrc.delivery_spool.SpoolError: Invalid root\n\n----------------------------------------------------------------------\nRan 1 test in 0.016s\n\nFAILED (errors=19)\n",
+              "duration_ms": 200.713,
+              "id": "DS5-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state"
+            },
+            {
+              "capability_id": "spool.cli_root_boundary",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary",
+                "-v"
+              ],
+              "diagnostics": "test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) ... \n  test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='show', request=None, raw_input='{\"message_id\":\"x\"}\\n{\"message_id\":\"y\"}\\n') ... FAIL\n  test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='enqueue', request={'message_id': 'x', 'payload': {}, 'unknown': 1}, raw_input=None) ... FAIL\n  test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='recover', request={'extra': 1}, raw_input=None) ... FAIL\n\n======================================================================\nFAIL: test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='show', request=None, raw_input='{\"message_id\":\"x\"}\\n{\"message_id\":\"y\"}\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-qgu8jkwc\\closed_loop_v2\\evaluator\\test_spool_cli.py\", line 158, in test_cli_protocol_and_root_boundary\n    assert_cli_error(self, completed, decoded, exit_code=2, code=\"INVALID_INPUT\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-qgu8jkwc\\closed_loop_v2\\evaluator\\_support.py\", line 263, in assert_cli_error\n    case.assertEqual(error[\"code\"], code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'NOT_FOUND' != 'INVALID_INPUT'\n- NOT_FOUND\n+ INVALID_INPUT\n\n\n======================================================================\nFAIL: test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='enqueue', request={'message_id': 'x', 'payload': {}, 'unknown': 1}, raw_input=None)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-qgu8jkwc\\closed_loop_v2\\evaluator\\test_spool_cli.py\", line 158, in test_cli_protocol_and_root_boundary\n    assert_cli_error(self, completed, decoded, exit_code=2, code=\"INVALID_INPUT\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-qgu8jkwc\\closed_loop_v2\\evaluator\\_support.py\", line 256, in assert_cli_error\n    case.assertEqual(completed.returncode, exit_code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 != 2\n\n======================================================================\nFAIL: test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='recover', request={'extra': 1}, raw_input=None)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-qgu8jkwc\\closed_loop_v2\\evaluator\\test_spool_cli.py\", line 158, in test_cli_protocol_and_root_boundary\n    assert_cli_error(self, completed, decoded, exit_code=2, code=\"INVALID_INPUT\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-qgu8jkwc\\closed_loop_v2\\evaluator\\_support.py\", line 256, in assert_cli_error\n    case.assertEqual(completed.returncode, exit_code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 != 2\n\n----------------------------------------------------------------------\nRan 1 test in 2.329s\n\nFAILED (failures=3)\n",
+              "duration_ms": 2511.498,
+              "id": "DS5-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary"
+            }
+          ],
+          "id": "DS5",
+          "strict_success": false
+        }
+      ]
+    }
+  ],
+  "schema_version": 2,
+  "slot": "subtest_5",
+  "workspace": "D:/vscode/kimisubagentexplore/subagentbenchmark/prototype/finalresultpdf/longtaskresult/gemini31pro/runs/workspace",
+  "workspace_after": {
+    "file_count": 16,
+    "files": {
+      "BRIEFING.md": "2b83c069243c8f91cd6b5cadec950a611292add4f20601851501e984d4b6aabb",
+      "BRIEFING.preamble.md": "5eabcbdcde4ed83eaa1f66b2aec603ce6e879b1497b53068bba09672b01fc98b",
+      "TASKS.md": "43eac6eaea148e53d911cf637b59612cf8eeaf4014e8caf7039a3c45c7a1d840",
+      "order.db": "d53c9bbe59c09c179112064325b11fc4fc4ea5b52c5ad9348d3fbfc4e0013e7d",
+      "spool_test/state.json": "96b16c09fb4c6205544a73078330778c5f1441879861ada775e9e329217fd623",
+      "spool_test/state.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/__init__.py": "c127a6d87447f87f328b8daf780490988b25bc6fb65d3eff4dce65a5af517243",
+      "src/delivery_spool/__init__.py": "568e870a689f10ade80b44e85579dc61d3830a02a3e7de547b4d63798f5ca39c",
+      "src/delivery_spool/__main__.py": "8cde4ede120d1ce7793eac0ee18b0701fd82dddd3644fe3edf4fee81aba6a56e",
+      "src/order_fulfillment/__init__.py": "ba9a01644444ddce889cb533fe987e66d4ea9482edd1958ff4bd48eb2c4e996c",
+      "src/order_fulfillment/__main__.py": "3c44f3a164090daf5d5860be935b38b14ccec6a6f7eeaf2f0955ebad78495d9f",
+      "test.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_lock.py": "616d4ce77bb477cf1ee58854c40f0e660ebb32e6e27db895af98f96fd6076c02",
+      "test_order.py": "19b58bf0ec6b28c54ea4fa82bc8de94572548c02e2f87baf4265e116871dd801",
+      "tests_public/__init__.py": "bbcab372c9f6512eede020dff96630070cbc89a9a7a5ec6caaf3200af8f4d920",
+      "tests_public/test_smoke.py": "58e2c5b5f8edcd89d71c51de95e1e0eeeea7680f2f13b70b470cb45b4af5c394"
+    },
+    "tree_digest": "ecde35e6d4951ce3f6580d2ca9359c50d153aa12d9894cf17235db660827c10c"
+  },
+  "workspace_before": {
+    "file_count": 16,
+    "files": {
+      "BRIEFING.md": "2b83c069243c8f91cd6b5cadec950a611292add4f20601851501e984d4b6aabb",
+      "BRIEFING.preamble.md": "5eabcbdcde4ed83eaa1f66b2aec603ce6e879b1497b53068bba09672b01fc98b",
+      "TASKS.md": "43eac6eaea148e53d911cf637b59612cf8eeaf4014e8caf7039a3c45c7a1d840",
+      "order.db": "d53c9bbe59c09c179112064325b11fc4fc4ea5b52c5ad9348d3fbfc4e0013e7d",
+      "spool_test/state.json": "96b16c09fb4c6205544a73078330778c5f1441879861ada775e9e329217fd623",
+      "spool_test/state.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/__init__.py": "c127a6d87447f87f328b8daf780490988b25bc6fb65d3eff4dce65a5af517243",
+      "src/delivery_spool/__init__.py": "568e870a689f10ade80b44e85579dc61d3830a02a3e7de547b4d63798f5ca39c",
+      "src/delivery_spool/__main__.py": "8cde4ede120d1ce7793eac0ee18b0701fd82dddd3644fe3edf4fee81aba6a56e",
+      "src/order_fulfillment/__init__.py": "ba9a01644444ddce889cb533fe987e66d4ea9482edd1958ff4bd48eb2c4e996c",
+      "src/order_fulfillment/__main__.py": "3c44f3a164090daf5d5860be935b38b14ccec6a6f7eeaf2f0955ebad78495d9f",
+      "test.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_lock.py": "616d4ce77bb477cf1ee58854c40f0e660ebb32e6e27db895af98f96fd6076c02",
+      "test_order.py": "19b58bf0ec6b28c54ea4fa82bc8de94572548c02e2f87baf4265e116871dd801",
+      "tests_public/__init__.py": "bbcab372c9f6512eede020dff96630070cbc89a9a7a5ec6caaf3200af8f4d920",
+      "tests_public/test_smoke.py": "58e2c5b5f8edcd89d71c51de95e1e0eeeea7680f2f13b70b470cb45b4af5c394"
+    },
+    "tree_digest": "ecde35e6d4951ce3f6580d2ca9359c50d153aa12d9894cf17235db660827c10c"
+  },
+  "workspace_changed_paths": [],
+  "workspace_unchanged_during_evaluation": true
+}

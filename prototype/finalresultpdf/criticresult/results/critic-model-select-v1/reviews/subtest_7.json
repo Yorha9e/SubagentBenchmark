@@ -1,0 +1,30 @@
+{
+  "run_id": "critic-model-select-v1",
+  "critic_slot": "subtest_7",
+  "critic_model": "GPT/gpt-5.6-luna",
+  "self_review_flag": "reviews own artifact candidate-B",
+  "candidate_reviews": {
+    "candidate-A": {
+      "agent_id": "agent-205",
+      "task_id": "agent-4e9d3o2z",
+      "status": "completed",
+      "duration_seconds": 197.651,
+      "findings": [
+        {"id":"subtest_7-A-F1","severity":"high","depth_level":3,"confidence":0.98,"file":"dependency_layers.py","line_start":41,"line_end":61,"trigger_condition":"equal hashable/unhashable pair, e.g. {1} and frozenset({1})","root_cause":"hash_buckets and unhashable_nodes never cross-checked","impact":"self-dependency through equal values not raised as cycle; duplicate equal nodes in layers","suggested_validation":"dependency_layers([({1}, frozenset({1}))]) should raise DependencyCycleError, returns [[frozenset],[set]]"},
+        {"id":"subtest_7-A-F2","severity":"medium","depth_level":2,"confidence":0.78,"file":"dependency_layers.py","line_start":11,"line_end":16,"trigger_condition":"cycle node with raising __repr__","root_cause":"DependencyCycleError.__init__ formats message via repr of every node","impact":"cycle path can raise unrelated exception instead of DependencyCycleError","suggested_validation":"node with raising __repr__ in [(x,x)] should still raise DependencyCycleError"}
+      ],
+      "raw_output_source": "session-agent-output:agent-4e9d3o2z"
+    },
+    "candidate-B": {
+      "agent_id": "agent-206",
+      "task_id": "agent-hd505j3s",
+      "status": "completed",
+      "duration_seconds": 148.314,
+      "findings": [
+        {"id":"subtest_7-B-F1","severity":"medium","depth_level":3,"confidence":0.88,"file":"dependency_layers.py","line_start":13,"line_end":16,"trigger_condition":"real cycle containing a node whose __repr__ raises","root_cause":"DependencyCycleError.__init__ calls repr(n) for every node while building the message","impact":"cycle path can surface RuntimeError instead of DependencyCycleError, breaking the .nodes contract","suggested_validation":"BadRepr node in [(x,x)] should raise DependencyCycleError with nodes==(x,), not RuntimeError"}
+      ],
+      "raw_output_source": "session-agent-output:agent-hd505j3s"
+    }
+  },
+  "classification": {"GT1":"pending_parent_validation","GT2":"pending_parent_validation","GT3":"pending_parent_validation","false_positives":"pending_parent_validation"}
+}

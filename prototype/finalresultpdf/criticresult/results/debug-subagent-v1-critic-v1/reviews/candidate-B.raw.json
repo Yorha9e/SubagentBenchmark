@@ -1,0 +1,18 @@
+{
+  "candidate_id": "candidate-B",
+  "findings": [
+    {
+      "id": "B-F1",
+      "severity": "medium",
+      "depth_level": 4,
+      "confidence": 0.99,
+      "file": "dependency_layers.py",
+      "line_start": 65,
+      "line_end": 87,
+      "trigger_condition": "A large stream such as [(i, [i]) for i in range(n)], where each integer is hashable and each list is unhashable and unequal to all registered values.",
+      "root_cause": "Every lookup of a hashable value scans all registered unhashable IDs (lines 82-87), while every lookup of an unhashable value scans all registered hashable IDs (lines 65-70). With both categories growing, registration performs quadratic cross-registry equality checks.",
+      "impact": "The identity registry has O(n^2) construction time for valid inputs containing many hashable and unhashable nodes, causing severe performance and resource problems on large edge streams despite the graph algorithm itself being near-linear.",
+      "suggested_validation": "Run dependency_layers([(i, [i]) for i in range(10000)]). The expected result is 10000 two-node layers or equivalent valid layering, but registry construction performs approximately quadratic cross-category comparisons and can become impractically slow."
+    }
+  ]
+}

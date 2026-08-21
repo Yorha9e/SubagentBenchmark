@@ -1,0 +1,18 @@
+{
+  "candidate": "candidate-B",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "high",
+      "depth_level": 4,
+      "confidence": 0.97,
+      "file": "dependency_layers.py",
+      "line_start": 55,
+      "line_end": 90,
+      "trigger_condition": "Input contains unhashable node values (e.g., lists, dicts, custom objects without __hash__) in quantity. Specifically: (a) N distinct unhashable nodes cause O(N^2) time during node registration; (b) a mix of H hashable and U unhashable nodes causes O(H*U) overhead as every hashable lookup linearly scans unhashable_ids and every unhashable lookup linearly scans hashable_ids.",
+      "root_cause": "The _id_of function uses linear scans over unhashable_ids (lines 64-67, 83-87) and hashable_ids (lines 68-72) to deduplicate unhashable nodes and to check for cross-type (hashable-vs-unhashable) equality. There is no hash-based or tree-based index for unhashable values, so every lookup of an unhashable value is O(U+H) where U is the count of registered unhashable nodes and H the count of hashable nodes. Registering N new unhashable nodes therefore costs sum(0..N-1) = O(N^2) equality comparisons. Additionally, the cross-type equality check on lines 83-87 runs for every hashable lookup after the hash-bucket probe, adding O(U) per hashable lookup whenever any unhashable nodes exist.",
+      "impact": "Quadratic time complexity on legitimate inputs. Empirically measured: N=500 unhashable nodes took 0.018s, N=1000 took 0.075s (4.2x), N=2000 took 0.285s (3.8x), N=4000 took 1.148s (4.0x), confirming O(N^2) scaling. For inputs with thousands of unhashable nodes this can cause multi-second delays or timeouts. Hashable-only inputs are unaffected (O(V+E)). The algorithm is otherwise correct — Kahn's layering, cycle detection, deduplication, cross-type equality, and first-appearance ordering all work correctly on all tested inputs including 200 random DAGs, random graphs, cross-type equality scenarios, hash collisions, and NaN values.",
+      "suggested_validation": "Construct a chain of N unhashable nodes (e.g., edges = [([i], [i+1]) for i in range(N)]) and measure runtime for N=500, 1000, 2000, 4000. Runtime should scale quadratically (~4x per doubling) rather than linearly (~2x). Also test mixed inputs: N hashable int nodes plus N unhashable list nodes where every edge references both types, and verify super-linear scaling."
+    }
+  ]
+}

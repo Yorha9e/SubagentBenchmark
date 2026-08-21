@@ -1,0 +1,31 @@
+{
+  "candidate_id": "candidate-A",
+  "findings": [
+    {
+      "id": "A-F1",
+      "severity": "high",
+      "depth_level": 2,
+      "confidence": 0.95,
+      "file": "dependency_layers.py",
+      "line_start": 43,
+      "line_end": 60,
+      "trigger_condition": "The stream contains equal node values where one value is hashable and the other is unhashable, for example an unhashable class U with __eq__ returning True for 1, and edges [(1, 0), (U(), 0)].",
+      "root_cause": "Hashable values are searched only in hash_buckets, while unhashable values are searched only in unhashable_nodes. The registry never compares a hashable candidate against previously stored unhashable values or vice versa, so equal values can receive different node IDs.",
+      "impact": "Equal node values are not deduplicated as required. The example should represent the same edge twice and produce [[0], [1]], but the implementation creates a third node and produces separate incorrect layering such as [[1], [0], [U()]]. It can also produce incorrect cycle detection and .nodes contents.",
+      "suggested_validation": "Define class U with __hash__ = None and __eq__(self, other): return other == 1. Run dependency_layers([(1, 0), (U(), 0)]). Expected: two logical nodes, layers [[0], [1]]; actual: three IDs and layers [[1], [0], [U()]] (with the first stored object for each ID)."
+    },
+    {
+      "id": "A-F2",
+      "severity": "medium",
+      "depth_level": 4,
+      "confidence": 0.98,
+      "file": "dependency_layers.py",
+      "line_start": 43,
+      "line_end": 46,
+      "trigger_condition": "The input contains N distinct unhashable node values, such as a one-shot generator yielding ([i+1], [i]) for i in range(N).",
+      "root_cause": "Every unhashable lookup linearly scans all previously registered unhashable nodes. Thus registering or looking up each of N unique unhashable values costs O(N) equality checks, making the full identity registry O(N^2) in the number of nodes (in addition to the cost of equality itself).",
+      "impact": "Large valid graphs with unhashable nodes can require quadratic time and become impractical or time out, violating the requirement to handle inputs without unreasonable asymptotic resource use.",
+      "suggested_validation": "Benchmark dependency_layers(([i+1], [i]) for i in range(N)) with increasing N, using fresh one-element lists. Expected scalable near-linear graph processing; actual registry work grows quadratically because each new list scans the accumulated unhashable_nodes list."
+    }
+  ]
+}

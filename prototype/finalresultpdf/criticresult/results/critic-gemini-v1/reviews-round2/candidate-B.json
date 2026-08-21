@@ -1,0 +1,18 @@
+{
+  "candidate": "candidate-B",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 55,
+      "line_end": 90,
+      "trigger_condition": "Processing input graphs containing unhashable node objects alongside hashable node objects, or looking up unhashable nodes when many hashable nodes are registered.",
+      "root_cause": "In `_id_of`, looking up an unhashable value performs a linear scan over all registered unhashable nodes (`unhashable_ids`) AND a linear scan over all registered hashable nodes (`hashable_ids`). Similarly, looking up a hashable value performs a linear scan over `unhashable_ids` even after a hash bucket match. Furthermore, when `match` is already found (e.g. at ID 0), the search loops do not early-exit and continue scanning all remaining registered IDs where `existing_id >= match`, causing node identification to degrade to O(N * U) quadratic complexity.",
+      "impact": "Catastrophic performance degradation (O(N * U) time complexity). Operations on moderate-sized graphs (e.g., N=8,000 hashable nodes and M=1,000 unhashable lookups) take seconds instead of milliseconds, leading to severe slowdowns or timeouts.",
+      "suggested_validation": "Run `dependency_layers` on a test graph with N=8,000 hashable edges followed by M=1,000 unhashable edges. Observe that execution takes over 2.0 seconds due to O(N * U) comparisons, whereas efficient cross-registry matching should execute in under 0.05 seconds."
+    }
+  ]
+}

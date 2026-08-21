@@ -1,0 +1,26 @@
+{
+  "run_id": "critic-model-select-v1",
+  "critic_slot": "subtest_5",
+  "critic_model": "stepfun/step-3.7-flash",
+  "candidate_reviews": {
+    "candidate-A": {
+      "agent_id": "agent-201",
+      "task_id": "agent-4c4bmpau",
+      "status": "completed",
+      "duration_seconds": 92.768,
+      "findings": [
+        {"id":"subtest_5-A-F1","severity":"high","depth_level":3,"confidence":0.95,"file":"dependency_layers.py","line_start":33,"line_end":61,"trigger_condition":"hashable and unhashable values that compare equal","root_cause":"_id_of never cross-checks hash_buckets and unhashable registries","impact":"equal nodes split into distinct ids; dedup/indegree/layers become wrong","suggested_validation":"edges=[(H(1),'x'),(U(1),'y')] with H(1)==U(1) should unify into one node"}
+      ],
+      "raw_output_source": "session-agent-output:agent-4c4bmpau"
+    },
+    "candidate-B": {
+      "agent_id": "agent-202",
+      "task_id": "agent-qyzbgnqn",
+      "status": "completed",
+      "duration_seconds": 467.925,
+      "findings": [],
+      "raw_output_source": "session-agent-output:agent-qyzbgnqn"
+    }
+  },
+  "classification": {"GT1":"pending_parent_validation","GT2":"pending_parent_validation","GT3":"pending_parent_validation","false_positives":"pending_parent_validation"}
+}

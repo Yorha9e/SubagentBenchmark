@@ -1,0 +1,57 @@
+{
+  "candidate": "candidate-B",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 68,
+      "line_end": 72,
+      "trigger_condition": "When looking up an unhashable node value and there are hashable nodes with equal values, but the first hashable node checked is not the earliest-appearing one",
+      "root_cause": "The hashable_ids cross-check loop on lines 68-72 uses `break` after finding the first matching node instead of scanning all hashable_ids to find the earliest match. This means only the FIRST hashable node in hashable_ids order is checked, not all of them.",
+      "impact": "Node deduplication fails across hashability boundaries. Equal nodes can receive duplicate IDs instead of being deduplicated to the earliest-appearing node. This breaks the topological sort: edges go to different node IDs, indegree counts are wrong, nodes end up in wrong layers or cause false DependencyCycleError.",
+      "suggested_validation": "Test with edges where an unhashable node equals a hashable node that appeared earlier, but the hashable node isn't first in hashable_ids order. E.g.: edges = [ (hashable1, 'dep'), (unhashable_eq_to_hashable1, 'dep2') ]. The unhashable node should deduplicate to hashable1's ID, but it gets a new ID instead."
+    },
+    {
+      "id": "F2",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 83,
+      "line_end": 87,
+      "trigger_condition": "When looking up a hashable node value and there are unhashable nodes with equal values, but the first unhashable node checked is not the earliest-appearing one",
+      "root_cause": "The unhashable_ids cross-check loop on lines 83-87 uses `break` after finding the first matching node instead of scanning all unhashable_ids to find the earliest match. This means only the FIRST unhashable node in unhashable_ids order is checked, not all of them.",
+      "impact": "Same as F1: node deduplication fails. Equal values get duplicate IDs, breaking the topological sort contract. Layer ordering and cycle detection both become unreliable.",
+      "suggested_validation": "Test with edges where a hashable node equals an earlier-appearing unhashable node, but there are multiple unhashable nodes and the matching one isn't first. The hashable node should deduplicate to the earlier unhashable node's ID."
+    },
+    {
+      "id": "F3",
+      "severity": "high",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 63,
+      "line_end": 72,
+      "trigger_condition": "Looking up any unhashable node value, or looking up a hashable value when cross-checking unhashables",
+      "root_cause": "Node lookup for unhashable values uses linear scan of ALL registered nodes (unhashable_ids + hashable_ids). Every _id_of() call is O(N), and there are O(N) calls during edge processing. The overall algorithm becomes O(N²).",
+      "impact": "Severe performance degradation with more than ~1000 nodes. Processing large graphs (10k+ nodes) becomes impractical due to quadratic time complexity.",
+      "suggested_validation": "Benchmark with 1000 nodes vs 10000 nodes. Runtime should grow roughly linearly (O(N+E)), but will instead grow quadratically."
+    },
+    {
+      "id": "F4",
+      "severity": "medium",
+      "depth_level": 3,
+      "confidence": 0.95,
+      "file": "dependency_layers.py",
+      "line_start": 83,
+      "line_end": 87,
+      "trigger_condition": "When a hashable value equals multiple unhashable values and the earliest match isn't the first one encountered in unhashable_ids order",
+      "root_cause": "Even if the `break` were removed (F2), the logic only tracks 'match' but doesn't guarantee finding the MINIMUM (earliest) node_id across ALL matches. The loop should continue scanning all unhashable_ids and pick match = min(match, existing_id) whenever equal.",
+      "impact": "When multiple equal unhashable nodes exist, a later one might be returned instead of the earliest-appearing one. This violates the 'first appearance order' contract from TASKS.md.",
+      "suggested_validation": "Create edges with several unhashable nodes all equal to each other, then later add an edge with a hashable node that equals them. Verify the hashable node resolves to the earliest ID."
+    }
+  ]
+}

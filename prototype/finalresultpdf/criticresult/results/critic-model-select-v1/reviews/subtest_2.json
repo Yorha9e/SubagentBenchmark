@@ -1,0 +1,32 @@
+{
+  "run_id": "critic-model-select-v1",
+  "critic_slot": "subtest_2",
+  "critic_model": "deepseek/deepseek-v4-flash",
+  "candidate_reviews": {
+    "candidate-A": {
+      "agent_id": "agent-194",
+      "task_id": "agent-uby8gq2t",
+      "status": "completed",
+      "duration_seconds": 217.244,
+      "findings": [],
+      "raw_output_path": "session-agent-output:agent-uby8gq2t"
+    },
+    "candidate-B": {
+      "agent_id": "agent-195",
+      "task_id": "agent-dmsspupr",
+      "status": "completed",
+      "duration_seconds": 210.799,
+      "findings": [],
+      "raw_output_path": "session-agent-output:agent-dmsspupr"
+    }
+  },
+  "total_critic_seconds": 428.043,
+  "classification": {
+    "GT1": false,
+    "GT2": false,
+    "GT3": false,
+    "false_positives": 0,
+    "max_confirmed_depth": null
+  },
+  "note": "Candidate-A contains GT1 and GT2, but this model reported no finding; candidate-B contains GT3 resource issue, but this model reported no finding. Findings require parent confirmation before final scoring."
+}

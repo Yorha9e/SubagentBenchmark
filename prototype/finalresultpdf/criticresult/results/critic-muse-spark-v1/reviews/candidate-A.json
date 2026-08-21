@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "Edge stream contains two nodes A and B where A == B is True but one is hashable (e.g., frozenset({1,2}), int, 1.0) and the other is unhashable (e.g., set({1,2}), custom object with __hash__=None and __eq__ returning True). The canonical example is set vs frozenset equality.",
+      "root_cause": "_id_of splits identity resolution into two disjoint registries. The try-branch (lines 42,53-61) indexes only hash_buckets for hashable values, while the except TypeError branch (lines 44-52) linear-scans only unhashable_nodes/unhashable_ids. Neither branch ever probes the other registry for an equal object, so equal objects separated by hashability are never deduplicated.",
+      "impact": "Equal nodes across the hashability boundary receive distinct integer IDs. Deduplication, indegree accounting, and cycle detection all operate on IDs, so the graph is corrupted: duplicate copies of the same logical node appear in output layers, layer counts are inflated, self-loop edges (u,h) where u==h are not recognized as cycles, and DependencyCycleError is missed when a cycle is formed solely by cross-hashability equal nodes.",
+      "suggested_validation": "Create set_node={1,2} (unhashable) and frozen=frozenset({1,2}) (hashable) where set_node==frozen is True. Call dependency_layers([(frozen, set_node)]) — should be a self-loop and raise DependencyCycleError but returns [[{1,2}], [frozenset({1,2})]] or similar duplicate. Also call dependency_layers([('a', set_node), ('a', frozen)]) and observe 'a' gets two distinct dependency IDs and appears with duplicated dependencies/layers instead of deduplicated single dependency."
+    },
+    {
+      "id": "F2",
+      "severity": "high",
+      "depth_level": 3,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 43,
+      "line_end": 52,
+      "trigger_condition": "Edge stream contains many distinct unhashable nodes, e.g., N dicts/lists or custom unhashable objects such as [({'id': i+1}, {'id': i}) for i in range(N)] with N>=1000.",
+      "root_cause": "In the except TypeError path _id_of performs a linear scan 'for idx, candidate in zip(unhashable_ids, unhashable_nodes): if candidate is value or candidate == value' over all previously registered unhashable nodes. Every new unhashable node pays O(U) where U is current unhashable count, with no hash acceleration or indexing.",
+      "impact": "Total time for N distinct unhashable nodes is O(N^2) comparisons. Very deep acyclic inputs (the spec explicitly requires handling without recursion) with unhashable nodes become quadratically slow and can time out or exhaust CPU, while hashable inputs remain O(N). This is a resource/complexity violation distinct from the use of iteration vs recursion.",
+      "suggested_validation": "Benchmark dependency_layers([({'id': i+1}, {'id': i}) for i in range(N)]) for N=2000 vs N=6000 and measure wall time ratio ~9x (quadratic) rather than ~3x (linear). Profiling will show hotspot in _id_of linear scan at lines 44-45."
+    }
+  ]
+}

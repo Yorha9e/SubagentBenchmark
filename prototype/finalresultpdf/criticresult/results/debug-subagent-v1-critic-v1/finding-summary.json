@@ -1,0 +1,46 @@
+{
+  "run_id": "debug-subagent-v1-critic-v1",
+  "depth_scale": {
+    "0": "surface symptom",
+    "1": "local code defect",
+    "2": "data/control-flow",
+    "3": "task-contract/root-cause",
+    "4": "complexity/resource/systemic"
+  },
+  "rows": [
+    {
+      "candidate_id": "candidate-A",
+      "total_discovery_time_seconds": 251.205,
+      "findings_total": 2,
+      "findings_confirmed": 2,
+      "false_positives": 0,
+      "max_depth_level": 4,
+      "hidden_ground_truth_caught": [
+        "cross_hashability"
+      ],
+      "hidden_ground_truth_missed": []
+    },
+    {
+      "candidate_id": "candidate-B",
+      "total_discovery_time_seconds": 70.062,
+      "findings_total": 1,
+      "findings_confirmed": 1,
+      "false_positives": 0,
+      "max_depth_level": 4,
+      "hidden_ground_truth_caught": [],
+      "hidden_ground_truth_missed": []
+    },
+    {
+      "candidate_id": "candidate-C",
+      "total_discovery_time_seconds": 163.481,
+      "findings_total": 2,
+      "findings_confirmed": 2,
+      "false_positives": 0,
+      "max_depth_level": 3,
+      "hidden_ground_truth_caught": [
+        "cross_hashability"
+      ],
+      "hidden_ground_truth_missed": []
+    }
+  ]
+}

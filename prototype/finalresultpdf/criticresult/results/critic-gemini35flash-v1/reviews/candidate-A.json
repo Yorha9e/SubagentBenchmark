@@ -1,0 +1,18 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "The input dependency edges contain a mix of hashable and unhashable nodes that compare equal to each other (e.g., an integer 1 and a custom unhashable object UnhashableInt(1) that implements __eq__ to equal 1).",
+      "root_cause": "The first-appearance registry function _id_of separately registers hashable nodes in hash_buckets and unhashable nodes in unhashable_nodes. When a hashable node is processed, it is only searched in hash_buckets (and not in unhashable_nodes). When an unhashable node is processed, it is only searched in unhashable_nodes (and not in hash_buckets). This partition ignores equality comparisons across the hashability boundary, assigning different node IDs to equal values.",
+      "impact": "Deduplication of nodes and edges fails across the hashability boundary. This causes equal nodes to be represented as distinct nodes in the graph, which violates the correctness of dependency layers and can completely bypass cycle detection (e.g., a cycle like 1 -> 2 -> UnhashableInt(1) -> 1 is not detected as a cycle, returning a valid layer list instead of raising DependencyCycleError).",
+      "suggested_validation": "Ensure cross-boundary equality checking in _id_of. Specifically: (1) when a hashable node is not found in hash_buckets, perform a fallback check against unhashable_nodes; (2) when an unhashable node is checked, search for equality in both unhashable_nodes and all nodes registered so far (e.g., by scanning nodes_by_id or checking hash_buckets keys). Alternatively, fallback to a single scan list for all nodes when any equality lookup requires it."
+    }
+  ]
+}

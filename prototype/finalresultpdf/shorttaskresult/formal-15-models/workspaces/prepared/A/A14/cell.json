@@ -1,0 +1,1 @@
+{"benchmark_id":"short-python-stdlib-v1","condition":"A","expected_model":"volcano/glm-5.2","group":"G2","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"A14","wave":"G2-A"}

@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 0.95,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "The edge stream contains the same logical node in two representations that are equal but straddle the hashability boundary, e.g. frozenset({1}) (hashable) and {1} (unhashable) — frozenset({1}) == {1} is True but only the frozenset is hashable. Triggering inputs verified: [('b', {1}), ('a', frozenset({1}))] returns [[{1}, frozenset({1})], ['b','a']] (same node twice in one layer); [(frozenset({1}), {1})] returns [[{1}], [frozenset({1})]] instead of raising for a self-loop; [('x', {1}), (frozenset({1}), 'x')] returns [[{1}], ['x'], [frozenset({1})]] instead of raising for a real 2-cycle; [('a', frozenset({1})), ('a', {1})] returns [[frozenset({1}), {1}], ['a']] instead of deduplicating the repeated edge.",
+      "root_cause": "_id_of keeps two disjoint registries: hashable values go into hash_buckets and unhashable values go into the unhashable_nodes linear-scan list. The hashable path only compares against other hashable bucket members and the unhashable path only compares against unhashable_nodes, so equality is never checked across the hashability boundary. Equal values on opposite sides (frozenset vs set being the canonical stdlib case) therefore receive two distinct ids, and every downstream structure (seen_edges dedup, indegree, dependents, layers) treats them as different nodes.",
+      "impact": "Three contract violations: (1) missed DependencyCycleError for graphs that are cyclic under equality semantics (self-loop or 2-cycle across representations) — the function returns a 'layering' of a cyclic graph; (2) the same logical node appears multiple times in the output layers (duplicate entries in layer 0/1 in the examples above), violating the expected one-occurrence-per-node layering; (3) repeated edges whose endpoints are represented across the boundary are not deduplicated, inflating indegree and delaying dependents. This directly breaks the 'Deduplicate repeated edges', 'Raise DependencyCycleError ... for a real directed cycle', and output-shape clauses of TASKS.md task 2.",
+      "suggested_validation": "Run: dependency_layers([('b', {1}), ('a', frozenset({1}))]) should produce exactly two layers with {1}/frozenset({1}) appearing once (first-seen object). dependency_layers([(frozenset({1}), {1})]) and dependency_layers([('x', {1}), (frozenset({1}), 'x')]) must raise DependencyCycleError. dependency_layers([('a', frozenset({1})), ('a', {1})]) must treat both edges as the same edge. A fix must unify the two registries, e.g. have the unhashable path also compare against previously registered hashable nodes (and vice versa) or maintain one equality-ordered registry."
+    },
+    {
+      "id": "F2",
+      "severity": "medium",
+      "depth_level": 3,
+      "confidence": 0.85,
+      "file": "dependency_layers.py",
+      "line_start": 44,
+      "line_end": 52,
+      "trigger_condition": "Inputs containing a large number of distinct unhashable nodes (e.g. thousands of unique lists/dicts in either position of the edge pairs). Empirical check: 2500 unique unhashable nodes took ~0.133 s vs ~0.006 s for 2500 hashable nodes, and the gap grows quadratically with the unhashable-node count.",
+      "root_cause": "The unhashable fallback performs a linear scan over every previously registered unhashable node for each new unhashable value (zip(unhashable_ids, unhashable_nodes) with candidate == value), giving O(U^2) total time for U distinct unhashable nodes; it also compares across all types. The hashable path can degrade similarly under pathological __hash__ implementations that return a constant (bucket scan becomes O(n) per node), though that is less common.",
+      "impact": "No contract violation (TASKS.md specifies no complexity bound, and equality-dedup of unhashables is inherently scan-based), but unhashable-heavy workloads degrade quadratically, which is a practical performance hazard given the task explicitly calls out hashable vs unhashable handling and algorithmic complexity. A type-grouped registry or per-type comparison would keep typical mixed workloads much faster.",
+      "suggested_validation": "Benchmark dependency_layers over N distinct unhashable nodes for N in [1000, 2000, 4000] and confirm the time ratio is ~4x per doubling; compare against the hashable path of the same size. The finding is confirmed if the unhashable path scales quadratically while the hashable path scales linearly."
+    }
+  ]
+}

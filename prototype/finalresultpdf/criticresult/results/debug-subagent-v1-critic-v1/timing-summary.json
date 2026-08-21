@@ -1,0 +1,34 @@
+{
+  "run_id": "debug-subagent-v1-critic-v1",
+  "measurement_method": "parent_wall_clock_serial",
+  "critic_model": "GPT/gpt-5.6-sol (same for all candidates)",
+  "serial_order": [
+    "candidate-A",
+    "candidate-B",
+    "candidate-C"
+  ],
+  "note": "candidate-A includes first-dispatch warmup; all times include model latency and parent tool-dispatch overhead",
+  "timings": {
+    "candidate-A": {
+      "t0_ns": 1785046573958145000,
+      "t1_ns": 1785046825163361600,
+      "started_at_utc": "2026-07-26T06:16:13.958151+00:00",
+      "completed_at_utc": "2026-07-26T06:20:25.163373+00:00",
+      "total_discovery_time_seconds": 251.205
+    },
+    "candidate-B": {
+      "t0_ns": 1785046902286765800,
+      "t1_ns": 1785046972348979800,
+      "started_at_utc": "2026-07-26T06:21:42.286778+00:00",
+      "completed_at_utc": "2026-07-26T06:22:52.348998+00:00",
+      "total_discovery_time_seconds": 70.062
+    },
+    "candidate-C": {
+      "t0_ns": 1785046980118659300,
+      "t1_ns": 1785047143599403000,
+      "started_at_utc": "2026-07-26T06:23:00.118677+00:00",
+      "completed_at_utc": "2026-07-26T06:25:43.599413+00:00",
+      "total_discovery_time_seconds": 163.481
+    }
+  }
+}

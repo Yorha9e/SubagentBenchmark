@@ -1,0 +1,31 @@
+{
+  "run_id": "critic-doubao-evolving-v1",
+  "measurement_method": "agent_task_metadata_wall_clock",
+  "measurement_definition": "ended_at - started_at from Agent task metadata; includes task-specific queueing, generation, tool calls, and dispatch overhead; excludes post-review evaluation",
+  "events": [
+    {
+      "critic_slot": "subtest1",
+      "critic_model": "volcanoagent/doubao-seed-evolving",
+      "candidate_id": "candidate-A",
+      "agent_id": "agent-238",
+      "task_id": "agent-72oiwtli",
+      "status": "completed",
+      "started_at_epoch_ms": 1785167672475,
+      "ended_at_epoch_ms": 1785168262911,
+      "duration_seconds": 590.436,
+      "source": "TaskOutput metadata"
+    },
+    {
+      "critic_slot": "subtest1",
+      "critic_model": "volcanoagent/doubao-seed-evolving",
+      "candidate_id": "candidate-B",
+      "agent_id": "agent-239",
+      "task_id": "agent-fpc6caaf",
+      "status": "completed",
+      "started_at_epoch_ms": 1785168288471,
+      "ended_at_epoch_ms": 1785169052286,
+      "duration_seconds": 763.815,
+      "source": "TaskOutput metadata"
+    }
+  ]
+}

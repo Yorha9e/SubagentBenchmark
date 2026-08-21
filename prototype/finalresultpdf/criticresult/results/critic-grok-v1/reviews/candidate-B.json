@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-B",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "high",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 68,
+      "line_end": 87,
+      "trigger_condition": "The edge stream mixes many hashable nodes with many unhashable nodes that are not equal across domains (canonical: [(i, [i]) for i in range(N)], or U list-nodes registered first then H integer lookups against a shared root). Cross-hash equal pairs such as frozenset({1}) vs {1} are handled correctly and are not the trigger. Hashable-only integer/string graphs stay near-linear.",
+      "root_cause": "_id_of implements required cross-hashability with full bidirectional linear scans of the opposite registry on every lookup. Unhashable values (hash() TypeError) walk every id in hashable_ids (lines 68-72) even after a same-domain unhashable match is already known, and even when the new value cannot equal any stored hashable. Hashable values, after the hash-bucket fast path, still walk every id in unhashable_ids (lines 82-87) on a miss. Neither loop is type-filtered or bounded by the already-found earliest match id. With H hashable and U unhashable distinct nodes the identity pass therefore performs Theta(H*U) extra equality tests on top of the same-domain work, i.e. Theta(N^2) when both domains grow.",
+      "impact": "Mixed but otherwise-legal acyclic inputs become quadratic before Kahn layering runs. Measured on this file: mixed [(i, [i])] N=500/1000/2000/4000 took 0.022s / 0.087s / 0.336s / 1.387s (~4x time per 2x N). Instrumented unequal H2(i) vs U2(-i-1): N=50/100/200/400 produced 3725 / 14950 / 59900 / 239800 equality calls (matches (3N^2-N)/2). Destroying the hashable fast path: U=10/100/500 unhashable lists then H=20000 integer lookups took 0.045s / 0.249s / 1.139s. The reverse (H first, then U) is the same class: H=20000 then U=500 took 0.695s. Integer-only chains stay linear (N=8000 in 0.010s). Deep/wide 50k integer checks therefore pass while mixed or dual-domain graphs time out. Cross-hash correctness itself is intact: frozenset({1}) vs {1} collapses to one node (self-loop raises; duplicate logical edges dedup; first-seen object is preserved).",
+      "suggested_validation": "Time dependency_layers([(i, [i]) for i in range(N)]) at N in {1000,2000,4000} and confirm ~4x growth per doubling; compare against (i, i-1) integers. Count __eq__ on a custom hashable/unhashable pair that never compares equal; expect Theta(N^2) total. Time [([i], 'root') for i in range(U)] + [(i, 'root') for i in range(H)] at fixed H=20000 while U grows (10 vs 500). A type-partitioned or 'only scan opposite ids with id < already-found match' cross-check, plus skipping the opposite scan when types cannot match, would cut the mixed-domain cost; set/frozenset and HashableNode/UnhashableNode equality must still be preserved."
+    },
+    {
+      "id": "F2",
+      "severity": "high",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 64,
+      "line_end": 67,
+      "trigger_condition": "The edge stream contains many distinct unhashable nodes (lists, dicts, sets, or user objects with __hash__ = None), even with zero hashable vertices. Cost is paid during the single consumption pass. Hashable-only graphs of the same size stay linear.",
+      "root_cause": "The unhashable branch of _id_of always does `for existing_id in unhashable_ids: if _same_node(...)` (lines 64-67) before the opposite-registry walk. That is a full linear equality scan of every previously registered unhashable node. U distinct unhashable values therefore cost Theta(U^2) same-domain equality tests regardless of the cross-domain issue in F1. The hashable path's dict-by-hash buckets stay amortized O(1) per lookup, so this quadratic fallback is isolated to unhashable identity.",
+      "impact": "Quadratic CPU on legal acyclic inputs whose nodes are unhashable. Measured on this file: unhashable list chain N=500/1000/2000/4000 took 0.016s / 0.058s / 0.230s / 0.928s (~4x time per 2x N). Instrumented custom unhashable chain: N=50/100/200/400 produced 2499 / 9999 / 39999 / 159999 equality calls (matches N^2 growth). Integer chain N=8000 stayed 0.010s, so hidden deep/wide 50k integer resource checks do not expose this. Large list/set/dict node graphs can time out despite a correct iterative Kahn phase and correct cycle/.nodes behavior.",
+      "suggested_validation": "Time dependency_layers(([i], [i-1]) for i in range(1, N+1)) at N in {1000,2000,4000} and confirm ~4x growth per doubling; compare against (i, i-1) integers. Count __eq__ on a custom unhashable type; expect ~N^2. An identity map (id(obj) -> node_id) plus a narrower equality scan, or grouping by type, would cut typical cost; fully general unhashable equality still needs some comparisons."
+    }
+  ]
+}

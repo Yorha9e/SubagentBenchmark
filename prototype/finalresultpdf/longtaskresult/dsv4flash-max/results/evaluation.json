@@ -1,0 +1,956 @@
+{
+  "AcceptanceCoverage": 0.7,
+  "ClosedLoopProjectCount": 0,
+  "InstructionGate": null,
+  "MilestoneStrictCount": 0,
+  "benchmark_version": "closed-loop-v2",
+  "criterion_count": 20,
+  "criterion_pass_count": 14,
+  "decision_infrastructure_indeterminate": true,
+  "evaluated_at": "2026-07-31T09:13:42.362330+00:00",
+  "infrastructure_indeterminate_evidence": [
+    "instruction_audit"
+  ],
+  "instruction": {
+    "benchmark_version": "closed-loop-v2",
+    "checks": [
+      {
+        "diagnostics": [
+          "changed asset: validation/run_validation.py"
+        ],
+        "id": "frozen_assets",
+        "observable": true,
+        "passed": null,
+        "status": "infrastructure_indeterminate"
+      },
+      {
+        "diagnostics": "D:/vscode/kimisubagentexplore/subagentbenchmark/prototype/finalresultpdf/longtaskresult/dsv4flash-max/runs/workspace",
+        "id": "workspace_exists",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": [
+          "source outside allowed package boundaries: src/__init__.py"
+        ],
+        "id": "workspace_non_source",
+        "observable": true,
+        "passed": false,
+        "status": "failed"
+      },
+      {
+        "diagnostics": {
+          "errors": {},
+          "missing_or_unparsed": []
+        },
+        "id": "allowed_packages_parse",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": {
+          "OrderService": {
+            "__init__": {
+              "async": false,
+              "keyword_only": [
+                "clock",
+                "id_factory"
+              ],
+              "keyword_only_defaults": [
+                false,
+                false
+              ],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "db_path"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "cancel_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "create_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "idempotency_key",
+                "items"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "get_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "pay_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id",
+                "payment_id",
+                "amount_cents"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "set_stock": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "sku",
+                "quantity"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "ship_order": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "order_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            }
+          },
+          "Spool": {
+            "__init__": {
+              "async": false,
+              "keyword_only": [
+                "clock",
+                "limits",
+                "lock_timeout",
+                "failpoint"
+              ],
+              "keyword_only_defaults": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "root"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "ack": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id",
+                "lease_token"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "claim": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "worker_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "enqueue": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id",
+                "payload",
+                "available_at"
+              ],
+              "positional_defaults": 1,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "fail": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id",
+                "lease_token",
+                "error"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "get": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "message_id"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "initialize": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "list_messages": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self",
+                "status"
+              ],
+              "positional_defaults": 1,
+              "positional_only_count": 0,
+              "vararg": null
+            },
+            "recover": {
+              "async": false,
+              "keyword_only": [],
+              "keyword_only_defaults": [],
+              "kwarg": null,
+              "positional": [
+                "self"
+              ],
+              "positional_defaults": 0,
+              "positional_only_count": 0,
+              "vararg": null
+            }
+          },
+          "parse_errors": {}
+        },
+        "id": "public_exports_and_signatures",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": {
+          "imports": {
+            "src/delivery_spool/__init__.py": [
+              {
+                "line": 9,
+                "root": "__future__",
+                "source": "__future__"
+              },
+              {
+                "line": 11,
+                "root": "hmac",
+                "source": "hmac"
+              },
+              {
+                "line": 12,
+                "root": "json",
+                "source": "json"
+              },
+              {
+                "line": 13,
+                "root": "math",
+                "source": "math"
+              },
+              {
+                "line": 14,
+                "root": "os",
+                "source": "os"
+              },
+              {
+                "line": 15,
+                "root": "secrets",
+                "source": "secrets"
+              },
+              {
+                "line": 16,
+                "root": "time",
+                "source": "time"
+              },
+              {
+                "line": 17,
+                "root": "uuid",
+                "source": "uuid"
+              },
+              {
+                "line": 19,
+                "root": "dataclasses",
+                "source": "dataclasses"
+              },
+              {
+                "line": 210,
+                "root": "msvcrt",
+                "source": "msvcrt"
+              },
+              {
+                "line": 215,
+                "root": "fcntl",
+                "source": "fcntl"
+              },
+              {
+                "line": 187,
+                "root": "msvcrt",
+                "source": "msvcrt"
+              },
+              {
+                "line": 192,
+                "root": "fcntl",
+                "source": "fcntl"
+              }
+            ],
+            "src/delivery_spool/__main__.py": [
+              {
+                "line": 10,
+                "root": "__future__",
+                "source": "__future__"
+              },
+              {
+                "line": 12,
+                "root": "json",
+                "source": "json"
+              },
+              {
+                "line": 13,
+                "root": "sys",
+                "source": "sys"
+              },
+              {
+                "line": 14,
+                "root": "time",
+                "source": "time"
+              },
+              {
+                "line": 16,
+                "root": "<relative>",
+                "source": "."
+              }
+            ],
+            "src/order_fulfillment/__init__.py": [
+              {
+                "line": 8,
+                "root": "__future__",
+                "source": "__future__"
+              },
+              {
+                "line": 10,
+                "root": "math",
+                "source": "math"
+              },
+              {
+                "line": 11,
+                "root": "sqlite3",
+                "source": "sqlite3"
+              }
+            ],
+            "src/order_fulfillment/__main__.py": [
+              {
+                "line": 9,
+                "root": "__future__",
+                "source": "__future__"
+              },
+              {
+                "line": 11,
+                "root": "json",
+                "source": "json"
+              },
+              {
+                "line": 12,
+                "root": "sys",
+                "source": "sys"
+              },
+              {
+                "line": 13,
+                "root": "time",
+                "source": "time"
+              },
+              {
+                "line": 14,
+                "root": "uuid",
+                "source": "uuid"
+              },
+              {
+                "line": 16,
+                "root": "<relative>",
+                "source": "."
+              }
+            ]
+          },
+          "violations": []
+        },
+        "id": "standard_library_only_imports",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": {
+          "violations": []
+        },
+        "id": "no_forbidden_network_process_or_dynamic_code",
+        "observable": true,
+        "passed": true,
+        "status": "passed"
+      },
+      {
+        "diagnostics": "Not observable from final workspace files.",
+        "id": "process_no_delegation_attempt",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      },
+      {
+        "diagnostics": "Not observable from final workspace files.",
+        "id": "process_no_hidden_evaluator_read_attempt",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      },
+      {
+        "diagnostics": "AST-visible behavior is audited, but execution history is not observable from final files.",
+        "id": "process_no_network_attempt",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      },
+      {
+        "diagnostics": "Final workspace files cannot prove that runtime writes stayed within declared storage.",
+        "id": "writes_only_declared_storage",
+        "observable": false,
+        "passed": null,
+        "status": "unobservable"
+      }
+    ],
+    "decision_infrastructure_indeterminate": true,
+    "instruction_gate": null,
+    "schema_version": 2,
+    "slot": "subtest_4",
+    "workspace": "D:/vscode/kimisubagentexplore/subagentbenchmark/prototype/finalresultpdf/longtaskresult/dsv4flash-max/runs/workspace"
+  },
+  "model": "kimi-code/kimi-for-coding",
+  "projects": [
+    {
+      "closed_loop_success": false,
+      "id": "order_fulfillment",
+      "milestones": [
+        {
+          "capability_id": "order.persistence_contract",
+          "criteria": [
+            {
+              "capability_id": "order.schema_reopen",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen",
+                "-v"
+              ],
+              "diagnostics": "test_schema_initialize_and_reopen (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.087s\n\nOK\n",
+              "duration_ms": 298.697,
+              "id": "OF1-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_schema_initialize_and_reopen"
+            },
+            {
+              "capability_id": "order.validation",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation",
+                "-v"
+              ],
+              "diagnostics": "test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) ... \n  test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(1, <closed_loop_v2.evaluator._support.DeterministicIds object at 0x00000116199F0830>)) ... FAIL\n  test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(<closed_loop_v2.evaluator._support.FakeClock object at 0x00000116199F0950>, 1)) ... FAIL\n\n======================================================================\nFAIL: test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(1, <closed_loop_v2.evaluator._support.DeterministicIds object at 0x00000116199F0830>))\n----------------------------------------------------------------------\nsrc.order_fulfillment.OrderError: clock and id_factory must be callable\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-fqloo8cv\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 143, in test_input_and_dependency_validation\n    with expect_domain_error(self, OrderError, \"INVALID_INPUT\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-fqloo8cv\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'INVALID_DEPENDENCY' != 'INVALID_INPUT'\n- INVALID_DEPENDENCY\n+ INVALID_INPUT\n\n\n======================================================================\nFAIL: test_input_and_dependency_validation (closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation) (dependencies=(<closed_loop_v2.evaluator._support.FakeClock object at 0x00000116199F0950>, 1))\n----------------------------------------------------------------------\nsrc.order_fulfillment.OrderError: clock and id_factory must be callable\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-fqloo8cv\\closed_loop_v2\\evaluator\\test_order_fulfillment.py\", line 143, in test_input_and_dependency_validation\n    with expect_domain_error(self, OrderError, \"INVALID_INPUT\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-fqloo8cv\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'INVALID_DEPENDENCY' != 'INVALID_INPUT'\n- INVALID_DEPENDENCY\n+ INVALID_INPUT\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.451s\n\nFAILED (failures=2)\n",
+              "duration_ms": 642.763,
+              "id": "OF1-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPersistenceTests.test_input_and_dependency_validation"
+            }
+          ],
+          "id": "OF1",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.atomic_create",
+          "criteria": [
+            {
+              "capability_id": "order.multi_sku_atomic_reservation",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_multi_sku_reservation_is_atomic",
+                "-v"
+              ],
+              "diagnostics": "test_multi_sku_reservation_is_atomic (closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_multi_sku_reservation_is_atomic) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.081s\n\nOK\n",
+              "duration_ms": 276.707,
+              "id": "OF2-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_multi_sku_reservation_is_atomic"
+            },
+            {
+              "capability_id": "order.create_idempotency",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_create_idempotency_and_conflict",
+                "-v"
+              ],
+              "diagnostics": "test_create_idempotency_and_conflict (closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_create_idempotency_and_conflict) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.078s\n\nOK\n",
+              "duration_ms": 260.917,
+              "id": "OF2-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderCreationTests.test_create_idempotency_and_conflict"
+            }
+          ],
+          "id": "OF2",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.payment_state",
+          "criteria": [
+            {
+              "capability_id": "order.payment_idempotency",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount",
+                "-v"
+              ],
+              "diagnostics": "test_payment_idempotency_conflicts_and_amount (closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.080s\n\nOK\n",
+              "duration_ms": 267.444,
+              "id": "OF3-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_payment_idempotency_conflicts_and_amount"
+            },
+            {
+              "capability_id": "order.state_machine",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_explicit_state_machine",
+                "-v"
+              ],
+              "diagnostics": "test_explicit_state_machine (closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_explicit_state_machine) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.097s\n\nOK\n",
+              "duration_ms": 279.218,
+              "id": "OF3-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderPaymentTests.test_explicit_state_machine"
+            }
+          ],
+          "id": "OF3",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.inventory_concurrency",
+          "criteria": [
+            {
+              "capability_id": "order.cancel_release",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_cancel_releases_once_and_shipped_cannot_cancel",
+                "-v"
+              ],
+              "diagnostics": "test_cancel_releases_once_and_shipped_cannot_cancel (closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_cancel_releases_once_and_shipped_cannot_cancel) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.152s\n\nOK\n",
+              "duration_ms": 351.484,
+              "id": "OF4-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_cancel_releases_once_and_shipped_cannot_cancel"
+            },
+            {
+              "capability_id": "order.no_oversell",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_two_instances_cannot_oversell",
+                "-v"
+              ],
+              "diagnostics": "test_two_instances_cannot_oversell (closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_two_instances_cannot_oversell) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.320s\n\nOK\n",
+              "duration_ms": 487.691,
+              "id": "OF4-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_fulfillment.OrderInventoryTests.test_two_instances_cannot_oversell"
+            }
+          ],
+          "id": "OF4",
+          "strict_success": false
+        },
+        {
+          "capability_id": "order.cli",
+          "criteria": [
+            {
+              "capability_id": "order.cli_happy_path",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_all_commands_emit_one_json_line",
+                "-v"
+              ],
+              "diagnostics": "test_all_commands_emit_one_json_line (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_all_commands_emit_one_json_line) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.506s\n\nOK\n",
+              "duration_ms": 676.401,
+              "id": "OF5-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_all_commands_emit_one_json_line"
+            },
+            {
+              "capability_id": "order.cli_errors",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence",
+                "-v"
+              ],
+              "diagnostics": "test_error_codes_exit_codes_and_persistence (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence) ... \n  test_error_codes_exit_codes_and_persistence (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence) (command='get', request=None, raw_input='{\"order_id\":\"x\"}\\n{\"order_id\":\"y\"}\\n') ... FAIL\n\n======================================================================\nFAIL: test_error_codes_exit_codes_and_persistence (closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence) (command='get', request=None, raw_input='{\"order_id\":\"x\"}\\n{\"order_id\":\"y\"}\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-q101ortz\\closed_loop_v2\\evaluator\\test_order_cli.py\", line 114, in test_error_codes_exit_codes_and_persistence\n    assert_cli_error(\n    ~~~~~~~~~~~~~~~~^\n        self,\n        ^^^^^\n    ...<3 lines>...\n        code=\"INVALID_INPUT\",\n        ^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-q101ortz\\closed_loop_v2\\evaluator\\_support.py\", line 263, in assert_cli_error\n    case.assertEqual(error[\"code\"], code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'NOT_FOUND' != 'INVALID_INPUT'\n- NOT_FOUND\n+ INVALID_INPUT\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.907s\n\nFAILED (failures=1)\n",
+              "duration_ms": 1075.782,
+              "id": "OF5-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_order_cli.OrderCliTests.test_error_codes_exit_codes_and_persistence"
+            }
+          ],
+          "id": "OF5",
+          "strict_success": false
+        }
+      ]
+    },
+    {
+      "closed_loop_success": false,
+      "id": "delivery_spool",
+      "milestones": [
+        {
+          "capability_id": "spool.durable_schema",
+          "criteria": [
+            {
+              "capability_id": "spool.initialize_corruption",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed",
+                "-v"
+              ],
+              "diagnostics": "test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) ... \n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='malformed') ... FAIL\n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='non-canonical') ... FAIL\n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='duplicate-key') ... FAIL\n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='unknown-field') ... FAIL\n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='invalid-next-sequence') ... FAIL\n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='unknown-schema') ... FAIL\n  test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (constructor={'clock': 1}) ... FAIL\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='malformed')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: spool already initialized\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 105, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, code):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'ALREADY_INITIALIZED' != 'CORRUPT_STATE'\n- ALREADY_INITIALIZED\n+ CORRUPT_STATE\n\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='non-canonical')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: spool already initialized\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 105, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, code):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'ALREADY_INITIALIZED' != 'CORRUPT_STATE'\n- ALREADY_INITIALIZED\n+ CORRUPT_STATE\n\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='duplicate-key')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: spool already initialized\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 105, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, code):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'ALREADY_INITIALIZED' != 'CORRUPT_STATE'\n- ALREADY_INITIALIZED\n+ CORRUPT_STATE\n\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='unknown-field')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: spool already initialized\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 105, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, code):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'ALREADY_INITIALIZED' != 'CORRUPT_STATE'\n- ALREADY_INITIALIZED\n+ CORRUPT_STATE\n\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='invalid-next-sequence')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: spool already initialized\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 105, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, code):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'ALREADY_INITIALIZED' != 'CORRUPT_STATE'\n- ALREADY_INITIALIZED\n+ CORRUPT_STATE\n\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (corruption='unknown-schema')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: state is not canonical JSON\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 102, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, code):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'CORRUPT_STATE' != 'SCHEMA_MISMATCH'\n- CORRUPT_STATE\n+ SCHEMA_MISMATCH\n\n\n======================================================================\nFAIL: test_initialize_reopen_and_fail_closed (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed) (constructor={'clock': 1})\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: clock must be callable\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 205, in test_initialize_reopen_and_fail_closed\n    with expect_domain_error(self, SpoolError, \"INVALID_INPUT\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-nqmf8fix\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'INVALID_DEPENDENCY' != 'INVALID_INPUT'\n- INVALID_DEPENDENCY\n+ INVALID_INPUT\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.113s\n\nFAILED (failures=7)\n",
+              "duration_ms": 296.329,
+              "id": "DS1-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_initialize_reopen_and_fail_closed"
+            },
+            {
+              "capability_id": "spool.canonical_idempotency",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits",
+                "-v"
+              ],
+              "diagnostics": "test_canonical_payload_idempotency_and_limits (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits) ... ERROR\n\n======================================================================\nERROR: test_canonical_payload_idempotency_and_limits (closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-pim5spgx\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 244, in test_canonical_payload_idempotency_and_limits\n    self.assertEqual(spool.enqueue(\"m2\", None), defaulted)\n                     ~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\dsv4flash-max\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 442, in enqueue\n    return self._mutate(work)\n           ~~~~~~~~~~~~^^^^^^\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\dsv4flash-max\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 366, in _mutate\n    return self._locked(lambda: self._mutate_locked(fn))\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\dsv4flash-max\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 361, in _locked\n    return fn()\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\dsv4flash-max\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 366, in <lambda>\n    return self._locked(lambda: self._mutate_locked(fn))\n                                ~~~~~~~~~~~~~~~~~~~^^^^\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\dsv4flash-max\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 370, in _mutate_locked\n    result, changed = fn(state)\n                      ~~^^^^^^^\n  File \"D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\longtaskresult\\dsv4flash-max\\runs\\workspace\\src\\delivery_spool\\__init__.py\", line 418, in work\n    raise SpoolError(\n    ...<3 lines>...\n    )\nsrc.delivery_spool.SpoolError: message id reused with different payload or available_at\n\n----------------------------------------------------------------------\nRan 1 test in 0.041s\n\nFAILED (errors=1)\n",
+              "duration_ms": 250.177,
+              "id": "DS1-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolPersistenceTests.test_canonical_payload_idempotency_and_limits"
+            }
+          ],
+          "id": "DS1",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.claim",
+          "criteria": [
+            {
+              "capability_id": "spool.claim_order_token_privacy",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy",
+                "-v"
+              ],
+              "diagnostics": "test_claim_order_attempt_and_token_privacy (closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.060s\n\nOK\n",
+              "duration_ms": 243.897,
+              "id": "DS2-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_claim_order_attempt_and_token_privacy"
+            },
+            {
+              "capability_id": "spool.no_double_claim",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner",
+                "-v"
+              ],
+              "diagnostics": "test_concurrent_claim_has_single_winner (closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.279s\n\nOK\n",
+              "duration_ms": 462.686,
+              "id": "DS2-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolClaimTests.test_concurrent_claim_has_single_winner"
+            }
+          ],
+          "id": "DS2",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.delivery_outcomes",
+          "criteria": [
+            {
+              "capability_id": "spool.token_authorization",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token",
+                "-v"
+              ],
+              "diagnostics": "test_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token) ... \n  test_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token) (ack_token='') ... FAIL\ntest_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token) ... FAIL\n\n======================================================================\nFAIL: test_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token) (ack_token='')\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: invalid lease_token\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-3_4jnw9v\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 373, in test_ack_and_fail_require_exact_token\n    with expect_domain_error(self, SpoolError, \"UNAUTHORIZED\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-3_4jnw9v\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'INVALID_INPUT' != 'UNAUTHORIZED'\n- INVALID_INPUT\n+ UNAUTHORIZED\n\n\n======================================================================\nFAIL: test_ack_and_fail_require_exact_token (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token)\n----------------------------------------------------------------------\nsrc.delivery_spool.SpoolError: invalid lease token\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-3_4jnw9v\\closed_loop_v2\\evaluator\\test_delivery_spool.py\", line 379, in test_ack_and_fail_require_exact_token\n    with expect_domain_error(self, SpoolError, \"INVALID_STATE\"):\n         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-3_4jnw9v\\closed_loop_v2\\evaluator\\_support.py\", line 101, in expect_domain_error\n    case.assertEqual(error.code, code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 'UNAUTHORIZED' != 'INVALID_STATE'\n- UNAUTHORIZED\n+ INVALID_STATE\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.053s\n\nFAILED (failures=2)\n",
+              "duration_ms": 271.93,
+              "id": "DS3-C1",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_ack_and_fail_require_exact_token"
+            },
+            {
+              "capability_id": "spool.retry_dead",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition",
+                "-v"
+              ],
+              "diagnostics": "test_retry_delay_and_dead_transition (closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.054s\n\nOK\n",
+              "duration_ms": 238.149,
+              "id": "DS3-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolOutcomeTests.test_retry_delay_and_dead_transition"
+            }
+          ],
+          "id": "DS3",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.recovery_reads",
+          "criteria": [
+            {
+              "capability_id": "spool.recover_boundary",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency",
+                "-v"
+              ],
+              "diagnostics": "test_recover_boundary_and_idempotency (closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.081s\n\nOK\n",
+              "duration_ms": 266.879,
+              "id": "DS4-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_recover_boundary_and_idempotency"
+            },
+            {
+              "capability_id": "spool.reopen_get_list",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list",
+                "-v"
+              ],
+              "diagnostics": "test_reopen_get_and_sorted_list (closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.053s\n\nOK\n",
+              "duration_ms": 234.156,
+              "id": "DS4-C2",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_delivery_spool.SpoolRecoveryTests.test_reopen_get_and_sorted_list"
+            }
+          ],
+          "id": "DS4",
+          "strict_success": false
+        },
+        {
+          "capability_id": "spool.atomic_cli",
+          "criteria": [
+            {
+              "capability_id": "spool.atomic_replace_failpoints",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state",
+                "-v"
+              ],
+              "diagnostics": "test_failpoints_cleanup_and_old_or_new_state (closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.647s\n\nOK\n",
+              "duration_ms": 846.333,
+              "id": "DS5-C1",
+              "passed": true,
+              "returncode": 0,
+              "status": "passed",
+              "unittest": "closed_loop_v2.evaluator.test_spool_atomicity.SpoolAtomicityTests.test_failpoints_cleanup_and_old_or_new_state"
+            },
+            {
+              "capability_id": "spool.cli_root_boundary",
+              "command": [
+                "C:\\Python314\\python.exe",
+                "-m",
+                "unittest",
+                "closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary",
+                "-v"
+              ],
+              "diagnostics": "test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) ... \n  test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='show', request=None, raw_input='{\"message_id\":\"x\"}\\n{\"message_id\":\"y\"}\\n') ... FAIL\n\n======================================================================\nFAIL: test_cli_protocol_and_root_boundary (closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary) (command='show', request=None, raw_input='{\"message_id\":\"x\"}\\n{\"message_id\":\"y\"}\\n')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-e2o6j8zn\\closed_loop_v2\\evaluator\\test_spool_cli.py\", line 158, in test_cli_protocol_and_root_boundary\n    assert_cli_error(self, completed, decoded, exit_code=2, code=\"INVALID_INPUT\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Yorha\\AppData\\Local\\Temp\\criterion-bundle-e2o6j8zn\\closed_loop_v2\\evaluator\\_support.py\", line 263, in assert_cli_error\n    case.assertEqual(error[\"code\"], code)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'NOT_FOUND' != 'INVALID_INPUT'\n- NOT_FOUND\n+ INVALID_INPUT\n\n\n----------------------------------------------------------------------\nRan 1 test in 1.837s\n\nFAILED (failures=1)\n",
+              "duration_ms": 2001.382,
+              "id": "DS5-C2",
+              "passed": false,
+              "returncode": 1,
+              "status": "failed",
+              "unittest": "closed_loop_v2.evaluator.test_spool_cli.SpoolCliTests.test_cli_protocol_and_root_boundary"
+            }
+          ],
+          "id": "DS5",
+          "strict_success": false
+        }
+      ]
+    }
+  ],
+  "schema_version": 2,
+  "slot": "subtest_4",
+  "workspace": "D:/vscode/kimisubagentexplore/subagentbenchmark/prototype/finalresultpdf/longtaskresult/dsv4flash-max/runs/workspace",
+  "workspace_after": {
+    "file_count": 10,
+    "files": {
+      "BRIEFING.md": "2b83c069243c8f91cd6b5cadec950a611292add4f20601851501e984d4b6aabb",
+      "BRIEFING.preamble.md": "5eabcbdcde4ed83eaa1f66b2aec603ce6e879b1497b53068bba09672b01fc98b",
+      "TASKS.md": "43eac6eaea148e53d911cf637b59612cf8eeaf4014e8caf7039a3c45c7a1d840",
+      "src/__init__.py": "c127a6d87447f87f328b8daf780490988b25bc6fb65d3eff4dce65a5af517243",
+      "src/delivery_spool/__init__.py": "9b690eaa30892f6c36a3be5aab26114de7474a224ebaea7631372841fcd10972",
+      "src/delivery_spool/__main__.py": "444b5d3ebe9a40573e5325a8f00a493e23900b569b38f7b2edd981977e5dcbd9",
+      "src/order_fulfillment/__init__.py": "3cf3ec2b9ccb4648fed14141afbbd4cc3deebce1efc2c238be72177c1077d6ab",
+      "src/order_fulfillment/__main__.py": "82527ca0accfd8ea88481b67e131dde65b98815274532fc7d3f7481bd7896458",
+      "tests_public/__init__.py": "bbcab372c9f6512eede020dff96630070cbc89a9a7a5ec6caaf3200af8f4d920",
+      "tests_public/test_smoke.py": "58e2c5b5f8edcd89d71c51de95e1e0eeeea7680f2f13b70b470cb45b4af5c394"
+    },
+    "tree_digest": "6afecd32e24977c58987bd637e1df02e9f3218f61824f6f3e91532b4b64fa0ed"
+  },
+  "workspace_before": {
+    "file_count": 10,
+    "files": {
+      "BRIEFING.md": "2b83c069243c8f91cd6b5cadec950a611292add4f20601851501e984d4b6aabb",
+      "BRIEFING.preamble.md": "5eabcbdcde4ed83eaa1f66b2aec603ce6e879b1497b53068bba09672b01fc98b",
+      "TASKS.md": "43eac6eaea148e53d911cf637b59612cf8eeaf4014e8caf7039a3c45c7a1d840",
+      "src/__init__.py": "c127a6d87447f87f328b8daf780490988b25bc6fb65d3eff4dce65a5af517243",
+      "src/delivery_spool/__init__.py": "9b690eaa30892f6c36a3be5aab26114de7474a224ebaea7631372841fcd10972",
+      "src/delivery_spool/__main__.py": "444b5d3ebe9a40573e5325a8f00a493e23900b569b38f7b2edd981977e5dcbd9",
+      "src/order_fulfillment/__init__.py": "3cf3ec2b9ccb4648fed14141afbbd4cc3deebce1efc2c238be72177c1077d6ab",
+      "src/order_fulfillment/__main__.py": "82527ca0accfd8ea88481b67e131dde65b98815274532fc7d3f7481bd7896458",
+      "tests_public/__init__.py": "bbcab372c9f6512eede020dff96630070cbc89a9a7a5ec6caaf3200af8f4d920",
+      "tests_public/test_smoke.py": "58e2c5b5f8edcd89d71c51de95e1e0eeeea7680f2f13b70b470cb45b4af5c394"
+    },
+    "tree_digest": "6afecd32e24977c58987bd637e1df02e9f3218f61824f6f3e91532b4b64fa0ed"
+  },
+  "workspace_changed_paths": [],
+  "workspace_unchanged_during_evaluation": true
+}

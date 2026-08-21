@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-B",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "high",
+      "depth_level": 4,
+      "confidence": 0.95,
+      "file": "dependency_layers.py",
+      "line_start": 55,
+      "line_end": 90,
+      "trigger_condition": "A graph with many distinct unhashable node values (e.g., lists): each _id_of lookup is O(n) equality comparisons, giving O(n^2) total. Or a mixed graph with H hashable and U unhashable nodes: every hashable lookup, even one that hits its hash bucket, still executes the full linear scan over all U registered unhashable nodes, giving O(H*U). Measured on this machine: all-unhashable chain n=1000/2000/4000 took 0.058s/0.232s/0.932s (4x per 2x n, clean quadratic); 6000 hashable lookups with 1000 unhashable nodes already registered took 0.8s vs 0.009s for the pure-hashable baseline (~90x slowdown).",
+      "root_cause": "_id_of has no constant-time path for unhashable values (it linearly scans unhashable_ids and then ALL of hashable_ids), and critically the hash-bucket fast path does not short-circuit: after a bucket match the code still scans every registered unhashable node to preserve earliest-match semantics across hashability boundaries (lines 83-87), so the O(1) hashable path degrades to O(U) per lookup as soon as any unhashable node exists.",
+      "impact": "Quadratic blowup in exactly the area the hash-bucket fast path was meant to optimize. The contract explicitly requires handling 'very deep acyclic inputs'; a deep chain built from unhashable nodes (lists are the canonical unhashable test value) scales O(n^2) and will time out around 1e4-1e5 nodes, and mixed graphs degrade even purely hashable lookups. Functional results remain correct; this is a performance/resource issue under realistic time limits.",
+      "suggested_validation": "Time dependency_layers([([i], [i-1]) for i in range(1, N)]) for doubling N (expect ~4x per step), and time H hashable edges with U unhashable nodes pre-registered against the all-hashable baseline (expect ~U*x slowdown)."
+    },
+    {
+      "id": "F2",
+      "severity": "medium",
+      "depth_level": 4,
+      "confidence": 0.8,
+      "file": "dependency_layers.py",
+      "line_start": 40,
+      "line_end": 41,
+      "trigger_condition": "Graph contains a node whose __eq__ raises on foreign types or returns a non-bool (e.g., numpy arrays, or any class with type-guarded equality). The cross-registry scans force comparisons between unrelated types: every hashable value is compared with every registered unhashable node and vice versa. Verified: a class whose __eq__ raises TypeError on non-instances crashes the call in both registration orders; a numpy array node raises ValueError ('The truth value of an array with more than one element is ambiguous') as soon as an array compares against another node.",
+      "root_cause": "_same_node evaluates 'left == right' with no exception or truthiness guard, and the _id_of cross-check scans (lines 63-75 and 83-87) invoke it across arbitrary type pairs, so a single hostile comparison aborts the entire computation instead of treating the values as unequal.",
+      "impact": "dependency_layers raises TypeError/ValueError on otherwise valid inputs instead of returning the layering. The contract targets arbitrary objects (list[list[object]]), and equality-based deduplication across hashability boundaries is the specific feature this dual-registry design exists to support; the unguarded comparison makes that feature fragile for any node type with non-total equality.",
+      "suggested_validation": "Run dependency_layers on graphs mixing nodes with raising/non-bool __eq__ (or numpy arrays) and plain nodes, in both registration orders; expect either a clean layering treating them as unequal or a documented failure mode, not an unhandled crash."
+    }
+  ]
+}

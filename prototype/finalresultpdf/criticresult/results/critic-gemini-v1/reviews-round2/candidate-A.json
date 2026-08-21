@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "An edge stream contains nodes that compare equal under == (such as set({1}) and frozenset({1})), where one node is hashable and the other is unhashable.",
+      "root_cause": "_id_of segregates node registration into two isolated lookup tables: hashable nodes query hash_buckets while unhashable nodes raise TypeError and query unhashable_nodes. When registering a hashable node, _id_of never checks unhashable_nodes; when registering an unhashable node, the except block never checks hash_buckets or nodes_by_id for equal hashable candidates.",
+      "impact": "Nodes comparing equal across the hashability boundary are assigned distinct node IDs. This causes duplicate nodes in output layers, corrupted topological ordering, and failure to detect directed cycles (e.g. dependency_layers([(set({1}), frozenset({1}))]) returns a 2-layer result instead of raising DependencyCycleError).",
+      "suggested_validation": "Execute dependency_layers([(set({1, 2}), frozenset({1, 2}))]). Since set({1, 2}) == frozenset({1, 2}), this represents a directed self-cycle and should raise DependencyCycleError, but candidate-A returns [[frozenset({1, 2})], [{1, 2}]]."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "depth_level": 3,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 44,
+      "line_end": 52,
+      "trigger_condition": "Input graph contains N unhashable nodes (e.g. dicts or lists).",
+      "root_cause": "Unhashable node lookup performs a linear scan over unhashable_nodes using zip(unhashable_ids, unhashable_nodes) for every unhashable node encountered.",
+      "impact": "Node ID resolution degrades to O(N) per unhashable node, causing overall O(N^2) time complexity for processing graphs with N unhashable nodes.",
+      "suggested_validation": "Run dependency_layers on an edge list with 10,000 unique list nodes (e.g. [([i], [i+1]) for i in range(10000)]) and observe quadratic execution time scaling compared to hashable node inputs."
+    }
+  ]
+}

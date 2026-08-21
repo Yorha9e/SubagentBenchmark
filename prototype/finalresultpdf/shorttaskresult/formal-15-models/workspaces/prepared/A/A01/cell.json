@@ -1,0 +1,1 @@
+{"benchmark_id":"short-python-stdlib-v1","condition":"A","expected_model":"MT/LongCat-2.0","group":"G1","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"A01","wave":"G1-A"}

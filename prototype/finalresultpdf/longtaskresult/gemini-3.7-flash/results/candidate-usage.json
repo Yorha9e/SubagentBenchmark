@@ -1,0 +1,12 @@
+{
+  "available": true,
+  "record_count": 26,
+  "source_files": [
+    "wire.jsonl"
+  ],
+  "model": "google/gemini-3.7-flash-tiered",
+  "input_tokens": 280319,
+  "output_tokens": 38046,
+  "cache_tokens": 2146259,
+  "total_tokens": 318365
+}

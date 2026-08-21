@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "The edge stream contains a hashable node and an unhashable node that evaluate as equal (e.g., a custom hashable object with an __eq__ method that returns True when compared to a list or dict).",
+      "root_cause": "The `_id_of` function splits node registration into completely independent silos: `hash_buckets` for hashable objects and `unhashable_nodes` for unhashable objects. When processing an object, it only checks the registry corresponding to its own hashability status and never compares against objects in the other registry.",
+      "impact": "Equal nodes across the hashability boundary receive different IDs and are treated as distinct independent nodes in the graph. This fails to deduplicate them, leading to incorrect independent subgraphs and duplicate nodes in the final layered output.",
+      "suggested_validation": "Ensure that unhashable nodes are checked for equality against all previously seen nodes (e.g., by scanning `nodes_by_id`), and that hashable nodes similarly fall back to checking `unhashable_nodes` if they are not found in `hash_buckets`."
+    },
+    {
+      "id": "F2",
+      "severity": "medium",
+      "depth_level": 3,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 41,
+      "line_end": 61,
+      "trigger_condition": "Any hashable node is passed to the function.",
+      "root_cause": "The implementation attempts to manually manage hash collisions using a `bucket` list inside `hash_buckets`. However, it uses the object `value` itself as the dictionary key rather than `hash(value)`. Since Python dictionaries internally resolve collisions and group unique keys by equality, the `setdefault` call will only ever return a list corresponding to exactly one equivalence class. Thus, `bucket` will never contain more than one element.",
+      "impact": "While functionally harmless, this introduces unnecessary algorithmic complexity, memory allocations (a single-element list per unique hashable node), and redundant equality checks inside the `for existing in bucket` loop, demonstrating a misunderstanding of Python's dictionary semantics.",
+      "suggested_validation": "Replace the bucket list pattern. Directly map the object to its ID (e.g., `existing_id = hash_buckets.setdefault(value, next_id)`), and only increment `next_id` and update `nodes_by_id` if a new ID was actually assigned."
+    }
+  ]
+}

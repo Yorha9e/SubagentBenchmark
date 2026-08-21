@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE SUBAGENT GAZETTE — 高质感重力缓动与视差切页 DEMO V9</title>
+
+  <!-- Google Fonts: Playfair Display, Noto Serif SC, Fira Code & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cinematic: {
+              bg: '#050507',
+              panel: '#0c0c10',
+              border: '#1a1a22',
+              slate: '#777782',
+              white: '#ffffff'
+            }
+          },
+          fontFamily: {
+            serif: ['"Noto Serif SC"', '"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+            code: ['"Fira Code"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    ::selection { background: #ffffff; color: #000000; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #050507; }
+    ::-webkit-scrollbar-thumb { background: #33333b; }
+
+    body {
+      background-color: #050507;
+      color: #e4e4e6;
+      font-family: "Noto Serif SC", serif;
+      overflow-x: hidden;
+    }
+
+    /* Pinned Section Container */
+    .cine-section {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4rem 2rem 2rem 2rem;
+      border-bottom: 1px solid #1a1a22;
+      background: #08080b;
+    }
+
+    .hairline-b { border-bottom: 1px solid #1a1a22; }
+    .hairline-t { border-top: 1px solid #1a1a22; }
+    .hairline-r { border-right: 1px solid #1a1a22; }
+
+    .cool-label {
+      font-family: "Fira Code", monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #777782;
+    }
+
+    /* Massive Editorial Background Number */
+    .cine-bg-num {
+      font-family: "Playfair Display", serif;
+      font-size: 180px;
+      line-height: 0.8;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.035);
+      position: absolute;
+      right: 2rem;
+      bottom: 2rem;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-white selection:text-black">
+
+  <!-- Sticky Top Progress Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#050507]/90 backdrop-blur-md px-8 py-4 border-b border-[#1a1a22] flex justify-between items-center cool-label">
+    <div class="flex items-center space-x-3 text-white font-bold">
+      <span class="w-2 h-2 bg-white inline-block"></span>
+      <span class="font-sans font-extrabold tracking-wider text-xs">THE SUBAGENT GAZETTE</span>
+    </div>
+
+    <!-- Reading Progress Bar -->
+    <div class="flex items-center space-x-4">
+      <span>NO. 2026 // CINEMATIC SMOOTH SCROLL</span>
+      <div class="w-32 h-1 bg-white/10 overflow-hidden relative">
+        <div class="h-full bg-white transition-all duration-300" id="progress-bar" style="width: 25%;"></div>
+      </div>
+      <span id="section-indicator" class="text-white font-bold">01 / 04</span>
+    </div>
+  </header>
+
+  <!-- SECTION 01: COVER SPREAD (号外与总览) -->
+  <section class="cine-section max-w-7xl mx-auto" id="sec-1">
+    <div class="flex justify-between items-center cool-label hairline-b pb-4">
+      <span>THE AUTONOMY MONOGRAPH</span>
+      <span>CINEMATIC INERTIAL EDITION</span>
+      <span>AUG 2026</span>
+    </div>
+
+    <div class="my-auto space-y-6 max-w-4xl cine-content">
+      <span class="cool-label text-white bg-white/10 px-3 py-1 font-bold">ISSUE 2026 // SLOW SCROLL TO DISCOVER</span>
+      <h1 class="text-5xl sm:text-8xl font-black font-sans tracking-tighter text-white uppercase leading-none">
+        THE SUBAGENT GAZETTE
+      </h1>
+      <p class="font-serif italic text-base sm:text-2xl text-cinematic-slate leading-relaxed">
+        “带有质感的重力缓动切页。随滚轮平滑下沉，享受如高奢杂志般的视差与文字递进。”
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 hairline-t pt-6 cool-label items-end cine-content">
+      <div>
+        <span class="text-white font-bold block">01 / TOTAL CANDIDATES</span>
+        <span>34 款全量模型</span>
+      </div>
+      <div>
+        <span class="text-white font-bold block">02 / AUTONOMY PEAK</span>
+        <span>19 / 20 指标 (gpt-5.6-sol)</span>
+      </div>
+      <div>
+        <span class="text-white font-bold block">03 / REVIEWER SPEED</span>
+        <span>58.1 ms (muse-spark)</span>
+      </div>
+      <div class="text-right">
+        <span class="text-white font-bold block animate-pulse">↓ 缓慢向下滚动滚轮 (SLOW SCROLL)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 02: FEATURE STORY (全能旗舰与自治冠军) -->
+  <section class="cine-section max-w-7xl mx-auto" id="sec-2">
+    <div class="cine-bg-num">01</div>
+    <div class="flex justify-between items-center cool-label hairline-b pb-4">
+      <span>SECTION 02 // FEATURE STORY</span>
+      <span class="text-white font-bold">全能旗舰与自治冠军</span>
+      <span>02 / 04</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start my-auto z-10">
+      <!-- Left Column: Grok-4.6 -->
+      <div class="md:col-span-6 space-y-4 hairline-r pr-8 cine-content">
+        <span class="cool-label text-white font-bold">SPECIES 01 // UNIFIED MVP</span>
+        <h2 class="text-4xl sm:text-6xl font-black font-sans text-white tracking-tight">GROK-4.6 ✦</h2>
+        <p class="font-serif italic text-sm sm:text-base text-white leading-relaxed border-l-2 border-white pl-4">
+          “短任务与 Reviewer 无死角，长任务高度完成，Critic 无误报全中 3 GT。无显式短板的旗舰阵列第一选择。”
+        </p>
+        <div class="grid grid-cols-2 gap-4 font-code text-xs pt-4 border-t border-cinematic-border text-slate-300">
+          <div>短任务遵从: <span class="text-white font-bold">16/16</span></div>
+          <div>长任务自治: <span class="text-white font-bold">16/20</span></div>
+          <div>Reviewer: <span class="text-white font-bold">92.6 ms</span></div>
+          <div>Critic 盲审: <span class="text-white font-bold">90.0 分</span></div>
+        </div>
+      </div>
+
+      <!-- Right Column: GPT-5.6-SOL -->
+      <div class="md:col-span-6 space-y-4 pl-2 cine-content">
+        <span class="cool-label text-white font-bold">SPECIES 02 // AUTONOMY CHAMPION</span>
+        <h2 class="text-4xl sm:text-6xl font-black font-sans text-white tracking-tight">GPT-5.6-SOL ✦</h2>
+        <p class="font-serif italic text-sm sm:text-base text-white leading-relaxed border-l-2 border-white pl-4">
+          “长任务 delivery spool 10/10，总体达成 19/20 个完成指标，深度达 depth 4，是当前最强的长任务自治交付者。”
+        </p>
+        <div class="grid grid-cols-2 gap-4 font-code text-xs pt-4 border-t border-cinematic-border text-slate-300">
+          <div>短任务遵从: <span class="text-white font-bold">16/16</span></div>
+          <div>长任务自治: <span class="text-white font-bold">19/20 ★</span></div>
+          <div>Reviewer: <span class="text-white font-bold">8/8 满分</span></div>
+          <div>Critic 盲审: <span class="text-white font-bold">97.5 分</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center cool-label hairline-t pt-4">
+      <span>SECTION 02 / 04</span>
+      <span>THE SUBAGENT GAZETTE</span>
+      <span>CONTINUE SCROLLING ↓</span>
+    </div>
+  </section>
+
+  <!-- SECTION 03: TITANS SPREAD (极速与盲审泰斗) -->
+  <section class="cine-section max-w-7xl mx-auto" id="sec-3">
+    <div class="cine-bg-num">02</div>
+    <div class="flex justify-between items-center cool-label hairline-b pb-4">
+      <span>SECTION 03 // SPECIALIST TITANS</span>
+      <span class="text-white font-bold">极速 Reviewer 与 98.2 分盲审冠冕</span>
+      <span>03 / 04</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start my-auto z-10">
+      <!-- Left Column: Muse-Spark-1.2 -->
+      <div class="md:col-span-6 space-y-4 hairline-r pr-8 cine-content">
+        <span class="cool-label text-white font-bold">SPEED RECORD // 58.1 MS</span>
+        <h2 class="text-4xl sm:text-6xl font-black font-sans text-white tracking-tight">MUSE-SPARK-1.2 ✦</h2>
+        <p class="font-serif italic text-sm sm:text-base text-white leading-relaxed border-l-2 border-white pl-4">
+          “以 58.1ms 的闪电响应速度横扫 Reviewer 8/8 榜单！长任务达到 17/20，表现出惊人的调试与响应效率。”
+        </p>
+        <div class="grid grid-cols-2 gap-4 font-code text-xs pt-4 border-t border-cinematic-border text-slate-300">
+          <div>Reviewer 时延: <span class="text-white font-bold">58.1 ms ★</span></div>
+          <div>长任务自治: <span class="text-white font-bold">17/20</span></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Gemini-3.6-Flash -->
+      <div class="md:col-span-6 space-y-4 pl-2 cine-content">
+        <span class="cool-label text-white font-bold">CRITIC RECALL // 98.2 PT</span>
+        <h2 class="text-4xl sm:text-6xl font-black font-sans text-white tracking-tight">GEMINI-3.6-FLASH ✦</h2>
+        <p class="font-serif italic text-sm sm:text-base text-white leading-relaxed border-l-2 border-white pl-4">
+          “98.235 分独占 Critic 盲审榜首！133s 最速全抓 3 GT 且 depth 4，两轮复测结果完全一致。”
+        </p>
+        <div class="grid grid-cols-2 gap-4 font-code text-xs pt-4 border-t border-cinematic-border text-slate-300">
+          <div>Critic 得分: <span class="text-white font-bold">98.2 分 ★</span></div>
+          <div>Reviewer 时延: <span class="text-white font-bold">60.1 ms</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center cool-label hairline-t pt-4">
+      <span>SECTION 03 / 04</span>
+      <span>THE SUBAGENT GAZETTE</span>
+      <span>CONTINUE SCROLLING ↓</span>
+    </div>
+  </section>
+
+  <!-- SECTION 04: FULL DIRECTORY MATRIX (34 款模型平铺目录) -->
+  <section class="cine-section max-w-7xl mx-auto" id="sec-4">
+    <div class="cine-bg-num">03</div>
+    <div class="flex justify-between items-center cool-label hairline-b pb-4">
+      <span>SECTION 04 // FULL DIRECTORY</span>
+      <span class="text-white font-bold">全量 34 款模型基准矩阵</span>
+      <span>04 / 04</span>
+    </div>
+
+    <div class="my-auto space-y-4 w-full z-10 cine-content">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-code text-xs">
+          <thead class="bg-black text-cinematic-slate hairline-b">
+            <tr>
+              <th class="p-3">MODEL IDENTIFIER</th>
+              <th class="p-3">TAG</th>
+              <th class="p-3">SHORT (16)</th>
+              <th class="p-3">LONG (10)</th>
+              <th class="p-3">REVIEWER LATENCY</th>
+              <th class="p-3">CRITIC SCORE</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-cinematic-border">
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">grok-4.6 ✦</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">全能 MVP</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">16/20</td><td class="p-3 text-white">92.6 ms</td><td class="p-3 text-white">90.0 分</td></tr>
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">gpt-5.6-sol ✦</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">自治 MVP</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">19/20 ★</td><td class="p-3 text-white">8/8 满分</td><td class="p-3 text-white">97.5 分</td></tr>
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">muse-spark-1.2 ✦</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">极速王</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">17/20</td><td class="p-3 text-white">58.1 ms ★</td><td class="p-3 text-white">90.0 分</td></tr>
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">ox-openrouter ✦</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">云端标杆</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">14/20</td><td class="p-3 text-white">73.5 ms</td><td class="p-3 text-white">87.0 分</td></tr>
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">gemini-3.6-flash ✦</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">盲审王</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">15/20</td><td class="p-3 text-white">60.1 ms</td><td class="p-3 text-white">98.2 分 ★</td></tr>
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">deepseek-v4-pro ✦</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">漏洞捕手</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">15/20</td><td class="p-3 text-white">8/8 满分</td><td class="p-3 text-white">97.5 分</td></tr>
+            <tr class="hover:bg-white/5"><td class="p-3 font-bold text-white font-serif text-sm">qwen3.8-max</td><td class="p-3"><span class="cool-label text-white border border-white/20 px-2 py-0.5">基石强者</span></td><td class="p-3 text-white">16/16</td><td class="p-3 text-white">17/20</td><td class="p-3 text-white">112.1 ms</td><td class="p-3 text-white">88.5 分</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center cool-label hairline-t pt-4">
+      <span>SECTION 04 / 04</span>
+      <span>THE SUBAGENT GAZETTE</span>
+      <span>END OF MONOGRAPH</span>
+    </div>
+  </section>
+
+  <!-- GSAP CINEMATIC SMOOTH SCROLLANIMATIONS -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const sectionIds = ["sec-1", "sec-2", "sec-3", "sec-4"];
+
+    sectionIds.forEach((secId, i) => {
+      const sec = document.getElementById(secId);
+      const contents = sec.querySelectorAll('.cine-content');
+      const num = sec.querySelector('.cine-bg-num');
+
+      // Staggered text reveals inside each section
+      gsap.fromTo(contents, 
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sec,
+            start: "top 60%",
+            end: "top 20%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // Subtle background number parallax
+      if (num) {
+        gsap.fromTo(num, 
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 0.035,
+            duration: 1.4,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sec,
+              start: "top 70%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
+      // Update Top Progress Bar and Indicator
+      ScrollTrigger.create({
+        trigger: sec,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => updateProgress(i + 1),
+        onEnterBack: () => updateProgress(i + 1)
+      });
+    });
+
+    function updateProgress(num) {
+      document.getElementById('section-indicator').innerText = `0${num} / 04`;
+      document.getElementById('progress-bar').style.width = `${num * 25}%`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+{
+  "audit": {
+    "checked_solution_files": [
+      "dependency_layers.py",
+      "duration.py",
+      "recursive_patch.py",
+      "ttl_set.py"
+    ],
+    "dependency_ok": true,
+    "external_workspace_write": false,
+    "passed": false,
+    "protected_files_ok": false,
+    "reasons": [
+      "unexpected workspace entry DEBUG-TASK.md",
+      "cell metadata does not match manifest"
+    ],
+    "signature_ok": true
+  },
+  "baseline_hashes": {
+    "short/evaluator/checks.py": "fde5dbfeff85f70285de5aade3ff62f22658e8d9356042d01e2504ce52d37d63",
+    "short/evaluator/criterion_runner.py": "085828ada6e9dd8ac33ab646db506c256e92223a18416687492696a474de14aa",
+    "short/evaluator/instruction_audit.py": "8248a622ed60466ab4d43554acc361c1be3928fec5178f8e4c4c4bd21b711471",
+    "short/harness/common.py": "79588ea6767d29189e6b453e2737d2d9b59a10373b0183b665547084155f62c3",
+    "short/harness/evaluate.py": "db9a68d00f3cf68ffafdc157ee9a1213d7ecb08abfa2703bfd6712c8d6e0b62a",
+    "short/manifest.json": "dd7a8f450acad88c607eaa4e9aaaf12d9c10b49c6f5212e35462f5971e37f83a",
+    "short/validation/reference/solutions/dependency_layers.py": "d102718ba947c24401b990e8b78120ba06bd5bcc5de9dd4790fc0c1f90758f06"
+  },
+  "binding_slot": "B11",
+  "candidate_id": "ox-alpha-free",
+  "evaluator_version": "reviewer-b11-external-v2",
+  "model": "volcano/minimax-m3",
+  "official": {
+    "audit": {
+      "checked_solution_files": [
+        "dependency_layers.py",
+        "duration.py",
+        "recursive_patch.py",
+        "ttl_set.py"
+      ],
+      "dependency_ok": true,
+      "external_workspace_write": false,
+      "passed": false,
+      "protected_files_ok": false,
+      "reasons": [
+        "unexpected workspace entry DEBUG-TASK.md",
+        "cell metadata does not match manifest"
+      ],
+      "signature_ok": true
+    },
+    "benchmark_id": "short-python-stdlib-v1",
+    "capabilities": {
+      "extension": [
+        {
+          "criterion": "ext_recursive_patch_nested_tuple",
+          "id": "ext_recursive_patch_nested_tuple",
+          "kind": "extension",
+          "passed": true,
+          "status": "pass"
+        },
+        {
+          "criterion": "ext_duration_large_carry",
+          "id": "ext_duration_large_carry",
+          "kind": "extension",
+          "passed": true,
+          "status": "pass"
+        }
+      ],
+      "resource": [
+        {
+          "criterion": "res_dependency_20000",
+          "id": "res_dependency_20000",
+          "kind": "resource",
+          "passed": true,
+          "status": "pass"
+        },
+        {
+          "criterion": "res_ttl_expiry_sweep",
+          "id": "res_ttl_expiry_sweep",
+          "kind": "resource",
+          "passed": true,
+          "status": "pass"
+        }
+      ]
+    },
+    "condition": "B",
+    "criteria": [
+      {
+        "criterion": "rp_delete_identity",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "rp_plain_dict",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "rp_isolation",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "rp_order_boundary",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "dl_one_shot",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "dl_dependency_nodes",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "dl_stable_order_cycle",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "dl_deep_iterative",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "ttl_strict_types",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "ttl_exact_expiry",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "ttl_capacity",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "ttl_gc_release",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "du_strict_syntax",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "du_units_ranges",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "du_normalize",
+        "passed": true,
+        "status": "pass"
+      },
+      {
+        "criterion": "du_structured_errors",
+        "passed": true,
+        "status": "pass"
+      }
+    ],
+    "group": "G1",
+    "instruction_gate": false,
+    "lenient": {
+      "AcceptanceCoverage": 1.0,
+      "ExecutionCompleted": 1,
+      "ExtensionCapabilityCount": 2,
+      "InferenceTokensPerPassedCriterion": null,
+      "InstructionComplianceRate": 0.0,
+      "RawCriterionCount": 16
+    },
+    "model": "volcano/minimax-m3",
+    "official_criterion_total": 16,
+    "schema_version": 1,
+    "slot": "B11",
+    "strict": {
+      "ExtensionCapabilityCount": 2,
+      "InferenceTokensPerPassedCriterion": null,
+      "InferenceTokensPerStrictTask": null,
+      "InstructionGate": 0,
+      "OfficialCriterionCount": 0,
+      "ResourceCapabilityCount": 2,
+      "StrictTaskCount": 0
+    },
+    "task_results": [
+      {
+        "all_passed": false,
+        "all_passed_raw": true,
+        "criterion_total": 4,
+        "id": "recursive_patch",
+        "passed_criteria": 4
+      },
+      {
+        "all_passed": false,
+        "all_passed_raw": true,
+        "criterion_total": 4,
+        "id": "dependency_layers",
+        "passed_criteria": 4
+      },
+      {
+        "all_passed": false,
+        "all_passed_raw": true,
+        "criterion_total": 4,
+        "id": "ttl_set",
+        "passed_criteria": 4
+      },
+      {
+        "all_passed": false,
+        "all_passed_raw": true,
+        "criterion_total": 4,
+        "id": "duration",
+        "passed_criteria": 4
+      }
+    ],
+    "task_total": 4,
+    "usage": {
+      "available": false,
+      "cache_tokens": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "record_count": 0,
+      "source_files": [],
+      "total_tokens": 0
+    },
+    "wave": "G1-B"
+  },
+  "run_id": "ox-alpha-free-r1",
+  "supplemental": {
+    "candidate": "D:\\vscode\\kimisubagentexplore\\subagentbenchmark\\prototype\\finalresultpdf\\reviewerresult\\ox-alpha-free\\runs\\workspace\\solutions\\dependency_layers.py",
+    "checks": [
+      {
+        "duration_ms": 0.043,
+        "error_type": "AssertionError",
+        "id": "cross_hashability",
+        "message": "[['root'], [<__main__.cross_hashability.<locals>.HashableNode object at 0x000001BFD90238C0>, <__main__.cross_hashability.<locals>.UnhashableNode object at 0x000001BFD9023A10>]]",
+        "passed": false
+      },
+      {
+        "duration_ms": 0.03,
+        "error_type": null,
+        "id": "hash_collision",
+        "message": null,
+        "passed": true
+      },
+      {
+        "duration_ms": 0.023,
+        "error_type": null,
+        "id": "unhashable_equal_dedup",
+        "message": null,
+        "passed": true
+      },
+      {
+        "duration_ms": 0.023,
+        "error_type": null,
+        "id": "cycle_blocked_and_peeled",
+        "message": null,
+        "passed": true
+      },
+      {
+        "duration_ms": 0.018,
+        "error_type": null,
+        "id": "stable_multi_parent_layers",
+        "message": null,
+        "passed": true
+      },
+      {
+        "duration_ms": 0.021,
+        "error_type": null,
+        "id": "one_shot_generator",
+        "message": null,
+        "passed": true
+      },
+      {
+        "duration_ms": 73.759,
+        "error_type": null,
+        "id": "deep_50000",
+        "message": null,
+        "passed": true
+      },
+      {
+        "duration_ms": 54.366,
+        "error_type": null,
+        "id": "wide_50000",
+        "message": null,
+        "passed": true
+      }
+    ],
+    "passed": 7,
+    "performance_median_ms": 64.062,
+    "schema_version": 1,
+    "total": 8
+  },
+  "usage": {
+    "available": false,
+    "cache_tokens": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "record_count": 0,
+    "source_files": [],
+    "total_tokens": null
+  }
+}

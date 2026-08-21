@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "evaluator_version": "reviewer-b11-external-v2",
+  "run_id": "debug-subagent-v1-replay-v2",
+  "source": "reviewer_evaluator/rank.py",
+  "purpose": "Blinded evidence manifest for unresolved deterministic ties only.",
+  "deterministic_rank_is_authoritative": true,
+  "unresolved_ties": {
+    "lenient": [],
+    "strict": []
+  },
+  "candidates": [],
+  "review_dispatch": "not_required"
+}

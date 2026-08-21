@@ -1,0 +1,18 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 62,
+      "trigger_condition": "dependency_layers([(frozenset({1}), {1})]) 或 dependency_layers([('A', frozenset({1})), ({1}, 'A')])",
+      "root_cause": "_id_of 函数在节点注册与去重时，通过 try-except TypeError 将可哈希与不可哈希对象隔离在 hash_buckets 与 unhashable_nodes 两个互不相通的查找结构中，且任一分支均未对另一侧注册表进行跨类型等值（==）检查。在 Python 中，可哈希对象与不可哈希对象可以等值（如 frozenset({1}) == {1}，或自定义类的等值实例），后出现的等值节点无法命中先出现节点的注册记录，从而被分配了不同的 node_id。",
+      "impact": "1. 破坏节点去重与首见对象保留契约：等值但哈希性不同的节点被当作两个不同节点并重复出现；2. 破坏拓扑排序分层结果：依赖于等值节点的边无法正确汇聚；3. 导致环检测严重失效：由等值节点构成的自环（如 frozenset({1}) 依赖 {1}）或间接环无法被识别为环，未能抛出 DependencyCycleError，而是静默输出了错误的拓扑分层列表。",
+      "suggested_validation": "执行以下包含等值但哈希性不同节点的测试用例验证：\n1. 自环场景：调用 dependency_layers([(frozenset({1}), {1})])，预期抛出 DependencyCycleError，被测代码实际静默返回 [[{1}], [frozenset({1})]]；\n2. 间接环场景：调用 dependency_layers([('A', frozenset({1})), ({1}, 'A')])，预期抛出 DependencyCycleError，被测代码实际返回 [[frozenset({1})], ['A'], [{1}]]；\n3. 依赖去重场景：调用 dependency_layers([('A', frozenset({1})), ('B', {1})])，预期合并依赖返回 [[frozenset({1})], ['A', 'B']]，被测代码实际返回 [[frozenset({1}), {1}], ['A', 'B']]。\n修复方向：在 _id_of 中建立跨哈希性查找机制——当捕获 TypeError 时需遍历已有已注册节点（如 nodes_by_id 或 hashable 集合）做等值比对；在可哈希未命中 hash_buckets 时，也必须线性比对 unhashable_nodes 中的已有节点，确保等值节点始终映射到同一个 node_id。"
+    }
+  ]
+}

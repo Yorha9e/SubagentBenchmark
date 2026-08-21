@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "The edge stream contains two node values that compare equal with == but sit on opposite sides of the hashability boundary, e.g. {1} (set, unhashable) and frozenset({1}) (hashable), or bytearray(b'x') (unhashable) and b'x' (bytes, hashable). Verified: dependency_layers([(2, {1}), (frozenset({1}), 1)]) returns [[{1}, 1], [2, frozenset({1})]] instead of the correct [[1], [{1}], [2]]; dependency_layers([({1}, 0), (frozenset({1}), 0)]) returns [[0], [{1}, frozenset({1})]] instead of deduplicating to [[0], [{1}]].",
+      "root_cause": "_id_of maintains two disjoint registries: hash_buckets for values whose hash() succeeds (lines 41-42, 53-61) and unhashable_nodes for values whose hash() raises TypeError (lines 44-52). Each path only checks its own registry, so an equality class that straddles the hashability boundary is never unified and receives two distinct node ids, contradicting the module's own contract of one id per unique node value.",
+      "impact": "A single logical node value appears in multiple layers and can be placed in a layer that violates the 'dependencies in earlier layers than dependents' ordering for its equality class; repeated edges whose endpoints are expressed once as a hashable and once as an unhashable equal value are not deduplicated (seen_edges keys differ), inflating indegrees and layer membership; first-appearance order and DependencyCycleError.nodes can also list the value twice. Any hidden test using set/frozenset or bytes/bytearray equal nodes fails.",
+      "suggested_validation": "Construct edges mixing equality-equivalent hashable/unhashable pairs: assert dependency_layers([(2, {1}), (frozenset({1}), 1)]) == [[1], [{1}], [2]] (node identity = first-seen object), and assert dependency_layers([({1}, 0), (frozenset({1}), 0)]) == [[0], [{1}]] (edge dedup across the boundary). Also check bytes vs bytearray. Both assertions fail on the current implementation (reproduced locally)."
+    },
+    {
+      "id": "F2",
+      "severity": "medium",
+      "depth_level": 3,
+      "confidence": 0.95,
+      "file": "dependency_layers.py",
+      "line_start": 44,
+      "line_end": 46,
+      "trigger_condition": "An input containing many distinct unhashable node values, e.g. edges = [([i], [i+1]) for i in range(N)]. Measured locally: N=2000 -> 0.158s, N=4000 -> 0.612s, N=8000 -> 2.507s (~4x time per 2x N, clean O(N^2)).",
+      "root_cause": "Every unhashable value lookup performs a linear scan over unhashable_nodes comparing with == (line 45), and list equality is itself O(length), so registering U distinct unhashable nodes costs O(U^2) comparisons overall. The code comment ('a small list of id/object pairs') silently assumes unhashable nodes are rare, which the public contract never guarantees.",
+      "impact": "Quadratic blowup on large unhashable-node inputs: ~8000 list nodes already take 2.5s; 100k nodes would take minutes, making the function effectively unusable as a general-purpose layered topological sort for unhashable node values and an easy performance-test failure or DoS vector.",
+      "suggested_validation": "Time dependency_layers on chains of list nodes at N=2000/4000/8000 and confirm the ~4x per doubling scaling (reproduced locally). A fix is to bucket unhashable values by a cheap key (e.g. type + length or a capped repr) before the residual equality scan, restoring near-linear behavior while preserving cross-type equality checks needed for F1."
+    }
+  ]
+}

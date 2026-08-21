@@ -1,0 +1,82 @@
+{
+  "run_id": "debug-subagent-v1-critic-v1",
+  "candidate_id": "candidate-A",
+  "critic_agent": {
+    "agent_id": "agent-178",
+    "model": "GPT/gpt-5.6-sol"
+  },
+  "critic_subagent_type": "critic",
+  "protocol": {
+    "rounds": 1,
+    "read_only": true,
+    "blind": true,
+    "inputs": [
+      "TASKS.md",
+      "solutions/dependency_layers.py",
+      "public_smoke_tests.py"
+    ],
+    "measurement_method": "parent_wall_clock_serial",
+    "timing_caveat": "epoch wall clock captured by parent immediately before dispatch and after return; includes model queue/generation and ~0.1-1s parent tool-dispatch overhead; not monotonic"
+  },
+  "timing": {
+    "t0_ns": 1785046573958145000,
+    "t1_ns": 1785046825163361600,
+    "started_at_utc": "2026-07-26T06:16:13.958151+00:00",
+    "completed_at_utc": "2026-07-26T06:20:25.163373+00:00",
+    "total_discovery_time_seconds": 251.205
+  },
+  "findings": [
+    {
+      "id": "A-F1",
+      "severity": "high",
+      "depth_level": 2,
+      "confidence": 0.95,
+      "file": "dependency_layers.py",
+      "line_start": 43,
+      "line_end": 60,
+      "trigger_condition": "The stream contains equal node values where one value is hashable and the other is unhashable, for example an unhashable class U with __eq__ returning True for 1, and edges [(1, 0), (U(), 0)].",
+      "root_cause": "Hashable values are searched only in hash_buckets, while unhashable values are searched only in unhashable_nodes. The registry never compares a hashable candidate against previously stored unhashable values or vice versa, so equal values can receive different node IDs.",
+      "impact": "Equal node values are not deduplicated as required. The example should represent the same edge twice and produce [[0], [1]], but the implementation creates a third node and produces separate incorrect layering such as [[1], [0], [U()]]. It can also produce incorrect cycle detection and .nodes contents.",
+      "suggested_validation": "Define class U with __hash__ = None and __eq__(self, other): return other == 1. Run dependency_layers([(1, 0), (U(), 0)]). Expected: two logical nodes, layers [[0], [1]]; actual: three IDs and layers [[1], [0], [U()]] (with the first stored object for each ID).",
+      "confirmation": {
+        "status": "confirmed",
+        "method": "empirical + hidden-evaluator ground truth",
+        "evidence": "reproduced: dependency_layers([(1,0),(U(),0)]) -> 3 logical nodes [[0],[1,U]]; matches supplemental check cross_hashability FAIL for subtest_12 in replay-v2"
+      }
+    },
+    {
+      "id": "A-F2",
+      "severity": "medium",
+      "depth_level": 4,
+      "confidence": 0.98,
+      "file": "dependency_layers.py",
+      "line_start": 43,
+      "line_end": 46,
+      "trigger_condition": "The input contains N distinct unhashable node values, such as a one-shot generator yielding ([i+1], [i]) for i in range(N).",
+      "root_cause": "Every unhashable lookup linearly scans all previously registered unhashable nodes. Thus registering or looking up each of N unique unhashable values costs O(N) equality checks, making the full identity registry O(N^2) in the number of nodes (in addition to the cost of equality itself).",
+      "impact": "Large valid graphs with unhashable nodes can require quadratic time and become impractical or time out, violating the requirement to handle inputs without unreasonable asymptotic resource use.",
+      "suggested_validation": "Benchmark dependency_layers(([i+1], [i]) for i in range(N)) with increasing N, using fresh one-element lists. Expected scalable near-linear graph processing; actual registry work grows quadratically because each new list scans the accumulated unhashable_nodes list.",
+      "confirmation": {
+        "status": "confirmed",
+        "method": "empirical measurement",
+        "evidence": "unhashable-deps probe: t(1500)=0.0469s, t(3000)=0.1961s, ratio 4.18x on 2x input => quadratic; not covered by hidden evaluator (its 50k checks use hashable nodes)"
+      }
+    }
+  ],
+  "finding_stats": {
+    "total": 2,
+    "confirmed": 2,
+    "false_positive": 0,
+    "max_depth_level": 4
+  },
+  "ground_truth_alignment": {
+    "hidden_fails": [
+      "cross_hashability"
+    ],
+    "critic_caught": [
+      "cross_hashability"
+    ],
+    "missed": []
+  },
+  "token_usage": "unavailable (Agent tool result exposes no usage field)"
+}

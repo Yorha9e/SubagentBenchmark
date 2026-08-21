@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate-A",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "depth_level": 4,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 39,
+      "line_end": 61,
+      "trigger_condition": "Input contains both hashable and unhashable nodes that compare equal (e.g. `frozenset([1, 2])` and `set([1, 2])`).",
+      "root_cause": "The helper `_id_of` segregates lookup pathways by hashability: hashable values are looked up only in `hash_buckets` and unhashable values are looked up only in `unhashable_nodes`. There is no cross-boundary lookup between the two sets of registered nodes.",
+      "impact": "Equal nodes of different hashabilities are treated as distinct, violating correct deduplication. Consequently, dependency cycles involving equivalent nodes (e.g. a cycle between `frozenset([1, 2])` and `set([1, 2])`) are not detected and incorrectly return layered results instead of raising `DependencyCycleError`.",
+      "suggested_validation": "Run `dependency_layers([(frozenset([1, 2]), set([1, 2]))])`. Verify that it raises `DependencyCycleError` instead of returning `[[{1, 2}], [frozenset({1, 2})]]`."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "depth_level": 3,
+      "confidence": 1.0,
+      "file": "dependency_layers.py",
+      "line_start": 44,
+      "line_end": 52,
+      "trigger_condition": "The input `edges` contains a large number of unique unhashable nodes.",
+      "root_cause": "In `_id_of`, lookup of unhashable nodes falls back to a linear scan (`for idx, candidate in zip(unhashable_ids, unhashable_nodes)`) over all previously registered unhashable nodes.",
+      "impact": "Finding or registering $N$ unhashable nodes has $O(N)$ lookup complexity per node, resulting in $O(N^2)$ overall time complexity. This causes severe performance degradation and potential timeouts on large graphs with many unhashable nodes.",
+      "suggested_validation": "Compare the processing time for a long chain of 20,000 unhashable lists (`[([i], [i+1]) for i in range(20000)]`) against 20,000 hashable tuples. The unhashable case will scale quadratically and run significantly slower."
+    }
+  ]
+}

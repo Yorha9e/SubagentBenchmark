@@ -1,0 +1,1 @@
+{"benchmark_id":"short-python-stdlib-v1","condition":"B","expected_model":"deepseek/deepseek-v4-flash","group":"G1","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"B02","wave":"G1-B"}

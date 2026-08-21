@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "run_id": "debug-subagent-v1",
+  "task": "B11 dependency_layers initial debugging",
+  "baseline_dependency_layers_sha256": "b2fd2e1bad815f358df1d994544d6c775c66765e8f33610fc1e7cb3052a67874",
+  "evaluator": "short/evaluator via short/harness/evaluate.py",
+  "ranking_policy": [
+    "InstructionGate descending",
+    "dependency_layers official criteria descending",
+    "res_dependency_20000 descending",
+    "raw official criteria descending",
+    "supplemental business-boundary checks descending",
+    "code-completion/resource-management tie-break review",
+    "no comments/readability scoring"
+  ],
+  "token_usage_available": false,
+  "candidate_count": 14,
+  "rankings": [
+    {
+      "rank": 1,
+      "candidate_id": "subtest_7",
+      "binding_slot": "subtest_7",
+      "round": "round-1",
+      "agent_id": "agent-164",
+      "model": "GPT/gpt-5.6-luna",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 8,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [
+        "local debug only restriction observed"
+      ],
+      "tie_break_reason": "Top tie-break: complete cross-hashability registration and 8/8 supplemental boundary checks."
+    },
+    {
+      "rank": 2,
+      "candidate_id": "subtest_4",
+      "binding_slot": "subtest_4",
+      "round": "round-1",
+      "agent_id": "agent-161",
+      "model": "kimi-code/kimi-for-coding",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 8,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "Second: 8/8 supplemental checks; cross-hashability handled, but object-key setdefault has more side-effect/resource risk than subtest_7."
+    },
+    {
+      "rank": 3,
+      "candidate_id": "phi_2",
+      "binding_slot": "phi_2",
+      "round": "round-2",
+      "agent_id": "agent-171",
+      "model": "volcano/glm-5.2",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "Best of the 7/8 group on algorithmic/resource tie-break; true O(V+E) layer assignment and lowest observed supplemental timings."
+    },
+    {
+      "rank": 4,
+      "candidate_id": "subtest_6",
+      "binding_slot": "subtest_6",
+      "round": "round-1",
+      "agent_id": "agent-163",
+      "model": "qwen/qwen3.8-max-preview",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; compact scalar-count layered Kahn implementation and strong resource behavior."
+    },
+    {
+      "rank": 5,
+      "candidate_id": "subtest_5",
+      "binding_slot": "subtest_5",
+      "round": "round-1",
+      "agent_id": "agent-162",
+      "model": "stepfun/step-3.7-flash",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; handles some equality TypeError cases, but has extra queue/list copying."
+    },
+    {
+      "rank": 6,
+      "candidate_id": "subtest_12",
+      "binding_slot": "subtest_12",
+      "round": "round-2",
+      "agent_id": "agent-169",
+      "model": "mimo/mimo-v2.5-pro",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; correct linear layered Kahn with modest extra initial sorting."
+    },
+    {
+      "rank": 7,
+      "candidate_id": "subtest_8",
+      "binding_slot": "subtest_8",
+      "round": "round-2",
+      "agent_id": "agent-165",
+      "model": "volcano/doubao-seed-2.1-turbo",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; correct linear layered Kahn, slightly behind subtest_12 on weak timing evidence."
+    },
+    {
+      "rank": 8,
+      "candidate_id": "subtest_9",
+      "binding_slot": "subtest_9",
+      "round": "round-2",
+      "agent_id": "agent-166",
+      "model": "volcano/doubao-seed-2.0-pro",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; correct linear layered Kahn, no additional boundary advantage over the preceding group."
+    },
+    {
+      "rank": 9,
+      "candidate_id": "subtest_11",
+      "binding_slot": "subtest_11",
+      "round": "round-2",
+      "agent_id": "agent-168",
+      "model": "volcano/minimax-m3",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; correct but retains an extra processed array and final full scan."
+    },
+    {
+      "rank": 10,
+      "candidate_id": "subtest_13",
+      "binding_slot": "subtest_13",
+      "round": "round-2",
+      "agent_id": "agent-170",
+      "model": "mimo/mimo-v2.5",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; correct, but creates a fresh sorted next-layer list with higher transient memory."
+    },
+    {
+      "rank": 11,
+      "candidate_id": "subtest_3",
+      "binding_slot": "subtest_3",
+      "round": "round-1",
+      "agent_id": "agent-160",
+      "model": "deepseek/deepseek-v4-pro",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [],
+      "tie_break_reason": "7/8; correct but weakest supplemental timing among the full resource-pass group."
+    },
+    {
+      "rank": 12,
+      "candidate_id": "subtest_10",
+      "binding_slot": "subtest_10",
+      "round": "round-2",
+      "agent_id": "agent-167",
+      "model": "volcano/doubao-seed-2.0-code",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": false,
+      "resource_status": "timeout",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 0,
+      "supplemental_total": 8,
+      "supplemental_status": "timeout",
+      "usage": {
+        "available": false
+      },
+      "notes": [
+        "res_dependency_20000 timeout"
+      ],
+      "tie_break_reason": "Resource timeout; remaining-set scan is still O(V^2), but less copying than subtest_2."
+    },
+    {
+      "rank": 13,
+      "candidate_id": "subtest_2",
+      "binding_slot": "subtest_2",
+      "round": "round-1",
+      "agent_id": "agent-159",
+      "model": "deepseek/deepseek-v4-flash",
+      "instruction_gate": true,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": false,
+      "resource_status": "timeout",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 0,
+      "supplemental_total": 8,
+      "supplemental_status": "timeout",
+      "usage": {
+        "available": false
+      },
+      "notes": [
+        "res_dependency_20000 timeout"
+      ],
+      "tie_break_reason": "Resource timeout; remaining-list reconstruction is O(V^2) with heavier temporary allocation."
+    },
+    {
+      "rank": 14,
+      "candidate_id": "subtest_1",
+      "binding_slot": "subtest_1",
+      "round": "round-1",
+      "agent_id": "agent-158",
+      "model": "MT/LongCat-2.0",
+      "instruction_gate": false,
+      "dependency_layers_passed": 4,
+      "dependency_layers_total": 4,
+      "resource_passed": true,
+      "resource_status": "pass",
+      "raw_criteria_passed": 16,
+      "raw_criteria_total": 16,
+      "supplemental_passed": 7,
+      "supplemental_total": 8,
+      "supplemental_status": "completed",
+      "usage": {
+        "available": false
+      },
+      "notes": [
+        "unexpected workspace entry test_targeted.py"
+      ],
+      "tie_break_reason": "Gate failure from extra test_targeted.py; code behavior/resource passed but instruction compliance has priority."
+    }
+  ],
+  "isolation": {
+    "candidate_root": "reviewer/runs/debug-subagent-v1",
+    "result_root": "reviewer/results/debug-subagent-v1",
+    "legacy_results_included": false,
+    "all_baselines_verified": true
+  }
+}

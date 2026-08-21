@@ -1,0 +1,18 @@
+{
+  "candidate": "candidate-B",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "medium",
+      "depth_level": 3,
+      "confidence": 0.8,
+      "file": "dependency_layers.py",
+      "line_start": 55,
+      "line_end": 90,
+      "trigger_condition": "Input contains many distinct unhashable nodes (or a large mix of hashable and unhashable nodes). Every hashable-node lookup performs a full linear scan over all registered unhashable ids when no unhashable node compares equal (lines 83-87), and every unhashable-node lookup scans all unhashable ids plus potentially all hashable ids (lines 64-72).",
+      "root_cause": "_id_of() supports unhashable node values (beyond the letter of the TASKS.md contract, which never mentions unhashability) via brute-force equality scans: there is no constant-time structure for unhashable values, so registration/lookup costs grow linearly with the registries, giving O(U^2 + H*U) equality comparisons for U distinct unhashable and H distinct hashable nodes, on top of the O(E) graph work.",
+      "impact": "Latency blowup (quadratic in the unhashable node count) on large adversarial inputs; measured ~4x time per doubling of a pure-unhashable chain (n=400: 0.018s, n=800: 0.070s; extrapolates to tens of seconds at 10k-20k unhashable nodes), which could trip evaluation timeouts. No correctness impact: outputs remain exact, and hashable-only and deep-acyclic cases (150k-node chain in 0.23s) are unaffected.",
+      "suggested_validation": "Time dependency_layers on chains built from 5000 / 10000 / 20000 distinct unhashable nodes (classes with __hash__ = None) and confirm the superlinear growth ratio (~4x per doubling); compare against a hashable-only control of the same size to show the quadratic factor is confined to unhashable-heavy inputs."
+    }
+  ]
+}

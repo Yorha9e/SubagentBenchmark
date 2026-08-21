@@ -1,0 +1,52 @@
+{
+  "r1-unprompted": {
+    "candidate-A": {
+      "available": true,
+      "record_count": 3,
+      "source_files": [
+        "wire.jsonl"
+      ],
+      "input_tokens": 26752,
+      "output_tokens": 702,
+      "cache_tokens": 99845,
+      "total_tokens": 27454
+    },
+    "candidate-B": {
+      "available": true,
+      "record_count": 3,
+      "source_files": [
+        "wire.jsonl"
+      ],
+      "input_tokens": 26323,
+      "output_tokens": 695,
+      "cache_tokens": 99721,
+      "total_tokens": 27018
+    },
+    "note": "0 GT baseline"
+  },
+  "r2-prompted": {
+    "candidate-A": {
+      "available": true,
+      "record_count": 10,
+      "source_files": [
+        "wire.jsonl"
+      ],
+      "input_tokens": 51816,
+      "output_tokens": 2759,
+      "cache_tokens": 382654,
+      "total_tokens": 54575
+    },
+    "candidate-B": {
+      "available": true,
+      "record_count": 11,
+      "source_files": [
+        "wire.jsonl"
+      ],
+      "input_tokens": 58235,
+      "output_tokens": 3845,
+      "cache_tokens": 460417,
+      "total_tokens": 62080
+    },
+    "note": "GT1 hit"
+  }
+}
