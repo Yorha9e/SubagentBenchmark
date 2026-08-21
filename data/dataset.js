@@ -51,6 +51,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "gemini-3.6-flash",
+    "name": "gemini-3.6-flash ✦",
+    "tag": "Critic 盲审王",
+    "provider": "Google",
+    "shortScore": 16,
+    "shortTxt": "16/16 (res 2/2)",
+    "longMilestones": 7.5,
+    "longTxt": "15 / 20",
+    "revLatency": 60.1,
+    "revFixes": "8/8 满分",
+    "criticScore": 98.2,
+    "criticTxt": "98.2分 ★ (独占#1)",
+    "quote": "98.235 分独占 Critic 盲审榜首！133s 最速全抓 3 GT 且 depth 4。",
+    "analysis": "短 A/B 双满分；Critic GT1/GT2/GT3 全中、0 误报、depth 4；Reviewer 60ms 极速。",
+    "tokenCost": "N/A"
+  },
+  {
     "id": "ox-openrouter",
     "name": "ox-openrouter ✦",
     "tag": "云端标杆",
@@ -65,23 +82,6 @@ window.BENCHMARK_MASTER_MODELS = [
     "criticTxt": "87.0分 (3 GT)",
     "quote": "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms 满档速；Critic 盲审抓出全部 3 个 Ground Truth。",
     "analysis": "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms，Critic 87.0分。",
-    "tokenCost": "N/A"
-  },
-  {
-    "id": "gemini-3.6-flash",
-    "name": "gemini-3.6-flash ✦",
-    "tag": "Critic 盲审王",
-    "provider": "Google",
-    "shortScore": 16,
-    "shortTxt": "16/16 (res 2/2)",
-    "longMilestones": 7,
-    "longTxt": "15 / 20",
-    "revLatency": 60.1,
-    "revFixes": "8/8 满分",
-    "criticScore": 98.2,
-    "criticTxt": "98.2分 ★ (独占#1)",
-    "quote": "98.235 分独占 Critic 盲审榜首！133s 最速全抓 3 GT 且 depth 4。",
-    "analysis": "短 A/B 双满分；Critic GT1/GT2/GT3 全中、0 误报、depth 4；Reviewer 60ms 极速。",
     "tokenCost": "N/A"
   },
   {
