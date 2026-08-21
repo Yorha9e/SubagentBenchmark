@@ -1,0 +1,25 @@
+# Ignore Python Bytecode & Environments
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# Ignore Kimi / Zcode Session Folders
+.kimi-code/
+.zcode/
+*.zip
+bus.port
+
+# Ignore Raw Test Execution Runs & Mutants
+**/runs/
+**/mutants/
+**/evaluations/
+**/fixtures/
+**/template/
+**/supplemental/
+
+# Ignore Graphify Cache
+graphify-out/
+better-harness/
+closed_loop_v2_single_*/
+short_subtest*/
