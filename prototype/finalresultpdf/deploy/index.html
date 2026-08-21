@@ -191,11 +191,11 @@
 
     <!-- Mode Selector Buttons -->
     <div class="flex items-center space-x-1 border border-white/20 p-1">
-      <button onclick="showSheet(0)" id="sheet-btn-0" class="px-3 py-1 bg-white text-black font-bold">01 / 报头号外</button>
-      <button onclick="showSheet(1)" id="sheet-btn-1" class="px-3 py-1 text-slate-400 hover:text-white">02 / 34模型交互矩阵</button>
-      <button onclick="showSheet(2)" id="sheet-btn-2" class="px-3 py-1 text-slate-400 hover:text-white">03 / REVIEWER 修复数与时延</button>
-      <button onclick="showSheet(3)" id="sheet-btn-3" class="px-3 py-1 text-slate-400 hover:text-white">04 / CRITIC 盲审深度</button>
-      <button onclick="showSheet(4)" id="sheet-btn-4" class="px-3 py-1 text-slate-400 hover:text-white">05 / 视觉图表</button>
+      <button onclick="showSheet(0)" id="sheet-btn-0" class="px-3 py-1 bg-white text-black font-bold">📜 01 / 报头号外</button>
+      <button onclick="showSheet(1)" id="sheet-btn-1" class="px-3 py-1 text-slate-400 hover:text-white">🔍 02 / 34模型交互矩阵</button>
+      <button onclick="showSheet(2)" id="sheet-btn-2" class="px-3 py-1 text-slate-400 hover:text-white">⏱️ 03 / REVIEWER 修复数与时延</button>
+      <button onclick="showSheet(3)" id="sheet-btn-3" class="px-3 py-1 text-slate-400 hover:text-white">🔍 04 / CRITIC 盲审深度</button>
+      <button onclick="showSheet(4)" id="sheet-btn-4" class="px-3 py-1 text-slate-400 hover:text-white">📊 05 / 视觉图表</button>
     </div>
   </header>
 
@@ -224,22 +224,10 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 hairline-t pt-6 archival-label items-end sheet-content">
-        <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">01 / SHORT-TASK #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">grok-4.6 ✦ <span class="text-slate-400 text-xs font-normal">(16 / 16)</span></span>
-        </div>
-        <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">02 / LONG-TASK #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">gpt-5.6-sol ✦ <span class="text-slate-400 text-xs font-normal">(19 / 20)</span></span>
-        </div>
-        <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">03 / REVIEWER #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">muse-spark-1.2 ✦ <span class="text-slate-400 text-xs font-normal">(58.1 ms)</span></span>
-        </div>
-        <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">04 / CRITIC #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">gemini-3.6-flash ✦ <span class="text-slate-400 text-xs font-normal">(98.2分)</span></span>
-        </div>
+        <div><span class="text-white font-bold block">01 / TOTAL SPECIES</span><span>34 CANDIDATE MODELS</span></div>
+        <div><span class="text-white font-bold block">02 / AUTONOMY PEAK</span><span>19 / 20 CRITERIA (gpt-5.6-sol)</span></div>
+        <div><span class="text-white font-bold block">03 / REVIEWER SPEED</span><span>58.1 MS (muse-spark-1.2)</span></div>
+        <div class="text-right"><span class="text-white font-bold block animate-bounce">↓ 推动滚轮开启翻折 (SCROLL DOWN)</span></div>
       </div>
     </div>
 
