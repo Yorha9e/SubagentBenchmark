@@ -686,6 +686,21 @@
       container.appendChild(svg);
     }
 
+    
+    function parseLongScore(m) {
+      if (!m || !m.longTxt) return 0;
+      const match = m.longTxt.match(/(\d+)\s*\/\s*20/);
+      if (match) return parseInt(match[1]);
+      return (m.longMilestones || 0) * 2;
+    }
+
+    function parseReviewerFixVal(m) {
+      if (!m || !m.revFixes || m.revFixes.includes("N/A")) return 0;
+      const match = m.revFixes.match(/(\d+)\s*\/\s*8/);
+      if (match) return parseInt(match[1]);
+      return 0;
+    }
+
     function initVisualCharts() {
       const models = window.BENCHMARK_MASTER_MODELS || (window.engine ? window.engine.models : []);
       if (!models || models.length === 0) return;
@@ -696,17 +711,30 @@
         label: m.name, value: m.shortScore || 16, color: "#10B981", valueText: `${m.shortScore || 16} / 16 (100%)`
       })), { maxVal: 16 });
 
-      // 2. Long Task SVG
-      const sortedLong = [...models].sort((a,b) => (b.longMilestones||0) - (a.longMilestones||0));
-      renderHBarSVG("svg-chart-long", sortedLong.map(m => ({
-        label: m.name, value: parseInt(m.longTxt) || (m.longMilestones ? m.longMilestones*2 : 0), color: "#00F2FE", valueText: m.longTxt || `${m.longMilestones}/10`
-      })), { maxVal: 20 });
+      // 2. Long Task SVG - SORTED STRICTLY BY PARSED /20 NUMERIC SCORE
+      const sortedLong = [...models].sort((a,b) => parseLongScore(b) - parseLongScore(a));
+      renderHBarSVG("svg-chart-long", sortedLong.map(m => {
+        const val = parseLongScore(m);
+        return {
+          label: m.name,
+          value: val,
+          color: val >= 16 ? "#00F2FE" : (val >= 12 ? "#10B981" : "#FF5C7A"),
+          valueText: m.longTxt || `${val} / 20`
+        };
+      }), { maxVal: 20 });
 
-      // 3. Reviewer SVG
-      const sortedRev = [...models].sort((a,b) => (parseInt(b.revFixes)||0) - (parseInt(a.revFixes)||0));
-      renderHBarSVG("svg-chart-reviewer", sortedRev.map(m => ({
-        label: m.name, value: parseInt(m.revFixes) || 8, color: "#FFFFFF", valueText: `${m.revFixes || '8/8'} (${m.revLatency && m.revLatency !== 999 ? m.revLatency + 'ms' : 'Timing N/A'})`
-      })), { maxVal: 8 });
+      // 3. Reviewer SVG - ZERO BAR LENGTH FOR N/A MODELS!
+      const sortedRev = [...models].sort((a,b) => parseReviewerFixVal(b) - parseReviewerFixVal(a));
+      renderHBarSVG("svg-chart-reviewer", sortedRev.map(m => {
+        const fixVal = parseReviewerFixVal(m);
+        const latTxt = m.revLatency && m.revLatency !== 999 ? `${m.revLatency} ms` : 'Timing N/A';
+        return {
+          label: m.name,
+          value: fixVal,
+          color: fixVal === 0 ? "rgba(255,255,255,0.05)" : "#FFFFFF",
+          valueText: fixVal === 0 ? "N/A (未参评)" : `${m.revFixes} (${latTxt})`
+        };
+      }), { maxVal: 8 });
 
       // 4. Critic SVG
       const sortedCritic = [...models].sort((a,b) => (b.criticScore||0) - (a.criticScore||0));
