@@ -51,23 +51,6 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
-    "id": "qwen3.8-max",
-    "name": "qwen3.8-max",
-    "tag": "基石强者",
-    "provider": "Alibaba",
-    "shortScore": 16,
-    "shortTxt": "16/16 (基石)",
-    "longMilestones": 8.5,
-    "longTxt": "17 / 20",
-    "revLatency": 112.1,
-    "revFixes": "7/8 补充检查",
-    "criticScore": 88.5,
-    "criticTxt": "88.5分",
-    "quote": "原长任务冠军，17/20 完成度。",
-    "analysis": "长任务 17/20、coverage 0.85。",
-    "tokenCost": "863K"
-  },
-  {
     "id": "deepseek-v4-pro",
     "name": "deepseek-v4-pro ✦",
     "tag": "漏洞捕手",
@@ -119,6 +102,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "qwen3.8-max",
+    "name": "qwen3.8-max",
+    "tag": "基石强者",
+    "provider": "Alibaba",
+    "shortScore": 16,
+    "shortTxt": "16/16 (基石)",
+    "longMilestones": 8.5,
+    "longTxt": "17 / 20",
+    "revLatency": 112.1,
+    "revFixes": "7/8 补充检查",
+    "criticScore": 88.5,
+    "criticTxt": "88.5分",
+    "quote": "原长任务冠军，17/20 完成度。",
+    "analysis": "长任务 17/20、coverage 0.85。",
+    "tokenCost": "863K"
+  },
+  {
     "id": "deepseek-flash-v2",
     "name": "deepseek-flash (v2)",
     "tag": "更新全能",
@@ -133,6 +133,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "criticTxt": "93.4分 (3 GT)",
     "quote": "模型更新后三轴大幅提升。",
     "analysis": "短 A/B 16/16 满分；Reviewer 8/8 全过。",
+    "tokenCost": "N/A"
+  },
+  {
+    "id": "ox-openrouter",
+    "name": "ox-openrouter ✦",
+    "tag": "云端标杆",
+    "provider": "OpenRouter",
+    "shortScore": 16,
+    "shortTxt": "16/16 (res 2/2)",
+    "longMilestones": 7.0,
+    "longTxt": "14 / 20",
+    "revLatency": 73.5,
+    "revFixes": "8/8 满分",
+    "criticScore": 87.0,
+    "criticTxt": "87.0分 (3 GT)",
+    "quote": "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms 满档速；Critic 盲审抓出全部 3 个 Ground Truth。",
+    "analysis": "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms，Critic 87.0分。",
     "tokenCost": "N/A"
   },
   {
@@ -151,23 +168,6 @@ window.BENCHMARK_MASTER_MODELS = [
     "quote": "零成本高性价比快审候选，64.1ms 创下 7/8 档最快记录。",
     "analysis": "短任务两侧通过 16/16 门线；Critic 无提示抓齐全部 3 个 Ground Truth。",
     "tokenCost": "FREE"
-  },
-  {
-    "id": "ox-openrouter",
-    "name": "ox-openrouter ✦",
-    "tag": "云端标杆",
-    "provider": "OpenRouter",
-    "shortScore": 16,
-    "shortTxt": "16/16 (res 2/2)",
-    "longMilestones": 7.0,
-    "longTxt": "14 / 20",
-    "revLatency": 73.5,
-    "revFixes": "8/8 满分",
-    "criticScore": 87.0,
-    "criticTxt": "87.0分 (3 GT)",
-    "quote": "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms 满档速；Critic 盲审抓出全部 3 个 Ground Truth。",
-    "analysis": "短任务 A/B 严格 16/16 双胜；Reviewer 73.5ms，Critic 87.0分。",
-    "tokenCost": "N/A"
   },
   {
     "id": "k3-phi1",
@@ -221,23 +221,6 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
-    "id": "gemini-3.7-flash-medium",
-    "name": "gemini-3.7-flash (medium) ✦",
-    "tag": "中等候选",
-    "provider": "Google",
-    "shortScore": 16,
-    "shortTxt": "16/16",
-    "longMilestones": 6.0,
-    "longTxt": "12 / 20",
-    "revLatency": 120.0,
-    "revFixes": "7/8 档",
-    "criticScore": 79.3,
-    "criticTxt": "79.3分",
-    "quote": "Medium effort 下维持一致完成度。",
-    "analysis": "Medium effort 一致完成度。",
-    "tokenCost": "N/A"
-  },
-  {
     "id": "kimi",
     "name": "kimi",
     "tag": "Critic 标杆",
@@ -255,20 +238,20 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "804K"
   },
   {
-    "id": "gemini-pro-agent",
-    "name": "gemini-pro-agent ✦",
-    "tag": "极速候选",
+    "id": "gemini-3.7-flash-medium",
+    "name": "gemini-3.7-flash (medium) ✦",
+    "tag": "中等候选",
     "provider": "Google",
     "shortScore": 16,
     "shortTxt": "16/16",
-    "longMilestones": 4.5,
-    "longTxt": "9 / 20",
-    "revLatency": 76.0,
-    "revFixes": "8/8 满分",
-    "criticScore": 88.5,
-    "criticTxt": "88.5分",
-    "quote": "Reviewer 76.0ms 满分。",
-    "analysis": "Reviewer 76.0ms 满分。",
+    "longMilestones": 6.0,
+    "longTxt": "12 / 20",
+    "revLatency": 120.0,
+    "revFixes": "7/8 档",
+    "criticScore": 79.3,
+    "criticTxt": "79.3分",
+    "quote": "Medium effort 下维持一致完成度。",
+    "analysis": "Medium effort 一致完成度。",
     "tokenCost": "N/A"
   },
   {
@@ -287,6 +270,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "quote": "原始 short A 与 Reviewer 调试双料冠军。",
     "analysis": "Reviewer 8/8 满分。",
     "tokenCost": "880K"
+  },
+  {
+    "id": "gemini-pro-agent",
+    "name": "gemini-pro-agent ✦",
+    "tag": "极速候选",
+    "provider": "Google",
+    "shortScore": 16,
+    "shortTxt": "16/16",
+    "longMilestones": 4.5,
+    "longTxt": "9 / 20",
+    "revLatency": 76.0,
+    "revFixes": "8/8 满分",
+    "criticScore": 88.5,
+    "criticTxt": "88.5分",
+    "quote": "Reviewer 76.0ms 满分。",
+    "analysis": "Reviewer 76.0ms 满分。",
+    "tokenCost": "N/A"
   },
   {
     "id": "gemini-3-flash",
@@ -510,6 +510,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "469K"
   },
   {
+    "id": "claude-sonnet-5-max",
+    "name": "claude-sonnet-5 (max)",
+    "tag": "长任务 raw 7/10",
+    "provider": "Anthropic",
+    "shortScore": 14,
+    "shortTxt": "14/16",
+    "longMilestones": 7.0,
+    "longTxt": "14 / 20 (raw)",
+    "revLatency": 999.0,
+    "revFixes": "N/A",
+    "criticScore": 10.0,
+    "criticTxt": "N/A",
+    "quote": "长任务 raw 7/10。",
+    "analysis": "因 workspace audit Gate FAIL。",
+    "tokenCost": "N/A"
+  },
+  {
     "id": "step-3.7-flash",
     "name": "step-3.7-flash",
     "tag": "ShortCoder 首选",
@@ -542,23 +559,6 @@ window.BENCHMARK_MASTER_MODELS = [
     "quote": "短任务 14/16。",
     "analysis": "短任务中规中矩。",
     "tokenCost": "647K"
-  },
-  {
-    "id": "claude-sonnet-5-max",
-    "name": "claude-sonnet-5 (max)",
-    "tag": "长任务 raw 7/10",
-    "provider": "Anthropic",
-    "shortScore": 14,
-    "shortTxt": "14/16",
-    "longMilestones": 7.0,
-    "longTxt": "14 / 20 (raw)",
-    "revLatency": 999.0,
-    "revFixes": "N/A",
-    "criticScore": 10.0,
-    "criticTxt": "N/A",
-    "quote": "长任务 raw 7/10。",
-    "analysis": "因 workspace audit Gate FAIL。",
-    "tokenCost": "N/A"
   },
   {
     "id": "grok-4.5",
