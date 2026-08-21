@@ -1,1 +1,0 @@
-{"benchmark_id":"short-python-stdlib-v1","condition":"A","expected_model":"stepfun/step-3.7-flash","group":"G1","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"A05","wave":"G1-A"}

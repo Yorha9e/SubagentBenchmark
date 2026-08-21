@@ -1,1 +1,0 @@
-{"benchmark_id":"short-python-stdlib-v1","condition":"B","expected_model":"mimo/mimo-v2.5","group":"G2","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"B13","wave":"G2-B"}

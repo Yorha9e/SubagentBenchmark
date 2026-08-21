@@ -1,1 +1,0 @@
-{"benchmark_id":"short-python-stdlib-v1","condition":"A","expected_model":"deepseek/deepseek-v4-pro","group":"G1","public_inputs":["TASKS.md","public_smoke_tests.py"],"slot":"A03","wave":"G1-A"}
