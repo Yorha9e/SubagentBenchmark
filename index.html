@@ -79,7 +79,7 @@
       inset: 0;
       width: 100vw;
       height: 100vh;
-      padding: 5rem 3.5rem 3.5rem 3.5rem;
+      padding: 4.5rem 1.25rem 2rem 1.25rem;
       background: #0a0a0e;
       border: 1px solid #1c1c26;
       box-shadow: 0 40px 100px rgba(0,0,0,0.95);
@@ -89,6 +89,16 @@
       opacity: 0;
       pointer-events: none;
       transform-origin: left center;
+    }
+    @media (min-width: 640px) {
+      .archival-sheet {
+        padding: 5rem 2.5rem 2.5rem 2.5rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .archival-sheet {
+        padding: 5rem 3.5rem 3.5rem 3.5rem;
+      }
     }
 
     .hairline-b { border-bottom: 1px solid #1c1c26; }
@@ -144,16 +154,22 @@
     #model-dossier-portal {
       position: fixed;
       inset: 0;
-      background: rgba(5, 5, 7, 0.97);
+      background: rgba(5, 5, 7, 0.98);
       backdrop-filter: blur(25px);
       z-index: 200;
-      padding: 4rem 3.5rem;
+      padding: 3.5rem 1.25rem 2rem 1.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow-y: auto;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease;
+    }
+    @media (min-width: 768px) {
+      #model-dossier-portal {
+        padding: 4rem 3.5rem;
+      }
     }
     #model-dossier-portal.active {
       opacity: 1;
@@ -167,15 +183,15 @@
 
   <!-- Fullscreen Shutter Loader -->
   <div id="loader-curtain-top">
-    <div class="text-center space-y-2 translate-y-1/2">
+    <div class="text-center space-y-2 translate-y-1/2 px-4">
       <span class="archival-label text-white font-bold block animate-pulse">[ARCHIVAL LENS SCANNING // 34 MODELS]</span>
-      <span class="font-hud text-3xl font-black tracking-widest text-white block">THE SUBAGENT GAZETTE</span>
+      <span class="font-hud text-xl sm:text-3xl font-black tracking-widest text-white block">THE SUBAGENT GAZETTE</span>
     </div>
   </div>
   <div id="loader-curtain-bottom">
-    <div class="text-center space-y-2 -translate-y-1/2">
+    <div class="text-center space-y-2 -translate-y-1/2 px-4">
       <span class="font-code text-2xl font-bold text-white block" id="load-count">00 %</span>
-      <span class="archival-label block">HARNESS VERIFICATION IN PROGRESS</span>
+      <span class="archival-label block text-xs">HARNESS VERIFICATION IN PROGRESS</span>
     </div>
   </div>
 
@@ -183,19 +199,19 @@
   <div id="laser-cut-line"></div>
 
   <!-- Sticky Top Archival Navigation Header -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-[#050507]/95 backdrop-blur-md px-8 py-4 border-b border-[#1c1c26] flex justify-between items-center archival-label">
-    <div class="flex items-center space-x-3 text-white font-bold">
-      <span class="w-2.5 h-2.5 bg-white inline-block"></span>
-      <span class="font-sans font-extrabold tracking-wider text-xs">THE SUBAGENT GAZETTE</span>
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#050507]/95 backdrop-blur-md px-3 sm:px-8 py-2.5 sm:py-4 border-b border-[#1c1c26] flex flex-wrap sm:flex-nowrap justify-between items-center archival-label gap-2">
+    <div class="flex items-center space-x-2 text-white font-bold shrink-0">
+      <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white inline-block"></span>
+      <span class="font-sans font-extrabold tracking-wider text-[11px] sm:text-xs">THE SUBAGENT GAZETTE</span>
     </div>
 
-    <!-- Mode Selector Buttons -->
-    <div class="flex items-center space-x-1 border border-white/20 p-1">
-      <button onclick="showSheet(0)" id="sheet-btn-0" class="px-3 py-1 bg-white text-black font-bold">01 / 报头号外</button>
-      <button onclick="showSheet(1)" id="sheet-btn-1" class="px-3 py-1 text-slate-400 hover:text-white">02 / 34模型交互矩阵</button>
-      <button onclick="showSheet(2)" id="sheet-btn-2" class="px-3 py-1 text-slate-400 hover:text-white">03 / REVIEWER 修复数与时延</button>
-      <button onclick="showSheet(3)" id="sheet-btn-3" class="px-3 py-1 text-slate-400 hover:text-white">04 / CRITIC 盲审深度</button>
-      <button onclick="showSheet(4)" id="sheet-btn-4" class="px-3 py-1 text-slate-400 hover:text-white">05 / 视觉图表</button>
+    <!-- Mode Selector Buttons (Scrollable on small mobile portrait) -->
+    <div class="flex items-center space-x-1 border border-white/20 p-0.5 sm:p-1 overflow-x-auto max-w-full no-scrollbar text-[10px] sm:text-xs">
+      <button onclick="showSheet(0)" id="sheet-btn-0" class="px-2 sm:px-3 py-1 bg-white text-black font-bold whitespace-nowrap shrink-0">01 / 报头号外</button>
+      <button onclick="showSheet(1)" id="sheet-btn-1" class="px-2 sm:px-3 py-1 text-slate-400 hover:text-white whitespace-nowrap shrink-0">02 / 34模型交互矩阵</button>
+      <button onclick="showSheet(2)" id="sheet-btn-2" class="px-2 sm:px-3 py-1 text-slate-400 hover:text-white whitespace-nowrap shrink-0">03 / REVIEWER 修复与时延</button>
+      <button onclick="showSheet(3)" id="sheet-btn-3" class="px-2 sm:px-3 py-1 text-slate-400 hover:text-white whitespace-nowrap shrink-0">04 / CRITIC 盲审深度</button>
+      <button onclick="showSheet(4)" id="sheet-btn-4" class="px-2 sm:px-3 py-1 text-slate-400 hover:text-white whitespace-nowrap shrink-0">05 / 视觉图表</button>
     </div>
   </header>
 
@@ -204,66 +220,66 @@
 
     <!-- SHEET 0: COVER SPREAD -->
     <div class="archival-sheet active" id="sheet-0">
-      <div class="stamp-seal" id="stamp-0">[VERIFIED // 34 MODELS]</div>
-      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+      <div class="stamp-seal !top-3 !right-3 sm:!top-20 sm:!right-16 text-[9px] sm:text-[10px]" id="stamp-0">[VERIFIED // 34 MODELS]</div>
+      <div class="flex justify-between items-center archival-label hairline-b pb-2 sm:pb-4 text-[9px] sm:text-[10px]">
         <span>SUBAGENT MONOGRAPH BUREAU</span>
-        <span>3D PAPER UNFOLD & DECOUPLED DATA</span>
+        <span class="hidden sm:inline">3D PAPER UNFOLD & DECOUPLED DATA</span>
         <span>AUG 2026 ISSUE</span>
       </div>
 
-      <div class="my-auto space-y-6 max-w-4xl z-10 sheet-content">
-        <span class="archival-label text-white bg-white/10 px-3 py-1 font-bold">
+      <div class="my-auto space-y-3 sm:space-y-6 max-w-4xl z-10 sheet-content py-2">
+        <span class="archival-label text-white bg-white/10 px-2 sm:px-3 py-0.5 sm:py-1 font-bold text-[9px] sm:text-[10px] inline-block">
           [ISSUE 2026 // HARNESS VERIFIED // 34 MODELS]
         </span>
-        <h1 class="text-5xl sm:text-8xl font-black font-sans tracking-tighter text-white uppercase leading-none">
+        <h1 class="text-3xl sm:text-6xl md:text-8xl font-black font-sans tracking-tighter text-white uppercase leading-tight sm:leading-none">
           THE SUBAGENT GAZETTE
         </h1>
-        <p class="font-script text-base sm:text-2xl text-slate-300 leading-relaxed italic">
+        <p class="font-script text-xs sm:text-lg md:text-2xl text-slate-300 leading-relaxed italic line-clamp-3 sm:line-clamp-none">
           “An autonomous mind cannot be measured by a single metric. Examine its adherence, observe its autonomy, measure its latency, and audit its deduction.”
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 hairline-t pt-6 archival-label items-end sheet-content">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-6 hairline-t pt-3 sm:pt-6 archival-label items-end sheet-content">
         <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">01 / SHORT-TASK #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">grok-4.6 ✦ <span class="text-slate-400 text-xs font-normal">(16 / 16)</span></span>
+          <span class="text-slate-400 font-medium block text-[9px] sm:text-[10px] tracking-wider uppercase">01 / SHORT-TASK #1</span>
+          <span class="text-white font-black text-xs sm:text-sm block mt-0.5 tracking-tight">grok-4.6 ✦ <span class="text-slate-400 text-[10px] font-normal">(16/16)</span></span>
         </div>
         <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">02 / LONG-TASK #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">gpt-5.6-sol ✦ <span class="text-slate-400 text-xs font-normal">(19 / 20)</span></span>
+          <span class="text-slate-400 font-medium block text-[9px] sm:text-[10px] tracking-wider uppercase">02 / LONG-TASK #1</span>
+          <span class="text-white font-black text-xs sm:text-sm block mt-0.5 tracking-tight">gpt-5.6-sol ✦ <span class="text-slate-400 text-[10px] font-normal">(19/20)</span></span>
         </div>
         <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">03 / REVIEWER #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">muse-spark-1.2 ✦ <span class="text-slate-400 text-xs font-normal">(58.1 ms)</span></span>
+          <span class="text-slate-400 font-medium block text-[9px] sm:text-[10px] tracking-wider uppercase">03 / REVIEWER #1</span>
+          <span class="text-white font-black text-xs sm:text-sm block mt-0.5 tracking-tight">muse-spark-1.2 ✦ <span class="text-slate-400 text-[10px] font-normal">(58.1ms)</span></span>
         </div>
         <div>
-          <span class="text-slate-400 font-medium block text-[10px] tracking-wider uppercase">04 / CRITIC #1</span>
-          <span class="text-white font-black text-sm block mt-0.5 tracking-tight">gemini-3.6-flash ✦ <span class="text-slate-400 text-xs font-normal">(98.2分)</span></span>
+          <span class="text-slate-400 font-medium block text-[9px] sm:text-[10px] tracking-wider uppercase">04 / CRITIC #1</span>
+          <span class="text-white font-black text-xs sm:text-sm block mt-0.5 tracking-tight">gemini-3.6-flash ✦ <span class="text-slate-400 text-[10px] font-normal">(98.2分)</span></span>
         </div>
       </div>
     </div>
 
     <!-- SHEET 1: 34 MODELS INTERACTIVE MATRIX -->
     <div class="archival-sheet" id="sheet-1">
-      <div class="stamp-seal" id="stamp-1">[CLICK ANY MODEL ROW FOR SPECIMEN CARD]</div>
+      <div class="stamp-seal !top-3 !right-3 sm:!top-20 sm:!right-16 text-[9px] sm:text-[10px]" id="stamp-1">[CLICK ANY MODEL ROW FOR SPECIMEN CARD]</div>
       <div class="archival-watermark">01</div>
-      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+      <div class="flex justify-between items-center archival-label hairline-b pb-2 sm:pb-4 text-[9px] sm:text-[10px]">
         <span>SECTION 02 // UNIFIED MATRIX</span>
-        <span class="text-white font-bold">点击任意模型行可展开专属解剖档案卡</span>
-        <span>02 / 04</span>
+        <span class="text-white font-bold hidden sm:inline">点击任意模型行可展开专属解剖档案卡</span>
+        <span>02 / 05</span>
       </div>
 
-      <div class="my-auto space-y-4 w-full z-10 sheet-content">
-        <div class="overflow-x-auto overflow-y-auto max-h-[62vh] pr-2 scrollable-box">
-          <table class="w-full text-left font-code text-xs">
-            <thead class="bg-black text-slate-400 hairline-b">
+      <div class="my-auto space-y-3 sm:space-y-4 w-full z-10 sheet-content">
+        <div class="overflow-x-auto overflow-y-auto max-h-[64vh] sm:max-h-[62vh] pr-1 sm:pr-2 scrollable-box">
+          <table class="w-full text-left font-code text-[11px] sm:text-xs">
+            <thead class="bg-black text-slate-400 hairline-b text-[10px] sm:text-xs sticky top-0 z-10">
               <tr>
-                <th class="p-3">MODEL IDENTIFIER (点击查看专属档案卡)</th>
-                <th class="p-3">TAG</th>
-                <th class="p-3">SHORT (16)</th>
-                <th class="p-3">LONG (20)</th>
-                <th class="p-3">REVIEWER (修复数 + 时延)</th>
-                <th class="p-3">CRITIC SCORE</th>
+                <th class="p-2 sm:p-3">MODEL IDENTIFIER</th>
+                <th class="p-2 sm:p-3">TAG</th>
+                <th class="p-2 sm:p-3">SHORT (16)</th>
+                <th class="p-2 sm:p-3">LONG (20)</th>
+                <th class="p-2 sm:p-3">REVIEWER (修复+时延)</th>
+                <th class="p-2 sm:p-3">CRITIC SCORE</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-white/10" id="unified-table-body">
@@ -273,52 +289,52 @@
         </div>
       </div>
 
-      <div class="flex justify-between items-center archival-label hairline-t pt-4">
-        <span>SECTION 02 / 04</span>
-        <span>THE SUBAGENT GAZETTE MONOGRAPH</span>
-        <span>CLICK MODEL FOR FULL SPECIMEN CARD</span>
+      <div class="flex justify-between items-center archival-label hairline-t pt-3 sm:pt-4 text-[9px] sm:text-[10px]">
+        <span>SECTION 02 / 05</span>
+        <span class="hidden sm:inline">THE SUBAGENT GAZETTE MONOGRAPH</span>
+        <span>CLICK MODEL FOR SPECIMEN CARD</span>
       </div>
     </div>
 
     <!-- SHEET 2: REVIEWER FIXES & SPEED -->
     <div class="archival-sheet" id="sheet-2">
-      <div class="stamp-seal" id="stamp-2">[REVIEWER PASSED FIXES & LATENCY]</div>
+      <div class="stamp-seal !top-3 !right-3 sm:!top-20 sm:!right-16 text-[9px] sm:text-[10px]" id="stamp-2">[REVIEWER PASSED FIXES & LATENCY]</div>
       <div class="archival-watermark">02</div>
-      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+      <div class="flex justify-between items-center archival-label hairline-b pb-2 sm:pb-4 text-[9px] sm:text-[10px]">
         <span>SECTION 03 // REVIEWER AXIS</span>
-        <span class="text-white font-bold">Reviewer 通过修复数与毫秒时延榜</span>
-        <span>03 / 04</span>
+        <span class="text-white font-bold hidden sm:inline">Reviewer 通过修复数与毫秒时延榜</span>
+        <span>03 / 05</span>
       </div>
 
-      <div class="my-auto space-y-4 w-full z-10 sheet-content" id="reviewer-box">
+      <div class="my-auto space-y-3 sm:space-y-4 w-full z-10 sheet-content" id="reviewer-box">
         <!-- Dynamically Filled -->
       </div>
 
-      <div class="flex justify-between items-center archival-label hairline-t pt-4">
-        <span>SECTION 03 / 04</span>
-        <span>THE SUBAGENT GAZETTE MONOGRAPH</span>
+      <div class="flex justify-between items-center archival-label hairline-t pt-3 sm:pt-4 text-[9px] sm:text-[10px]">
+        <span>SECTION 03 / 05</span>
+        <span class="hidden sm:inline">THE SUBAGENT GAZETTE MONOGRAPH</span>
         <span>SCROLL DOWN ↓</span>
       </div>
     </div>
 
     <!-- SHEET 3: CRITIC BLIND RECALL -->
     <div class="archival-sheet" id="sheet-3">
-      <div class="stamp-seal" id="stamp-3">[CRITIC RECALL & DEPTH 4]</div>
+      <div class="stamp-seal !top-3 !right-3 sm:!top-20 sm:!right-16 text-[9px] sm:text-[10px]" id="stamp-3">[CRITIC RECALL & DEPTH 4]</div>
       <div class="archival-watermark">03</div>
-      <div class="flex justify-between items-center archival-label hairline-b pb-4">
+      <div class="flex justify-between items-center archival-label hairline-b pb-2 sm:pb-4 text-[9px] sm:text-[10px]">
         <span>SECTION 04 // CRITIC AXIS</span>
-        <span class="text-white font-bold">Critic 盲审得分与推导深度榜</span>
-        <span>04 / 04</span>
+        <span class="text-white font-bold hidden sm:inline">Critic 盲审得分与推导深度榜</span>
+        <span>04 / 05</span>
       </div>
 
-      <div class="my-auto space-y-4 w-full z-10 sheet-content" id="critic-box">
+      <div class="my-auto space-y-3 sm:space-y-4 w-full z-10 sheet-content" id="critic-box">
         <!-- Dynamically Filled -->
       </div>
 
-      <div class="flex justify-between items-center archival-label hairline-t pt-4">
-        <span>SECTION 04 / 04</span>
-        <span>THE SUBAGENT GAZETTE MONOGRAPH</span>
-        <span>END OF MONOGRAPH</span>
+      <div class="flex justify-between items-center archival-label hairline-t pt-3 sm:pt-4 text-[9px] sm:text-[10px]">
+        <span>SECTION 04 / 05</span>
+        <span class="hidden sm:inline">THE SUBAGENT GAZETTE MONOGRAPH</span>
+        <span>SCROLL DOWN ↓</span>
       </div>
     </div>
 
@@ -387,37 +403,9 @@
 
       </div>
 
-      
-    </div>
-</div>
-
-      
-    </div>
-</div>
-
-      
-    </div>
-</div>
-
-      
-    </div>
-</div>
-
-      
-    </div>
-</div>
-
-      
-    </div>
-</div>
-
-      
-    </div>
-</div>
-
-      <div class="flex justify-between items-center archival-label hairline-t pt-4">
+      <div class="flex justify-between items-center archival-label hairline-t pt-3 sm:pt-4 text-[9px] sm:text-[10px]">
         <span>SECTION 05 / 05</span>
-        <span>THE SUBAGENT GAZETTE VISUAL CHART ENGINE</span>
+        <span class="hidden sm:inline">THE SUBAGENT GAZETTE VISUAL CHART ENGINE</span>
         <span>END OF BENCHMARK SHOWCASE</span>
       </div>
     </div>
@@ -618,14 +606,15 @@
       if (!container) return;
       container.innerHTML = "";
 
+      const isMobile = window.innerWidth < 640;
       const NS = "http://www.w3.org/2000/svg";
-      const W = opts.W || 1000;
-      const barH = 18;
-      const gap = 8;
-      const padL = opts.padL || 200;
-      const padR = opts.padR || 140;
-      const padT = 20;
-      const padB = 20;
+      const W = opts.W || (isMobile ? 680 : 1000);
+      const barH = isMobile ? 16 : 18;
+      const gap = isMobile ? 6 : 8;
+      const padL = opts.padL || (isMobile ? 140 : 200);
+      const padR = opts.padR || (isMobile ? 110 : 140);
+      const padT = 16;
+      const padB = 16;
       const maxVal = opts.maxVal || 16;
       const H = padT + padB + data.length * (barH + gap);
 
@@ -642,11 +631,11 @@
 
         // Label
         const textLabel = document.createElementNS(NS, "text");
-        textLabel.setAttribute("x", padL - 12);
-        textLabel.setAttribute("y", y + 13);
+        textLabel.setAttribute("x", padL - 10);
+        textLabel.setAttribute("y", y + (isMobile ? 12 : 13));
         textLabel.setAttribute("text-anchor", "end");
         textLabel.setAttribute("fill", "#ffffff");
-        textLabel.setAttribute("font-size", "11px");
+        textLabel.setAttribute("font-size", isMobile ? "10px" : "11px");
         textLabel.setAttribute("font-family", "Noto Serif SC, serif");
         textLabel.textContent = d.label;
         svg.appendChild(textLabel);
@@ -663,10 +652,10 @@
 
         // Value text
         const textVal = document.createElementNS(NS, "text");
-        textVal.setAttribute("x", padL + barW + 8);
-        textVal.setAttribute("y", y + 13);
+        textVal.setAttribute("x", padL + barW + 6);
+        textVal.setAttribute("y", y + (isMobile ? 12 : 13));
         textVal.setAttribute("fill", "#ffffff");
-        textVal.setAttribute("font-size", "11px");
+        textVal.setAttribute("font-size", isMobile ? "9.5px" : "11px");
         textVal.setAttribute("font-weight", "bold");
         textVal.setAttribute("font-family", "Fira Code, monospace");
         textVal.textContent = d.valueText || `${d.value}`;
@@ -734,18 +723,7 @@
     }
 
 
-function showSheet(targetIdx) {
-  
-      if (targetIdx === 4) {
-        setTimeout(() => {
-          renderActiveChart();
-          if (chartInstance) {
-            chartInstance.resize();
-            chartInstance.update();
-          }
-        }, 400);
-      }
-
+    function showSheet(targetIdx) {
       if (targetIdx < 0 || targetIdx >= 5 || isAnimating) return;
       isAnimating = true;
 
@@ -755,8 +733,8 @@ function showSheet(targetIdx) {
 
       document.querySelectorAll('header button').forEach((b, i) => {
         b.className = i === targetIdx 
-          ? 'px-3 py-1 bg-white text-black font-bold' 
-          : 'px-3 py-1 text-slate-400 hover:text-white';
+          ? 'px-2 sm:px-3 py-1 bg-white text-black font-bold whitespace-nowrap shrink-0' 
+          : 'px-2 sm:px-3 py-1 text-slate-400 hover:text-white whitespace-nowrap shrink-0';
       });
 
       const tl = gsap.timeline({
@@ -819,6 +797,52 @@ function showSheet(targetIdx) {
       else if (e.deltaY < -20) showSheet(currentIdx - 1);
       setTimeout(() => { cooldown = false; }, 800);
     }, { passive: true });
+
+    // Touch Swipe Gesture for Mobile / Portrait Screens
+    let touchStartY = 0;
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (cooldown || isAnimating || !e.changedTouches || !e.changedTouches[0]) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      const touchEndX = e.changedTouches[0].clientX;
+      const diffY = touchStartY - touchEndY;
+      const diffX = touchStartX - touchEndX;
+
+      // Only trigger if vertical swipe is dominant and significant (> 45px)
+      if (Math.abs(diffY) > 45 && Math.abs(diffY) > Math.abs(diffX) * 1.3) {
+        const currentSheet = document.getElementById(`sheet-${currentIdx}`);
+        const scrollBox = currentSheet ? currentSheet.querySelector('.scrollable-box') : null;
+
+        if (scrollBox) {
+          const isAtBottom = Math.abs(scrollBox.scrollHeight - scrollBox.scrollTop - scrollBox.clientHeight) <= 5;
+          const isAtTop = scrollBox.scrollTop <= 2;
+
+          if (diffY > 0 && !isAtBottom) return; // scroll internal down
+          if (diffY < 0 && !isAtTop) return;    // scroll internal up
+        }
+
+        cooldown = true;
+        if (diffY > 0) showSheet(currentIdx + 1);
+        else showSheet(currentIdx - 1);
+        setTimeout(() => { cooldown = false; }, 700);
+      }
+    }, { passive: true });
+
+    // Resize re-render for charts
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        initVisualCharts();
+      }, 200);
+    });
   </script>
   <!-- Cloudflare Web Analytics Beacon -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
