@@ -180,10 +180,10 @@
     "longTxt": "16 / 20",
     "revLatency": 517.6,
     "revFixes": "8/8 满分",
-    "criticScore": 88.0,
-    "criticTxt": "88.0分 3 GT 全中",
-    "quote": "短任务双满分、reviewer 8/8 全绿；长任务 16/20 三代逐代+1；critic 3 GT 全中 88.0 分，输在速度和格式而非召回。",
-    "analysis": "**短任务（16/16 raw）**：A/B 双 16/16 raw，扩展 2/2、资源 2/2，三代无差（该线已饱和）。**长任务（16/20 raw，rescore gate=True，7 strict）**：4 失分 OF1-C1 schema reopen、OF1-C2 依赖非 callable 错误码、OF3-C1 双错时 PAYMENT_CONFLICT 优先级、DS1-C1 损坏态 fail-closed+构造器校验——错误码分类+fail-closed 族；OF2 多 SKU 原子、OF4 状态机等大项拿全（三代逐代+1：14→15→16）；实现拆 _core+_cli 双模块（harness AST 签名检查豁免，16 passing criterion 为更强证据）。注：Tencent 源首轮 thinking 截断零写入，改走 opensquilla 同模型源重跑成功。**Reviewer（官方 16/16，supplemental 8/8 全绿，517.6s）**：修 4 真 bug（dl 层错位+O(N²)、ttl 构造器偷读+add 双读）；cross_hashability 拿下（muse-1.3/omen 栽处）；4000-case 差分+duration 穷举打底。**Critic（88.0 分，3 GT 全中）**：A-F1 GT1（bytes 自边漏报）+A-F2 GT2（n(n-1)/2 计数）+B-F1 GT3（hashable 查无条件扫 unhashable 全表，858x）；B-F2 并入 GT3；B-N1/N2 为标注低置信笔记，0 确信误报；深度 L3（12）；速度 1192.3s 排 13/17（2.5，B 918s 拖累）；格式 3.5（B 被 prose 包裹）。**行为结论**：交付侧逐代补边角、审计侧召回满分但又慢又啰嗦——能力到位，纪律（输出契约、耗时）拖后腿。**最佳场景**：长任务 coder（配错误码 checklist）、critic（配格式约束）；腾讯源 max-effort 下 thinking 易截断，生产走 opensquilla 源或拆段派发。",
+    "criticScore": 89.8,
+    "criticTxt": "89.8分 3 GT 全中（双 L4）",
+    "quote": "短任务双满分、reviewer 8/8 全绿；长任务 16/20 三代逐代+1；critic 3 GT 全中 89.8 分（双 L4），输在速度而非召回。",
+    "analysis": "**短任务（16/16 raw）**：A/B 双 16/16 raw，扩展 2/2、资源 2/2，三代无差（该线已饱和）。**长任务（16/20 raw，rescore gate=True，7 strict）**：4 失分 OF1-C1 schema reopen、OF1-C2 依赖非 callable 错误码、OF3-C1 双错时 PAYMENT_CONFLICT 优先级、DS1-C1 损坏态 fail-closed+构造器校验——错误码分类+fail-closed 族；OF2 多 SKU 原子、OF4 状态机等大项拿全（三代逐代+1：14→15→16）；实现拆 _core+_cli 双模块（harness AST 签名检查豁免，16 passing criterion 为更强证据）。注：Tencent 源首轮 thinking 截断零写入，改走 opensquilla 同模型源重跑成功。**Reviewer（官方 16/16，supplemental 8/8 全绿，517.6s）**：修 4 真 bug（dl 层错位+O(N²)、ttl 构造器偷读+add 双读）；cross_hashability 拿下（muse-1.3/omen 栽处）；4000-case 差分+duration 穷举打底。**Critic（89.8 分，3 GT 全中，双 L4）**：腾讯源重跑对（go 源 B 918s 混入网络波动，按基础设施重试；旧对 88.0 保留归档）：A-F1 GT1（L4，五种 cross-kind manifestation a-e）+A-F2 GT2（L3，log-log 斜率 2.00）+B-F1 GT3（L4，N²/2 探针计数+id-memo 对照 351x）；低置信笔记 4 条均为真实测量，0 确信误报；深度 L4（15）；速度 2633.8s 排 15/17（1.25，腾讯源做得更多反而更慢）；格式 3.5（A 纯 JSON 2.5，B 被 prose 包裹 1）。**行为结论**：交付侧逐代补边角、审计侧召回满分但又慢又啰嗦——能力到位，纪律（输出契约、耗时）拖后腿。**最佳场景**：长任务 coder（配错误码 checklist）、critic（配格式约束）；腾讯源 max-effort 下 thinking 易截断，生产走 opensquilla 源或拆段派发。",
     "tokenCost": "N/A"
   },
   {
