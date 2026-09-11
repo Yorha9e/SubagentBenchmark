@@ -85,6 +85,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "A 1.82M / B 1.36M / 长 5.30M"
   },
   {
+    "id": "k3-max",
+    "name": "k3 (max) †",
+    "tag": "全能突破者",
+    "provider": "Moonshot",
+    "shortScore": 16,
+    "shortTxt": "16/16 (raw)",
+    "longMilestones": 8.5,
+    "longTxt": "17 / 20 ★",
+    "revLatency": 587.0,
+    "revFixes": "7/8",
+    "criticScore": 51.4,
+    "criticTxt": "51.4分 GT2命中 双纯JSON",
+    "quote": "长任务 max effort 爆发至 17/20 追平 qwen 与 terra，短任务双 16，Reviewer 587s 稳健修复，Critic 严格纯 JSON 但盲区依旧。",
+    "analysis": "**短任务（16/16 raw）**：A29/B29 均 16 满分，定制深拷贝完美保留 dict 子类身份，无计划依赖；扩展与资源全满。**长任务自治交付（17/20 raw，rescore gate=True，7 strict）**：较 low 版本的 13 分发生质的突破，多 SKU 原子扣减、支付状态机、并发不超卖与故障恢复点全部满分封顶；仅丢 3 点：OF1-C1 schema reopen、DS1-C2 超大载荷边界码、DS3-C1 空 Token 鉴权码。**Reviewer 调试（官方 16/16，supplemental 7/8，587.0s）**：耗时从 kimi-2.8 的 1257s 压缩至 587s，修全 Kahn 循环吞节点与 TTL 双读时钟，失分仍为跨哈希域相等未统一。**Critic 盲审（51.4 分）**：输出纪律极佳，A/B 双纯 JSON 满分；命中 GT2（A-F1 unhashable 复杂度 L3），B 挖出两项真缺陷（非 bool __eq__ 与 repr 异常），但未意识到混合跨域二次开销（漏 GT3）且漏 GT1，召回仅 10 分。**行为结论**：思考量拉满后长任务工程编码能力极大爆发，直逼 T0 梯队；缺陷挖掘依旧保守偏实，审判格式规范但存在结构信任偏置。**最佳场景**：长任务主力架构与复杂后端编码，全流程执行中坚。",
+    "tokenCost": "N/A"
+  },
+  {
     "id": "grok-4.6",
     "name": "grok-4.6 ✦",
     "tag": "全能 MVP",
