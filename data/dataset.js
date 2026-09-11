@@ -255,6 +255,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "kimi-2.8",
+    "name": "kimi-2.8 †",
+    "tag": "审计传人",
+    "provider": "Moonshot",
+    "shortScore": 15,
+    "shortTxt": "15/16 (+1 计划增益)",
+    "longMilestones": 7.5,
+    "longTxt": "15 / 20",
+    "revLatency": 1257.6,
+    "revFixes": "7/8",
+    "criticScore": 75.8,
+    "criticTxt": "75.8分 GT1+GT2；GT3漏",
+    "quote": "短 A15/B16（plan 增益样本）；长任务 15/20；reviewer 官方全过 supplemental 7/8；critic 75.8 分，GT3 以和 muse-1.3 完全相同的方式漏掉。",
+    "analysis": "**短任务（A15/B16 raw）**：近期首个 A 出瑕疵——rp_plain_dict 替换整值时未保留 dict 子类身份；B（跟 plan）做对，B−A=+1 标准 plan 增益样本；扩展 2/2、资源 2/2。**长任务（15/20 raw，rescore gate=True，6 strict）**：5 失分 OF1-C1 schema reopen、OF1-C2 依赖错误码、OF5-C2/DS5-C2 CLI 多行 stdin 拒收、DS1-C1 损坏 fail-closed——错误码+CLI 协议族；OF2/3/4 重活全过。自测 17 项+多进程全绿。**Reviewer（官方 16/16，supplemental 7/8，1257.6s）**：修 4 标准 B11 bug；失分 cross_hashability（muse-1.3/omen 同款）；自测 170 断言。**Critic（75.8 分）**：A-F1 GT1（L3）+A-F2 GT2（L2），B 7000-case 差分+百万链验证正确性后空交卷——只测纯 unhashable 规模曲线、从未做 mixed 规模对比，GT3 以和 muse-spark-1.3 逐字相同的方式漏掉（对方测了 2000 条 0.45s 判固有开销；kimi-2.8 测了 32s@20k 判 out-of-contract）；0 确信误报；深度 L3（12）；速度 1929.9s 排 15/18（1.765）；格式 2（双 prose 包裹）。**行为结论**：与 subtest_4（kimi-for-coding，92.3，3GT）同路由不同命——审计基因部分保留（GT1/GT2 手法干净），但 GT3 的 mixed-scale 意识两代都没长出来；交付侧 15/20 远超前辈的 10/20。**最佳场景**：长任务 coder（15/20 中坚）、critic 配 mixed-scale 提示词补 GT3。",
+    "tokenCost": "N/A"
+  },
+  {
     "id": "deepseek-flash-v2",
     "name": "deepseek-flash (v2)",
     "tag": "更新全能",
