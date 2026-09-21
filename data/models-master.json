@@ -17,6 +17,23 @@
     "tokenCost": "N/A"
   },
   {
+    "id": "grok-4.7",
+    "name": "grok-4.7 ✦",
+    "tag": "六边形战士",
+    "provider": "xAI",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 9.5,
+    "longTxt": "19 / 20 ★",
+    "revLatency": null,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 90,
+    "criticTxt": "90.0分 (3 GT全中★)",
+    "quote": "短任务 A/B 双 20/20 满分、长任务 19/20 并列全榜第一、Reviewer 8/8 补检全通、Critic 90 分三个 Ground Truth 全中的六边形战士。",
+    "analysis": "**短任务（16/16 A+B 双满分 ★）**：A 自主与 B 引导双双 16/16 断言 + 2 扩展 + 2 资源全通，深拷贝隔离、拓扑层序环阻断、TTL 时钟防偷跑无一遗漏。**长任务自治交付（19/20 ★，rescore gate=True）**：order_fulfillment 10/10 满分，delivery_spool 9/10（仅失 DS3-C1），跨进程 SQLite 事务、原子预留、文件锁与崩溃恢复完备，与 gpt-5.6-sol、union-alpha、atria-dawn 并列全榜长任务第一。**Reviewer 调试（8/8 满分 ★）**：精准定位 node identity 缺陷根因——容器含 None 被误判为不可哈希导致回退线性扫描、以及哈希容器与不可哈希容器（tuple 含 set vs 含 frozenset）跨类型相等却拿到不同 key 导致同节点被拆分；重写为规范 key 后 20k 链 0.05s。8 项补充极限检查一次性全过。**Critic 盲审（90.0 分，3 GT 全中 ★）**：Candidate-A 命中 GT1（哈希/不可哈希双注册表从不交叉比较，b\"a\" vs bytearray(b\"a\")、frozenset({1}) vs {1} 这类 == 相等对被视为不同节点，导致环被吞、层划分错误）+ GT2（不可哈希查找线性扫描，2k/4k/8k = 0.165/0.796/3.095s）；Candidate-B 命中 GT3（双向跨域扫描 O(H*U)）并额外发现两个 L4 缺陷：repr 不保持共享导致指数爆炸（深度 20 达 7MB，深度 28-30 可 MemoryError）、repr 抛异常导致 DependencyCycleError 被丢弃。0 误报，L4 深度 15 满分，纯 JSON 格式 5.0 满分。**最佳场景**：全能型核心系统主 Coder + 高危代码终审 Critic，四轴无短板，是当前最强的全栈 Subagent 之一。",
+    "tokenCost": "短 A 881.4K + 短 B 451.6K + 长 810.7K + Rev 1.33M + Critic A 254.2K + Critic B 543.6K = 4.27M"
+  },
+  {
     "id": "union-alpha",
     "name": "union-alpha †",
     "tag": "双满分·并列长任务冠",
