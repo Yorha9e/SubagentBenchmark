@@ -34,6 +34,23 @@
     "tokenCost": "短 A 881.4K + 短 B 451.6K + 长 810.7K + Rev 1.33M + Critic A 254.2K + Critic B 543.6K = 4.27M"
   },
   {
+    "id": "mimo-v2.6-flash",
+    "name": "mimo-v2.6-flash ✦",
+    "tag": "轻量六边形",
+    "provider": "Xiaomi",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 9.5,
+    "longTxt": "19 / 20 ★",
+    "revLatency": null,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 87,
+    "criticTxt": "87.0分 (3 GT全中)",
+    "quote": "短任务 A/B 双 20/20 满分、长任务 19/20 并列全榜第一（delivery_spool 10/10 满分）、Reviewer 8/8 补检全通、Critic 87 分 3 GT 全中，四轴总耗仅 1.10M token 的轻量六边形战士。",
+    "analysis": "**短任务（16/16 A+B 双满分 ★）**：A 自主与 B 引导双双 16/16 断言 + 2 扩展 + 2 资源全通，哨兵身份、拓扑层序环阻断、TTL 时钟防偷跑、duration 错误码位置全部命中。**长任务自治交付（19/20 ★，rescore gate=True）**：order_fulfillment 9/10（仅 OF1-C1 损坏库未抛 SCHEMA_MISMATCH），delivery_spool 10/10 满分——跨进程 SQLite 原子事务、多 SKU 全部回滚、文件锁、.tmp+replace 原子提交、failpoint 崩溃恢复全部正确。与 gpt-5.6-sol、grok-4.7、union-alpha 并列全榜长任务第一。**Reviewer 调试（8/8 满分 ★）**：定位 node-identity 跨路径等值分裂根因（可哈希对象与代理注册的不可哈希对象相等时拿到两个 id，导致重复节点并可能掩盖真实环）；重写为 hashable_ids/proxy_ids/fallback_ids 三路分离 + key_index 未命中时全路径等值扫描。8 项补充极限检查一次性全过。**Critic 盲审（87.0 分，3 GT 全中）**：Candidate-A 命中 GT1（b\"a\" vs bytearray(b\"a\") 跨注册表不交叉比较，自环不阻塞 Kahn 导致环被漏报）+ GT2（不可哈希线性扫描 4k/8k/16k = 0.32/1.33/5.4s）；Candidate-B 命中 GT3（哈希查找无条件横扫全部 unhashable_ids，1000 个 set 节点使 4000 节点纯哈希链从 0.006s 涨到 0.943s）。另发现 repr 抛异常会吞掉 DependencyCycleError。precision 扣 1 次（把 (1,True) 自环作为 finding 行提交而非纯备注）。**最佳场景**：高性价比全能 Subagent——四轴无短板且 token 消耗仅为 grok-4.7 的 1/4，适合大规模并行调度与成本敏感的审计/调试流水线。",
+    "tokenCost": "短 A 157.9K + 短 B 93.8K + 长 239.8K + Rev 222.0K + Critic A 129.1K + Critic B 252.6K = 1.10M"
+  },
+  {
     "id": "union-alpha",
     "name": "union-alpha †",
     "tag": "双满分·并列长任务冠",
