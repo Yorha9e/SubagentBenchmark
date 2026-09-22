@@ -289,6 +289,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "mimo-v2.6-pro",
+    "name": "mimo-v2.6-pro ✦",
+    "tag": "审计捕手",
+    "provider": "Xiaomi",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A19+B满分)",
+    "longMilestones": 7.5,
+    "longTxt": "15 / 20",
+    "revLatency": null,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 85,
+    "criticTxt": "85.0分 (3 GT全中)",
+    "quote": "短任务 B 条件 20/20 满分、Reviewer 8/8 补检全通、Critic 85 分三个 Ground Truth 全中且仅耗 1.34M token 的高性价比审计捕手。",
+    "analysis": "**短任务（16/16，A 19/20 + B 20/20 满分 ★）**：B 条件 16/16 断言 + 2 扩展 + 2 资源全通；A 条件仅失 du_structured_errors（duration 错误码/位置约定与官方不一致）。**长任务自治交付（15/20，7.5 里程碑，rescore gate=True）**：order_fulfillment 8/10（OF1-C1 损坏库未抛 SCHEMA_MISMATCH、OF5-C2 状态流转细节），delivery_spool 7/10（DS1-C2 异常码映射、DS5-C2）。原子事务、幂等、文件锁与崩溃恢复完备，自测 112 项全过。**Reviewer 调试（8/8 满分 ★）**：精准定位四类根因——跨哈希路径等值分裂、None 哨兵冲突导致含 None 容器误走线性扫描、不可哈希查找 O(n²)、_fingerprint 每层重置 depth 导致深层嵌套 RecursionError；改为唯一 _NO_KEY 哨兵 + 64 位结构指纹 + id() 缓存后 20k list 链从 16.8s 降到 0.141s。8 项补充检查全通。**Critic 盲审（85.0 分，3 GT 全中）**：Candidate-A 命中 GT1（哈希/不可哈希双注册表从不交叉比较，W([1])==[1] 被拆成两个节点）+ GT2（不可哈希线性扫描，500/1000/2000/4000 = 0.020/0.078/0.308/1.234s，严格 4x/倍增）；Candidate-B 命中 GT3（双向跨域扫描 O(U*H)，800 个不可哈希标签使 4000 次哈希查找从 0.005s 涨到 0.40s）。另发现 A-F4/A-F5（numpy 数组 truth-test 抛 ValueError、两个自引用循环列表 == 触发 RecursionError）、B-F2（repr 急切 join 导致 30000 深嵌套 RecursionError 吞掉 DependencyCycleError）。0 误报偏严扣 1 次（A-F1 把 1==True 自环称为假环，属过度声明）。**最佳场景**：高性价比代码审计 Critic 与微创调试 Reviewer；四轴总耗仅 1.34M token，是同分段模型中最省的一家之一。",
+    "tokenCost": "短 A 167.7K + 短 B 80.6K + 长 381.0K + Rev 397.7K + Critic A 110.4K + Critic B 198.1K = 1.34M"
+  },
+  {
     "id": "composer-2.5",
     "name": "composer-2.5 †",
     "tag": "Cursor Harness 更新",
