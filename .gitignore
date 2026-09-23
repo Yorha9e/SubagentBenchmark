@@ -24,3 +24,6 @@ better-harness/
 closed_loop_v2_single_*/
 short_subtest*/
 prototype/
+
+# benchmark_v3 is now its own repository (nested, untracked here)
+benchmark_v3/
