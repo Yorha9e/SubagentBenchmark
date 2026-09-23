@@ -1,5 +1,22 @@
 [
   {
+    "id": "gpt-6-sol",
+    "name": "gpt-6-sol ✦",
+    "tag": "满分闭环王",
+    "provider": "OpenAI",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 10.0,
+    "longTxt": "20 / 20 ★",
+    "revLatency": 515.4,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 99.17,
+    "criticTxt": "99.17分 (3 GT全中)",
+    "quote": "短任务 A+B 双满分、长任务 20/20 全榜唯一满分闭环、Reviewer 8/8 补检全通、Critic 99.17 分三个 Ground Truth 全中且 0 误报，四轴总耗仅 0.30M token 的新一代全能冠军。",
+    "analysis": "**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20）——哨兵身份判定、递归合并脱钩、拓扑层序环阻断、TTL 时钟防偷跑、duration 错误码位置全部命中，计划引导无增益也无衰减。**长任务自治交付（20/20 ★，全榜唯一满分，rescore gate=True）**：order_fulfillment 10/10、delivery_spool 10/10——损坏库抛 SCHEMA_MISMATCH、多 SKU 原子预留、支付幂等/冲突、取消释放、fail-closed 与规范 payload 幂等限额、租约 token、.tmp+replace 原子提交、failpoint 崩溃恢复全部正确。这是 closed-loop-v2 题库在 54 个模型中的第一个 20/20。**Reviewer 调试（8/8 满分 ★）**：在 round-21 基线上再修三类问题——含 None 容器节点的快速索引失效、自定义相等性导致等值节点被拆分、超大整数时钟与浮点 TTL 相加的截止时间溢出，另修 recursive_patch 新增可变键与补丁输入共享对象；20k 节点深链 0.025s（int）/0.06s（含 None list），8 项补充极限检查一次性全过。**Critic 盲审（99.17 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（{1} vs frozenset({1}) 跨注册表不交叉比较，自环被吞、层划分错误）+ GT2（不可哈希线性扫描，3000/6000/12000 = 0.358/1.453/5.831s，约 4x/倍增）；Candidate-B 命中 GT3（新节点无条件线性扫描另一类注册表，混合图 1000/2000/4000 = 0.084/0.337/1.367s vs 纯哈希 0.006s）。两端另各自发现 repr 急切拼接使 DependencyCycleError 被 RuntimeError 吞掉（评分人复现确认）。precision 20 满分，L4 深度 15 满分，纯 JSON 5.0 满分，A+B 仅 496.8s，在 N=13 计时队列排名第 2（speed 9.17，仅慢于 omen-alpha 的 365.4s）。**最佳场景**：当前四轴无短板的闭环主力——长任务满分意味着可独立交付完整后端项目，叠加全榜最低量级之一的 token 消耗（0.30M）与最高盲审分，适合作为自主闭环任务的第一选择与审计流水线的核心。",
+    "tokenCost": "短 A 45.9K + 短 B 36.2K + 长 103.8K + Rev 55.0K + Critic A 27.5K + Critic B 32.1K = 300.6K"
+  },
+  {
     "id": "gpt-5.6-sol",
     "name": "gpt-5.6-sol ✦",
     "tag": "自治 MVP",
@@ -151,6 +168,23 @@
     "quote": "长任务 max effort 爆发至 17/20 追平 qwen 与 terra，短任务双 16，Reviewer 587s 稳健修复，Critic 严格纯 JSON 但盲区依旧。",
     "analysis": "**短任务（16/16 raw）**：A29/B29 均 16 满分，定制深拷贝完美保留 dict 子类身份，无计划依赖；扩展与资源全满。**长任务自治交付（17/20 raw，rescore gate=True，7 strict）**：较 low 版本的 13 分发生质的突破，多 SKU 原子扣减、支付状态机、并发不超卖与故障恢复点全部满分封顶；仅丢 3 点：OF1-C1 schema reopen、DS1-C2 超大载荷边界码、DS3-C1 空 Token 鉴权码。**Reviewer 调试（官方 16/16，supplemental 7/8，587.0s）**：耗时从 kimi-2.8 的 1257s 压缩至 587s，修全 Kahn 循环吞节点与 TTL 双读时钟，失分仍为跨哈希域相等未统一。**Critic 盲审（51.4 分）**：输出纪律极佳，A/B 双纯 JSON 满分；命中 GT2（A-F1 unhashable 复杂度 L3），B 挖出两项真缺陷（非 bool __eq__ 与 repr 异常），但未意识到混合跨域二次开销（漏 GT3）且漏 GT1，召回仅 10 分。**行为结论**：思考量拉满后长任务工程编码能力极大爆发，直逼 T0 梯队；缺陷挖掘依旧保守偏实，审判格式规范但存在结构信任偏置。**最佳场景**：长任务主力架构与复杂后端编码，全流程执行中坚。",
     "tokenCost": "N/A"
+  },
+  {
+    "id": "gpt-6-luna",
+    "name": "gpt-6-luna ✦",
+    "tag": "极致审校者",
+    "provider": "OpenAI",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A满分+B19/20)",
+    "longMilestones": 8.0,
+    "longTxt": "16 / 20",
+    "revLatency": 623.1,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 99.09,
+    "criticTxt": "99.09分 (3 GT全中)",
+    "quote": "短任务 A 满分、Reviewer 8/8 补检全通、Critic 99.09 分三个 Ground Truth 全中且 0 误报——全榜最高盲审分，四轴总耗仅 0.52M token（约为 grok-4.7 的 1/8）的高效审校者。",
+    "analysis": "**短任务（16/16，A 满分 + B 19/20）**：A 条件 16 项官方断言 + 2 扩展 + 2 资源全通（20/20）；B 条件 16/16 断言 + 2 扩展全过，仅 res_dependency_20000 超时（20k 节点性能）。哨兵身份判定、递归合并脱钩、拓扑层序环阻断、TTL 时钟防偷跑、duration 错误码位置等契约点全部命中。**长任务自治交付（16/20，8.0 里程碑，rescore gate=True）**：order_fulfillment 8/10（OF1-C1 损坏库未抛 SCHEMA_MISMATCH、OF1-C2 输入/依赖校验），delivery_spool 8/10（DS1-C1 fail-closed 细节、DS3-C1 ack/fail token 精确性）；多 SKU 原子预留、幂等、文件锁与 .tmp+replace 原子提交、failpoint 崩溃恢复主体正确。**Reviewer 调试（8/8 满分 ★）**：定位混合节点反复线性扫描导致二次复杂度的根因并重写注册/查找路径（保留自定义对象与回退路径相等性语义），另修 duration 大整数天数字段的 Decimal 位数限制；20k 混合节点性能用例 0.024s，8 项补充极限检查一次性全过。**Critic 盲审（99.09 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（哈希/不可哈希双注册表从不交叉比较，HashableEqual('same') 与 UnhashableEqual('same') 相等对被拆成两个节点，自环被吞、层划分错误）+ GT2（不可哈希线性扫描，500/1000 节点 = 0.011/0.042s，约 4x/倍增）；Candidate-B 命中 GT3（每个可哈希值查找都横扫全部不可哈希节点，混合图 500/1000/2000 = 0.023/0.087/0.355s，纯哈希对照组 0.0039s）。A 另发现 repr 急切拼接使 DependencyCycleError 被 RuntimeError 吞掉。precision 20 满分（全部 finding 经评分人独立复现为真），L4 深度 15 满分，纯 JSON 5.0 满分，A+B 仅 629.3s，在 N=12 计时队列中排名第 2（speed 9.09）。**最佳场景**：低成本高回报的代码审计 Critic 与微创调试 Reviewer——全榜最高盲审分搭配最低量级 token 消耗（约为 grok-4.7 的 1/8），适合大规模并行审计流水线；长任务中规中矩（16/20），不宜作为复杂闭环的唯一主力。",
+    "tokenCost": "短 A 50.3K + 短 B 61.6K + 长 199.2K + Rev 99.8K + Critic A 74.2K + Critic B 39.7K = 524.7K"
   },
   {
     "id": "grok-4.6",
@@ -442,23 +476,6 @@
     "tokenCost": "FREE"
   },
   {
-    "id": "gemini-3.7-flash",
-    "name": "gemini-3.7-flash ✦",
-    "tag": "中等候选",
-    "provider": "Google",
-    "shortScore": 16,
-    "shortTxt": "16/16",
-    "longMilestones": 7,
-    "longTxt": "14 / 20",
-    "revLatency": 120,
-    "revFixes": "7/8 档",
-    "criticScore": 78.7,
-    "criticTxt": "78.7分",
-    "quote": "长任务 14/20，Reviewer 残留 cross_hashability。",
-    "analysis": "**短任务能力（16/20）**：单模块实现与边界处理扎实。**长任务自治（14/20）**：长链路自持力偏弱。**Reviewer 调试（7/8 档，120ms）**：缺陷定位与修复命中率极高。**Critic 盲审（78.7 分）**：常规缺陷覆盖良好。**最佳场景**：短任务主力 + Reviewer/调试副驾。",
-    "tokenCost": "N/A"
-  },
-  {
     "id": "claude-opus",
     "name": "claude-opus ✦",
     "tag": "高精度实现",
@@ -473,6 +490,23 @@
     "criticTxt": "88.5分",
     "quote": "短任务双满分，长任务达成 14/20，Critic 能抓取两类关键缺陷。",
     "analysis": "**短任务 16/20**：高精度实现型选手。**长任务自治 14/20**：自主交付偏弱。**Reviewer 调试 N/A (999ms)**：未产出修复。**Critic 盲审 88.5 分**：问题发现力强。**最佳场景**：短时高精度编码与代码盲审。",
+    "tokenCost": "N/A"
+  },
+  {
+    "id": "gemini-3.7-flash",
+    "name": "gemini-3.7-flash ✦",
+    "tag": "中等候选",
+    "provider": "Google",
+    "shortScore": 16,
+    "shortTxt": "16/16",
+    "longMilestones": 7,
+    "longTxt": "14 / 20",
+    "revLatency": 120,
+    "revFixes": "7/8 档",
+    "criticScore": 78.7,
+    "criticTxt": "78.7分",
+    "quote": "长任务 14/20，Reviewer 残留 cross_hashability。",
+    "analysis": "**短任务能力（16/20）**：单模块实现与边界处理扎实。**长任务自治（14/20）**：长链路自持力偏弱。**Reviewer 调试（7/8 档，120ms）**：缺陷定位与修复命中率极高。**Critic 盲审（78.7 分）**：常规缺陷覆盖良好。**最佳场景**：短任务主力 + Reviewer/调试副驾。",
     "tokenCost": "N/A"
   },
   {
@@ -748,23 +782,6 @@
     "tokenCost": "190K"
   },
   {
-    "id": "glm-5.2",
-    "name": "glm-5.2",
-    "tag": "短任务强者",
-    "provider": "Zhipu",
-    "shortScore": 16,
-    "shortTxt": "16/16 (原始满分)",
-    "longMilestones": 3,
-    "longTxt": "6 / 20",
-    "revLatency": 117.3,
-    "revFixes": "7/8 补充检查",
-    "criticScore": 28.4,
-    "criticTxt": "28.4分",
-    "quote": "短任务结构化编码能力强。",
-    "analysis": "**短任务 16/20**：指令遵循精准。**长任务 6/20**：长链路易漂移。**Reviewer 7/8 补查 (117.3ms)**：缺陷定位能力突出。**Critic 28.4 分**。**最佳场景**：短任务批量执行与 Reviewer 审查。",
-    "tokenCost": "625K"
-  },
-  {
     "id": "LongCat-2.0",
     "name": "LongCat-2.0",
     "tag": "Scout 信息源",
@@ -780,6 +797,23 @@
     "quote": "适合作为低成本信息 Scout。",
     "analysis": "**短任务 15 分**：辅助可胜任。**长任务 6/20**：极弱。**Reviewer Gate FAIL (190s)**。**Critic 47.8 分**。**最佳场景**：只读 Scout 情报搜集与代码勘探。",
     "tokenCost": "838K"
+  },
+  {
+    "id": "glm-5.2",
+    "name": "glm-5.2",
+    "tag": "短任务强者",
+    "provider": "Zhipu",
+    "shortScore": 16,
+    "shortTxt": "16/16 (原始满分)",
+    "longMilestones": 3,
+    "longTxt": "6 / 20",
+    "revLatency": 117.3,
+    "revFixes": "7/8 补充检查",
+    "criticScore": 28.4,
+    "criticTxt": "28.4分",
+    "quote": "短任务结构化编码能力强。",
+    "analysis": "**短任务 16/20**：指令遵循精准。**长任务 6/20**：长链路易漂移。**Reviewer 7/8 补查 (117.3ms)**：缺陷定位能力突出。**Critic 28.4 分**。**最佳场景**：短任务批量执行与 Reviewer 审查。",
+    "tokenCost": "625K"
   },
   {
     "id": "doubao-2.1-turbo",
