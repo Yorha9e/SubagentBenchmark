@@ -442,6 +442,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "LongCat-2.5-Preview",
+    "name": "LongCat-2.5-Preview ✦",
+    "tag": "交付型偏科",
+    "provider": "Meituan",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 7,
+    "longTxt": "14 / 20",
+    "revLatency": 3040.1,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 60.38,
+    "criticTxt": "60.38分 (GT2+GT3，漏GT1)",
+    "quote": "短任务 A/B 双满分、Reviewer 8/8 极限检查全通（3040s 重写节点统一层修掉深层嵌套 O(n³)）、Critic 命中 GT2+GT3 但漏掉 GT1 跨哈希域相等去重——与 muse-spark-1.3、kimi-2.8 同款的对称结构盲区，四轴合计 1.22M token 的重交付型选手。",
+    "analysis": "**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20）——哨兵身份判定、递归合并脱钩、拓扑层序环阻断、TTL 时钟防偷跑与容量淘汰、duration 错误码位置全部命中；A 条件自带约 120 条契约自测，B 条件在自测中发现并修复了 indegree/dependents 数组未随新 id 增长的实现 bug 后才全绿。计划引导无增益也无衰减。**长任务自治交付（14/20，7.0 里程碑，rescore gate=True）**：失分 OF1-C1（损坏库未抛 SCHEMA_MISMATCH）、OF5-C2、DS1-C1/DS1-C2（损坏状态 fail-closed 与构造器校验）、DS3-C1/DS3-C2（状态流转与 ack/fail token）——仍是错误码分类 + fail-closed 族；多 SKU 原子预留、幂等、文件锁与 .tmp+replace 原子提交、failpoint 主体正确。自测产生的 smoke/ 运行时目录后已自行清理，审计只剩模板自带 src/__init__.py 一项已知误报。**Reviewer 调试（8/8 满分 ★，3040.1s）**：发现代理键机制在嵌套容器深度超约 100 层后退化为线性全扫描 + 递归 == 比较、复杂度退化至 O(n³)（2000 节点 20.6s、15000 节点实测不返回，即 dl_deep_iterative 与 20k 性能失败的根因），重写为显式栈迭代遍历 + 每对象记忆化的结构指纹（内建容器任意深度 O(1) 摊仍、自定义 __eq__ 保留线性回退语义不变），并修补 identity 节点与自定义 __eq__ 节点互指相等的漏统一；2300 组随机图与参考实现差分零偏差，20k 图 0.02–0.14s、15000 层嵌套链 0.05–0.07s。8 项补充极限检查一次性全过，是 Round-22 基线以来最重的一次修复（378.7K token）。**Critic 盲审（60.38 分，中 GT2+GT3，漏 GT1）**：Candidate-A 命中 GT2（不可哈希线性扫描，500–8000 五点缩放 0.02–6.89s + 可哈希对照组 20 万节点 0.76s，评分人复现 0.196/0.803/3.333s）；Candidate-B 命中 GT3（点名'哈希路径也要全扫 unhashable_ids'，混合图 4000/8000/16000 = 1.17/5.30/27.84s，复现 0.454/1.840/7.728s vs 纯哈希 0.0148s）。**漏 GT1**：评分人复现确认 candidate-A 的跨注册表相等拆分缺陷存在，但模型从未构造跨哈希域相等用例——A 只在可哈希路径上审查了 1/1.0/True 被 dict 语义合并（与 muse-spark-1.3、kimi-2.8 同款的对称结构信任偏置），且该低置信 note 按 finding 行提交计一次 FP（−5，沿用 subtest33 先例）。precision 15、depth 15（L4：缩放曲线+对照组）、format 5 满分、speed 5.38（A+B 1514.2s，N=14 队列第 7）。**最佳场景**：交付主力——短任务双满分 + Reviewer 极限修复能力扎实，适合复杂模块重构与打补丁位；Critic 位须配 GT 方向提示词补跨域相等盲区。",
+    "tokenCost": "短 A 157.8K + 短 B 107.2K + 长 258.0K + Rev 378.7K + Critic A 154.5K + Critic B 164.2K = 1.22M"
+  },
+  {
     "id": "omen-alpha",
     "name": "omen-alpha †",
     "tag": "审计之眼",
