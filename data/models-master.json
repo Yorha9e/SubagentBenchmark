@@ -187,6 +187,23 @@
     "tokenCost": "短 A 50.3K + 短 B 61.6K + 长 199.2K + Rev 99.8K + Critic A 74.2K + Critic B 39.7K = 524.7K"
   },
   {
+    "id": "minimax-m3.1-flash-preview",
+    "name": "minimax-m3.1-flash-preview ✦",
+    "tag": "低耗六边形",
+    "provider": "MiniMax",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 8.0,
+    "longTxt": "16 / 20",
+    "revLatency": 464.2,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 95.71,
+    "criticTxt": "95.71分 (3 GT全中)",
+    "quote": "短任务 A+B 双满分、长任务 16/20、Reviewer 8/8、Critic 95.71 分三个 Ground Truth 全中且 0 误报——四轴合计仅 0.88M token 的新生代低耗全能选手，盲审能力直逼 gpt-6 双子星。",
+    "analysis": "**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20）。A 条件自测约 350 条隐藏风格断言，过程中抓出并修掉两个真 bug（递归合并帧用错种子值导致嵌套合并丢 base 键、空 list 赋值 IndexError）；B 条件跟随冻结计划全绿，并在自测中发现修复了自身 interner 的跨域漏统一（hashable 节点后到、相等 unhashable 节点先到时扫不到）。哨兵身份、合并脱钩、拓扑层序环阻断、TTL 边界与弱引用、duration 错误码位置全部命中。**长任务自治交付（16/20，8.0 里程碑，rescore gate=True）**：少见的通过了 OF1-C1 损坏库 SCHEMA_MISMATCH，失分集中在 OF3-C1（支付冲突/金额优先级）、DS1-C1/DS1-C2（损坏状态 fail-closed 与 payload 限额）、DS3-C1（空 token 鉴权）——仍是错误码细分族。实现按 _errors/_validate/_service/_cli 多模块拆分，自测 19/19 + 44/44 各三轮，另做 6 进程超卖竞态（1 胜 5 负 INSUFFICIENT_STOCK）、12 worker claim 竞态 ×10 轮无双重领取、8 worker 并发入队 ×15 轮序列无丢更、kill-during-commit 5 轮 ×3 写者 150 条消息全部完整有效；过程中还修掉三个 Windows 平台缺陷（os.write 需 O_BINARY 否则 \n 变 \r\n 污染 state.json、自定义异常不可 pickle 导致进程池 hang、os.replace 遇扫描器持文件时 WinError 5/32 需持锁重试）。**Reviewer 调试（8/8 满分 ★，464.2s）**：用差分模糊测试定位到节点同一性按 type 分派三张表导致的 bytes/bytearray 跨表断裂（bytes 落标量表、bytearray 落容器表，== 相等却互不可见），修复前 4000 例中 263 例不一致且全部收敛到该根因，修复后 0 不一致；另对照 TASKS.md 逐条审计其余三文件共 84 项断言（键序/删除语义、TTL 非单调时钟 purge、弱引用无残留、错误码矩阵）全部通过。20k 各形态 0.025–0.11s，8 项补充极限检查一次性全过。**Critic 盲审（95.71 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（哈希/不可哈希双注册表从不交叉检查，== 相等对拿到不同 id：真实有环图返回分层而非 DependencyCycleError、同一层出现两个相等节点、set(layer) 不变式破坏，评分人以 Plain(str)/Unhashable(str) 子类复现存证）+ GT2（不可哈希线性扫描，8000/16000/32000 = 1.31/5.40/24.41s vs 同规模哈希 0.0068/0.0148/0.0358s，191–681 倍差距；复现 1.27/5.22/21.81s）；Candidate-B 命中 GT3（点名'哈希分支每次查找无条件全扫 unhashable_ids'，混合图 10 万哈希 + 2000 不可哈希 = 27.9s vs 纯哈希 0.22s，128 倍恶化；复现 22.8s vs 0.15s）。另发现：B 上等值不同哈希的自定义对象被拆成两节点（20000 图差分模糊定位，移除两个哈希不一致类后不一致归零）、A 上 hash_buckets 每节点一个单元素列表致内存 3.2–4.3 倍、B 上 __hash__ 抛非 TypeError 时异常逃逸。4 条纯低置信 note 按纪律不计误报，precision 20 满分，L4 深度 15 满分，纯 JSON 5 满分，A+B 仅 1031.4s 在 N=15 队列第 7（speed 5.71）。**最佳场景**：高性价比全能 Subagent——短任务/Reviewer/Critic 三轴一线水准且 token 消耗仅为 grok-4.7 的 1/4.8，适合大规模并行调度；长任务补上错误码细分 checklist 后可进第一梯队。",
+    "tokenCost": "短 A 198.1K + 短 B 66.3K + 长 392.4K + Rev 108.8K + Critic A 69.1K + Critic B 44.9K = 879.6K"
+  },
+  {
     "id": "grok-4.6",
     "name": "grok-4.6 ✦",
     "tag": "全能 MVP",
