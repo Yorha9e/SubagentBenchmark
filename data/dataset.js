@@ -204,6 +204,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "短 A 198.1K + 短 B 66.3K + 长 392.4K + Rev 108.8K + Critic A 69.1K + Critic B 44.9K = 879.6K"
   },
   {
+    "id": "mimo-v2.6-pro-fix",
+    "name": "mimo-v2.6-pro-fix ✦",
+    "tag": "满血审计手",
+    "provider": "Xiaomi",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 8,
+    "longTxt": "16 / 20",
+    "revLatency": 4351.7,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 91.33,
+    "criticTxt": "91.33分 (3 GT全中)",
+    "quote": "原权重上线错误的 mimo-v2.6-pro 重测：短任务 A+B 双满分（原来 19+20）、长任务 16/20（原来 15/20）、Reviewer 8/8、Critic 91.33 分三个 Ground Truth 全中且 0 误报——修正权重后各项齐涨。",
+    "analysis": "**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20）。原 subtest32 的 A 条件失 du_structured_errors（duration 错误码/位置约定），本次 A 也补上——修正权重后最直接的一处提升。A 条件自带约 100 条契约探针；B 条件逐条走冻结计划的边界套件（一次性迭代、环节点元组、超出递归上限 500 的深链、TTL 非单调时钟 purge、错误码矩阵与位置）。**长任务自治交付（16/20，8.0 里程碑，rescore gate=True）**：比原跑的 15/20 前进一步——**OF1-C1 损坏库 SCHEMA_MISMATCH 本次通过**（自测里显式覆盖该用例），失分集中在 OF5-C2（状态流转细节）、DS1-C1/DS1-C2（损坏状态 fail-closed 与规范 payload 限额）、DS5-C2（CLI 边界）。自测覆盖 8 线程 ×2 实例抢最后一件库存三轮各 1 胜、6 进程抢 1 件库存 1 成功 5 INSUFFICIENT_STOCK、10 线程入队序列 1-10、12 线程抢 10 条无重复领取、20 种损坏输入 fail-closed、failpoint 三态（after_lock/before_replace/after_replace）异常传播与临时文件清理、LOCK_TIMEOUT 与文件边界约束。**Reviewer 调试（8/8 满分 ★，4351.7s）**：定位四个真 bug——ttl_set 用 Fraction(now)+Fraction(ttl) 算截止时间导致 112/196 组边界三元组与原生浮点加法不一致（0.1+0.4 精确有理和略大于 0.5，使本该过期的条目在 clock()==deadline 时仍存活）；dependency_layers 的 _scan 每次注册都全量两两 == 扫描（20k 自定义可哈希节点 39.7s），改为按 hash 分桶后 0.06s；该全对比扫描会让混合节点图因自然测试类的 __eq__(str) 抛 AttributeError 整图崩溃（与 cell.json 记录的 official dl 0/4 一致）；容器子类（namedtuple vs tuple 等）与基类分裂。验证用 3 节点 512 张有向图全枚举对拍 + 500+ 随机图差分，零分歧。**Critic 盲审（91.33 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（bytearray(b'ab') 与 b'ab' 分属两个注册表，重复边不去重 + 真实二环不报 DependencyCycleError，评分人双症状复现）+ GT2（不可哈希线性扫描 1000–8000 = 0.042–2.605s，且同一对象重复出现也退化为二次——`is` 快路径在扫完整个列表之后才轮到）；Candidate-B 命中 GT3（点名不可哈希分支扫两张表、哈希分支桶未命中后仍全扫 unhashable_ids，混合图 2000+20000 = 4.90s vs 10 万纯哈希链 0.19s，评分人复现 4.79/13.01s vs 0.034s）。另发现 __eq__ 对外部类型抛异常会泄漏并污染无关边的注册。3 条低置信 note（含 600 例差分模糊佐证 == 语义）按纪律不计误报，precision 20 满分（原 subtest32 曾因把 1==True 自环称为假环被扣 5），L4 深度 15 满分，纯 JSON 5 满分；A+B 3120.0s 在 N=16 队列第 14（speed 1.33）——审计质量高于原跑，分数差主要来自速度项的队列变化。**最佳场景**：高性价比代码审计 Critic 与长周期调试 Reviewer（429.1K token / 4351.7s 属重投入型，适合复杂遗留代码修复），短任务交付同样一线。",
+    "tokenCost": "短 A 157.9K + 短 B 122.1K + 长 290.6K + Rev 429.1K + Critic A 113.4K + Critic B 223.7K = 1.34M"
+  },
+  {
     "id": "grok-4.6",
     "name": "grok-4.6 ✦",
     "tag": "全能 MVP",
