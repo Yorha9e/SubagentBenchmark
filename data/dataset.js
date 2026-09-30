@@ -51,23 +51,6 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "短 A 881.4K + 短 B 451.6K + 长 810.7K + Rev 1.33M + Critic A 254.2K + Critic B 543.6K = 4.27M"
   },
   {
-    "id": "mimo-v2.6-flash",
-    "name": "mimo-v2.6-flash ✦",
-    "tag": "轻量六边形",
-    "provider": "Xiaomi",
-    "shortScore": 16,
-    "shortTxt": "16/16 (A+B 双满分 ★)",
-    "longMilestones": 9.5,
-    "longTxt": "19 / 20 ★",
-    "revLatency": null,
-    "revFixes": "8/8 满分 ★",
-    "criticScore": 87,
-    "criticTxt": "87.0分 (3 GT全中)",
-    "quote": "短任务 A/B 双 20/20 满分、长任务 19/20 并列全榜第一（delivery_spool 10/10 满分）、Reviewer 8/8 补检全通、Critic 87 分 3 GT 全中，四轴总耗仅 1.10M token 的轻量六边形战士。",
-    "analysis": "**短任务（16/16 A+B 双满分 ★）**：A 自主与 B 引导双双 16/16 断言 + 2 扩展 + 2 资源全通，哨兵身份、拓扑层序环阻断、TTL 时钟防偷跑、duration 错误码位置全部命中。**长任务自治交付（19/20 ★，rescore gate=True）**：order_fulfillment 9/10（仅 OF1-C1 损坏库未抛 SCHEMA_MISMATCH），delivery_spool 10/10 满分——跨进程 SQLite 原子事务、多 SKU 全部回滚、文件锁、.tmp+replace 原子提交、failpoint 崩溃恢复全部正确。与 gpt-5.6-sol、grok-4.7、union-alpha 并列全榜长任务第一。**Reviewer 调试（8/8 满分 ★）**：定位 node-identity 跨路径等值分裂根因（可哈希对象与代理注册的不可哈希对象相等时拿到两个 id，导致重复节点并可能掩盖真实环）；重写为 hashable_ids/proxy_ids/fallback_ids 三路分离 + key_index 未命中时全路径等值扫描。8 项补充极限检查一次性全过。**Critic 盲审（87.0 分，3 GT 全中）**：Candidate-A 命中 GT1（b\"a\" vs bytearray(b\"a\") 跨注册表不交叉比较，自环不阻塞 Kahn 导致环被漏报）+ GT2（不可哈希线性扫描 4k/8k/16k = 0.32/1.33/5.4s）；Candidate-B 命中 GT3（哈希查找无条件横扫全部 unhashable_ids，1000 个 set 节点使 4000 节点纯哈希链从 0.006s 涨到 0.943s）。另发现 repr 抛异常会吞掉 DependencyCycleError。precision 扣 1 次（把 (1,True) 自环作为 finding 行提交而非纯备注）。**最佳场景**：高性价比全能 Subagent——四轴无短板且 token 消耗仅为 grok-4.7 的 1/4，适合大规模并行调度与成本敏感的审计/调试流水线。",
-    "tokenCost": "短 A 157.9K + 短 B 93.8K + 长 239.8K + Rev 222.0K + Critic A 129.1K + Critic B 252.6K = 1.10M"
-  },
-  {
     "id": "union-alpha",
     "name": "union-alpha †",
     "tag": "双满分·并列长任务冠",
@@ -270,6 +253,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "quote": "单模块实现极度扎实，长任务接近完整闭环，短任务指令遵循率 100%。",
     "analysis": "**短任务（16/20）**：结构编码强者，契约把握精准、边界处理扎实。**长任务（16/20）**：自治交付良好，长程上下文保持力略逊。**调试（8/8 满分，延迟 80ms）**：修复精度与效率俱佳，一次性定位根因。**盲审（88.5 分）**：审阅深度充足，误报控制出色。**最佳场景**：强结构代码生成与高精度缺陷修复流水线的首选。",
     "tokenCost": "N/A"
+  },
+  {
+    "id": "mimo-v2.6-flash",
+    "name": "mimo-v2.6-flash ✦",
+    "tag": "轻量六边形",
+    "provider": "Xiaomi",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A满分+B19/20)",
+    "longMilestones": 8,
+    "longTxt": "16 / 20",
+    "revLatency": null,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 87,
+    "criticTxt": "87.0分 (3 GT全中)",
+    "quote": "修正权重重测后的 mimo-v2.6-flash：短任务 A 满分 B 19/20、长任务 16/20（Reviewer 8/8 与 Critic 87.0 沿用原测），长任务从 19/20 退到 16/20，位次跌出第一梯队。",
+    "analysis": "【数据来源：短任务 A/B 与长任务来自 subtest33v2 修正权重重测；Reviewer 8/8 与 Critic 87.0 沿用原 subtest33（round-19 / critic-mimov26flash-v1），两者不是同一次运行，跨轴不可当作一次完整四轴成绩】**短任务（16/16，A 20/20 + B 19/20）**：A 条件 16 项官方断言 + 2 扩展 + 2 资源全通；B 条件 16/16 断言 + 2 扩展通过，仅 res_dependency_20000 在 2 万节点上超时（原测为 A+B 双 20/20，修正权重后反而退 1 项）。**长任务自治交付（16/20，8.0 里程碑，rescore gate=True）**：失 OF1-C1（损坏库未抛 SCHEMA_MISMATCH）、OF2-C1（多 SKU 原子预留）、DS1-C1（损坏状态 fail-closed）、DS3-C2；原测为 19/20（order_fulfillment 9/10、delivery_spool 10/10），本次两个项目各退 1–2 项，**长任务 19→16 是本次权重更新后最明确的退步信号**。实现按 _errors/_service/_store/_spool 拆分，自检 353+715 断言、跨进程竞态（两进程抢 1 件库存 1 成功 1 INSUFFICIENT_STOCK、两进程 claim 恰好 1 个租约）均通过。**行为事故（重要）**：本次长任务验证阶段，候选的竞态测试脚本因 shell &&/& 优先级 bug 导致 $TMP 未赋值，rm -rf 递归回退到系统 TMP 变量，尝试删除 C:/Users/Yorha/AppData/Local/Temp（候选自行上报并将 constraints_respected 标为 false）。核查结果：项目资产、题库、会话日志完好，但该 TEMP 目录中未被占用的文件已不可恢复——这是选型必须计入的 agentic 行为风险（验证阶段会执行越界递归删除）。**Reviewer 调试（8/8 满分 ★）**：沿用原测，定位 node-identity 跨路径等值分裂根因并重写为 hashable_ids/proxy_ids/fallback_ids 三路分离 + key_index 未命中时全路径等值扫描，8 项补充极限检查一次性全过。**Critic 盲审（87.0 分，3 GT 全中）**：沿用原测，Candidate-A 命中 GT1（b'a' vs bytearray(b'a') 跨注册表不交叉比较，自环不阻塞 Kahn 导致环被漏报）+ GT2（不可哈希线性扫描 4k/8k/16k = 0.32/1.33/5.4s）；Candidate-B 命中 GT3（哈希查找无条件横扫 unhashable_ids，1000 个 set 节点使 4000 节点纯哈希链从 0.006s 涨到 0.943s），另发现 repr 抛异常吞掉 DependencyCycleError。**最佳场景**：短任务与轻量审计仍可用；长任务闭环已非其强项，且验证阶段存在越界删除行为，不建议在无沙箱隔离的环境中授予系统级写权限。",
+    "tokenCost": "短 A 155.1K + 短 B 108.4K + 长 435.7K（均来自 subtest33v2 重测） + Rev 222.0K + Critic A 129.1K + Critic B 252.6K（沿用原 subtest33） = 1.30M"
   },
   {
     "id": "step-5-preview",
