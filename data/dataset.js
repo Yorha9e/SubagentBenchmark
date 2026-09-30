@@ -85,6 +85,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "gpt-6.1-sol",
+    "name": "gpt-6.1-sol ✦",
+    "tag": "性价比之王",
+    "provider": "OpenAI",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 8.5,
+    "longTxt": "17 / 20 ★",
+    "revLatency": 1940.1,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 95,
+    "criticTxt": "95.0分 (3 GT全中)",
+    "quote": "短任务 A+B 双满分、长任务 17/20（仅次于 gpt-6-sol 的 20/20）、Reviewer 8/8、Critic 95.0 分 3 GT 全中 0 误报，四轴合计仅 0.37M token——全榜最省 token 的四轴成绩。",
+    "analysis": "**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20），且是本轮最省的一对（短 A 31.6K + 短 B 43.4K）。**长任务自治交付（17/20，8.5 里程碑，rescore gate=True）**：58 个模型中长任务第二高分，仅次于 gpt-6-sol 的 20/20；失 OF1-C2（输入与依赖校验）、DS1-C1/DS1-C2（损坏状态 fail-closed 与规范 payload 幂等限额）——比同段（8.0 段 6 个模型）普遍失的 OF1-C1 前进了一步，落在错误码与损坏态这一族上但只丢 3 项；长任务消耗 113.0K，是全场最省的长任务之一。**Reviewer 调试（8/8 满分 ★，1940.1s）**：在 round-25 基线上修出四类问题——嵌套 bytes/bytearray、容器子类与自定义等值对象的节点合并缺失；普通标量与容器混合输入的二次复杂度扫描（修复前 3.248s → 修复后混合 0.059s）；深层容器等值比较回退；环异常不再依赖可能抛错的节点 repr。另有 recursive_patch 的复制后身份键匹配缺陷（先按原始键身份合并再统一深复制）、dict 子类被复制成普通 dict 后错误递归合并、ttl_set 在整数/浮点溢出时用 Fraction 精确保存期限。独立随机对照（3000 图 / 1000 补丁 / 10000 次 TTL 操作 / 3000 duration / 3000 随机异常串）全过，20k 链整数 0.028s、列表 0.076s。**Critic 盲审（95.0 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（{1} 与 frozenset({1}) 相等却分属两个注册表，真实自环返回分层、同层出现两个相等节点、环 .nodes 未合并，评分人三症状复现）+ GT2（不可哈希查找线性扫描，重复边引用需重走已登记前缀，模型用计数 __eq__ 测得 424 万次比较）；Candidate-B 命中 GT3 的**反向**扫描（找到不可哈希匹配后仍遍历全部 hashable id，比较次数吻合 N(N+1)/2，评分人复现 0.446/1.766/7.053s）。另发现两条 L4 级真缺陷：可写 memoryview 的 hash() 抛 ValueError 逃逸 TypeError-only 处理（连带 b'x' == memoryview 自环漏报），以及 4310 位整数自环在 repr 阶段触发 int-to-str 上限、丢失 .nodes。precision 20 满分、L4 深度 15 满分、纯 JSON 5 满分；A+B 1721.5s 在 N=17 队列第 9（speed 5.00）。**最佳场景**：当前性价比最优的全能 Subagent——四轴均处第一梯队，长任务仅次于 gpt-6-sol 而 token 不到其一半，适合作为规模化闭环任务与并行审计流水线的默认选择。",
+    "tokenCost": "短 A 31.6K + 短 B 43.4K + 长 113.0K + Rev 91.4K + Critic A 44.8K + Critic B 47.3K = 371.5K"
+  },
+  {
     "id": "gpt-5.6-terra",
     "name": "gpt-5.6-terra ✦",
     "tag": "提示增强补测",
