@@ -204,6 +204,23 @@
     "tokenCost": "短 A 198.1K + 短 B 66.3K + 长 392.4K + Rev 108.8K + Critic A 69.1K + Critic B 44.9K = 879.6K"
   },
   {
+    "id": "deepseek-v4.1-flash-v2",
+    "name": "deepseek-v4.1-flash(v2) ✦",
+    "tag": "双L4审计怪",
+    "provider": "Tencent",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 8.0,
+    "longTxt": "16 / 20",
+    "revLatency": 3467.5,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 94.12,
+    "criticTxt": "94.12分 (3 GT全中)",
+    "quote": "同名升级版 deepseek-v4.1-flash：四轴分数与升级前持平（长 16/20 · Rev 8/8 · Critic 94.12 3GT 全中 0 误报），但四轴合计 30.15M token——全榜最贵，且全程 cache 命中为 0。",
+    "analysis": "【本条目为同名升级版重测（subtest41v2）：四轴分数与升级前持平（长 16/20、Rev 8/8、Critic 89.8→94.12），但成本结构彻底改变，见 tokenCost】**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20），A 条件自测含 20000 深嵌套与 3034 次随机归一化幂等校验。**长任务自治交付（16/20，8.0 里程碑，rescore gate=True）**：失 OF1-C2、OF5-C2、DS1-C1、DS5-C2；自测覆盖 6 进程抢 3 件库存、8 线程抢最后一件、200 单 20 SKU 批量流、损坏/异版本库文件抛 SCHEMA_MISMATCH、60 线程并发入队 + 20 线程并发 claim、10 进程 claim 无重复、failpoint 三态、16 种损坏输入 fail-closed、跨进程持锁 6 秒后成功。**Reviewer 调试（8/8 满分 ★，3467.5s）**：定位到序列指纹折叠的零吸收缺陷——splitmix64 终混函数满足 _mix(0)==0，当子元素指纹恰等于当前累积状态时 h^fp==0 使累积器永久清零，(x,(x,)) 一类自相似结构的指纹全部为 0 挤进同一哈希桶，_register 退化为线性扫描（20k 节点链 37.8s）；改用 FNV-1a 式乘法折叠后 0.21s，.nodes 顺序语义不变。验证含 7381 组穷举小图、1010101 组相等语义差分、1500 组 graphlib.TopologicalSorter 独立 oracle、跨 PYTHONHASHSEED 四值输出一致。**Critic 盲审（94.12 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（bytearray(b'a') 与 b'a' 相等却分属两个注册表，真实自环返回分层、同层出现两个相等节点、set/frozenset 同款；两个单写法对照组正确抛错）与 GT2（不可哈希扫描 2000/4000/8000 = 0.09/0.36/1.38s vs 同规模可哈希约 500 倍优势）；Candidate-B 命中 GT3 并用 cProfile 坐实双向全扫（不可哈希分支遍历全部 hashable_ids 第 68 行、哈希分支遍历全部 unhashable_ids 第 83 行，n=8000 时 _same_node 调用 3201 万次≈n²/2；单个被反复引用的不可哈希节点 + 2 万可哈希 = 12.34s，全可哈希 4 万仅 0.064s）。另发现本体系最系统的额外缺陷群：环异常急求值 repr（抛错节点的 __repr__ 会把真实环变成 RuntimeError）、10 万～30 万节点环即时物化 672KB～2.29MB 消息、args 与 nodes 不一致导致 type(e)(*e.args) 重建后 .nodes 变成 45 个字符。precision 20 满分、L4 深度 15 满分、纯 JSON 5 满分；A+B 2277.9s 在 N=18 队列第 11（speed 4.12）。**成本警告（选型必读）**：四轴合计 30.15M token，是全榜最贵（第二名 grok-4.7 为 4.27M，7 倍），且全程 inputCacheRead 恒为 0——前缀缓存完全未命中，每轮重发全量上下文。**最佳场景**：高强度代码审计（3 GT 全中 + 8 条真缺陷的覆盖面为全榜最佳）与复杂性能定位；若按量付费或上下文缓存敏感，这是全榜最差的选择之一。",
+    "tokenCost": "短 A 2273.8K + 短 B 1390.2K + 长 7245.1K + Rev 13634.3K + Critic A 2057.4K + Critic B 3550.6K = 30.15M（全程 cache 命中 0）"
+  },
+  {
     "id": "mimo-v2.6-pro-fix",
     "name": "mimo-v2.6-pro-fix ✦",
     "tag": "满血审计手",
