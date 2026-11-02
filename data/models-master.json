@@ -476,6 +476,23 @@
     "tokenCost": "N/A"
   },
   {
+    "id": "LongCat-2.5",
+    "name": "LongCat-2.5 ✦",
+    "tag": "审计补全者",
+    "provider": "Meituan",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A19+B20)",
+    "longMilestones": 7.0,
+    "longTxt": "14 / 20",
+    "revLatency": 3866.0,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 96.11,
+    "criticTxt": "96.11分 (3 GT全中)",
+    "quote": "LongCat-2.5 正式版（去 Preview 后缀）：Critic 96.11 分 3 个 Ground Truth 全中、0 误报，比同族 -Preview 版（60.38，漏 GT1）盲审召回大幅补全；长任务 14/20 与 Preview 版失分集合完全相同。",
+    "analysis": "【本条目为 LongCat-2.5 正式版（subtest42，effort=xhigh）；同族 -Preview 版见 LongCat-2.5-Preview（subtest37，effort=max），两者是不同构建，可直接对照】**短任务（16/16，A 19/20 + B 20/20）**：B 条件满分（16 断言 + 2 扩展 + 2 资源全通）；A 条件失 rp_plain_dict——把 dict 子类也一并拒绝，比规格更严（与 step-5-preview 的 A 条件同款失误），Preview 版 A 为 20/20。**长任务自治交付（14/20，7.0 里程碑，rescore gate=True）**：失分集合与 Preview 版**逐项相同**（OF1-C1 损坏库 SCHEMA_MISMATCH、OF5-C2 状态流转、DS1-C1/C2 损坏 fail-closed 与规范 payload、DS3-C1/C2 状态机与 token 鉴权），即两版在长任务上能力一致、卡在同一族细粒度错误码上。自测含 12 线程抢最后一件库存（恰好一胜）、40 线程批量建单、16 种损坏状态 fail-closed、三个 failpoint 注入（锁释放、状态 old-or-new 完整）、10 线程 claim 5 个唯一赢家、12 线程并发入队无丢更。**Reviewer 调试（8/8 满分 ★，3866.0s）**：本轮**未改任何代码**——基线在 round-25/26/27 连续多轮修复后已无可复现的契约缺陷，模型据此拒绝做投机性修改；改以 234 条契约断言 + 66066 张 1–4 节点有向图全枚举 + 2 万次随机差分（含 bytes↔bytearray、set↔frozenset、自定义 hashable/unhashable/identity 类）+ 11111 个时长串全枚举 + 28224 组补丁组合穷举验证，并指出三处非契约缺陷（自定义 __eq__ 不可哈希节点 O(N²)、set/frozenset 指纹用简单求和可被构造碰撞、十万层嵌套 tuple 的 hash() 会 segfault 属 CPython C 栈限制）。**Critic 盲审（96.11 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（哈希/不可哈希两张注册表从不交叉查询，frozenset({1}) 与 {1} 相等却拿到两个 id——同层出现两个相等节点、重复边不去重、真实自环不抛 DependencyCycleError，bytes/bytearray 与自定义类同款，同种内对照组正确）与 GT2（不可哈希线性回退 2000/4000/8000 = 0.086/0.335/1.351s，20 万可哈希边仅 0.372s）；Candidate-B 命中 GT3 并点名双向全扫（不可哈希分支扫全部 unhashable id，且每次可哈希查找也扫全部 unhashable id 做跨类型相等检查；混合 list/str 1000–8000 = 0.18–11.9s 约 4x/倍增 vs 纯 str 链 0.014s）。另发现手工哈希桶在常量哈希类下退化为线性扫描。precision 20 满分、L4 深度 15 满分、纯 JSON 5 满分；A+B 1048.7s 在 N=19 队列第 8（speed 6.11）。**与同族 Preview 版对照**：盲审召回是本次最大变化——Preview 版 60.38（漏 GT1、且有一条 note 被按 finding 行提交扣 5），正式版 96.11（3 GT 全中、0 误报，**+35.7**），说明正式构建在跨哈希域相等这类隐式条款上的识别能力显著更强；短任务 A 反退 1 项，长任务完全持平。**最佳场景**：交付位 + 审计位均可胜任的国产非 GPT 候选，长任务仍是短板（与同族一致，差在错误码细分与损坏态 fail-closed）；如需长任务强项，优先换模型而非换版本。",
+    "tokenCost": "短 A 210.4K + 短 B 200.8K + 长 339.8K + Rev 552.6K + Critic A 142.2K + Critic B 94.2K = 1.54M"
+  },
+  {
     "id": "deepseek-flash-v2",
     "name": "deepseek-flash (v2)",
     "tag": "更新全能",
