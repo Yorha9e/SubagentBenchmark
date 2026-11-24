@@ -85,6 +85,23 @@ window.BENCHMARK_MASTER_MODELS = [
     "tokenCost": "N/A"
   },
   {
+    "id": "gemini-4-hydrogen-sonar",
+    "name": "gemini-4-hydrogen-sonar ✦",
+    "tag": "轻快全能手",
+    "provider": "Google",
+    "shortScore": 16,
+    "shortTxt": "16/16 (A+B 双满分 ★)",
+    "longMilestones": 8.5,
+    "longTxt": "17 / 20 ★",
+    "revLatency": 225.1,
+    "revFixes": "8/8 满分 ★",
+    "criticScore": 99.5,
+    "criticTxt": "99.5分 (3 GT全中)",
+    "quote": "短任务 A+B 双满分、长任务 17/20、Reviewer 8/8、Critic 99.5 分 3 个 Ground Truth 全中且 0 误报，四轴合计 0.67M token、审计速度全榜第 2——四轴最接近满分的四轴型选手（仅 medium 档位跑出）。",
+    "analysis": "【effort=medium：slot 的 'high' 被 CLI 映射成 provider 不支持的 THINKING_LEVEL_XHIGH（400），模型配置条目已补 support_efforts=[low,medium,high]；API 本身支持 HIGH，故与其它 google 型号的横向对比存在档位差，见文末】**短任务（16/16，A+B 双满分 ★）**：A、B 两个条件均 16 项官方断言 + 2 扩展 + 2 资源全通（各 20/20），两轴合计仅 152.2K token；A 侧自测含 5000 节点链、跨类型等值、weakref 释放、duration 错误码位置矩阵，B 侧逐条走冻结计划边界清单（哨兵身份 vs 相等、一次性可迭代、不可哈希节点、超递归上限深链、非单调时钟 purge）。**长任务自治交付（17/20，8.5 里程碑，rescore gate=True）**：仅失 OF1-C2、DS1-C1（损坏状态 fail-closed）、DS5-C1 三项，实现按 _service/_spool 多模块拆分。**Reviewer 调试（8/8 满分 ★，225.1s）**：定位并修复一处指纹退化——`_fingerprint` 原先只允许内建标量参与指纹计算，含默认身份哈希对象（如 `[object()]`、`(object(),)`）的容器会回退到全表线性扫描，2 万节点退化为 O(N²)；修复后允许 `__eq__ is object.__eq__ and __hash__ is object.__hash__` 的元素以 hash(el) 参与指纹，同时保留自定义 __eq__ 对象走 opaque_ids 交叉检查的语义；20k 各类节点 0.02–0.18s（[object()] 20k = 0.0855s）。**Critic 盲审（99.5 分，3 GT 全中，0 误报）**：Candidate-A 命中 GT1（哈希/不可哈希两张注册表从不交叉检查：frozenset({1}) 与 {1} 相等却拆成两节点、b'a' 与 bytearray(b'a') 自环漏报、自定义 __hash__=None 对象与相等 int 分裂）+ GT2（不可哈希线性扫描 2000/5000/10000 = 0.164/1.007/4.098s 约 4x/倍增 vs 5 万哈希链 0.065s）；Candidate-B 命中 GT3 并点名双向全扫（不可哈希分支扫两张表 64-72 行、哈希查找扫全部 unhashable_ids 83-87 行，500 list + 5 万 int = 2.926s vs 纯哈希 0.075s，约 39 倍）。两端另发现两条真缺陷：可写 memoryview 的 hash() 抛 ValueError 逃逸出仅捕 TypeError 的处理导致崩溃（且 memoryview == bytes），以及跨表查重缺 `existing_id >= match` 提前终止（重复查询早期 id 仍扫全表，5 万次 5.633s）。precision 20 满分、L4 深度 15 满分、纯 JSON 5 满分；A+B 仅 373.8s，在 N=21 队列**排名第 2**（仅慢于 omen-alpha 365.4s），speed 9.50。**最佳场景**：全栈默认位——短任务批量、长任务交付、审计终审、调试四线全能且 token 与时间都在低位，是目前四轴形态最均衡的模型；唯一待验证的是把 effort 提到 HIGH 后能力上限还能再抬多少（API 支持，但 CLI 映射需修）。",
+    "tokenCost": "短 A 80.6K + 短 B 71.6K + 长 248.3K + Rev 121.8K + Critic A 69.9K + Critic B 75.7K = 667.8K"
+  },
+  {
     "id": "gpt-6.1-sol",
     "name": "gpt-6.1-sol ✦",
     "tag": "性价比之王",
